@@ -8,7 +8,7 @@ interface ClassCardProps {
   danceStyle: string;
   time: string;
   instructor: string;
-  duration: string;
+  duration: number;
   maxStudents: number;
   enrolled: number;
   description: string;
