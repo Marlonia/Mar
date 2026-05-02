@@ -48,18 +48,18 @@ export default function Home() {
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20">
               {[
-                { num: '200+', label: 'Estudiantes', icon: '👥' },
-                { num: '50+', label: 'Eventos', icon: '🎉' },
-                { num: '15+', label: 'Años de Pasión', icon: '💪' },
+                { num: '200+', label: 'Estudiantes', icon: '👥', bgColor: 'from-carnival-yellow/80 to-amber-400/80', borderColor: 'border-carnival-gold' },
+                { num: '50+', label: 'Eventos', icon: '🎉', bgColor: 'from-carnival-red/80 to-pink-500/80', borderColor: 'border-carnival-red' },
+                { num: '15+', label: 'Años de Pasión', icon: '💪', bgColor: 'from-carnival-blue/80 to-blue-600/80', borderColor: 'border-carnival-blue' },
               ].map((stat, i) => (
                 <div
                   key={stat.label}
-                  className="glass-effect rounded-lg p-6 text-white backdrop-blur-xl border border-white/20 transform hover:scale-105 transition-all duration-300 animate-slide-up"
+                  className={`bg-gradient-to-br ${stat.bgColor} rounded-lg p-8 text-white backdrop-blur-xl border-2 ${stat.borderColor} transform hover:scale-105 transition-all duration-300 animate-slide-up shadow-xl`}
                   style={{animationDelay: `${i * 0.1}s`}}
                 >
-                  <div className="text-4xl mb-2 animate-bounce">{stat.icon}</div>
-                  <div className="text-4xl font-display font-bold mb-2">{stat.num}</div>
-                  <div className="text-sm font-accent">{stat.label}</div>
+                  <div className="text-5xl mb-4 animate-bounce drop-shadow-lg">{stat.icon}</div>
+                  <div className="text-5xl font-display font-bold mb-2 drop-shadow-lg">{stat.num}</div>
+                  <div className="text-base font-accent drop-shadow-md">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -73,8 +73,8 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="py-24 bg-white relative">
-        <div className="absolute inset-0 opacity-5 bg-gradient-to-r from-carnival-gold to-carnival-blue"></div>
+      <section className="py-24 bg-gradient-to-r from-carnival-yellow/20 via-white to-carnival-red/20 relative">
+        <div className="absolute inset-0 opacity-10 bg-gradient-to-r from-carnival-yellow via-carnival-red to-carnival-blue"></div>
         <div className="container-max relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
@@ -112,7 +112,7 @@ export default function Home() {
       </section>
 
       {/* Dance Styles Section */}
-      <section className="py-24 bg-gradient-to-b from-carnival-lightBg to-white">
+      <section className="py-24 bg-gradient-to-b from-carnival-yellow/30 via-carnival-red/20 to-carnival-blue/20">
         <div className="container-max">
           <div className="text-center mb-16 animate-slide-down">
             <h2 className="text-5xl font-display font-bold text-carnival-darkBg mb-4">
@@ -124,18 +124,18 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { name: 'Cumbia', emoji: '💃', desc: 'La danza más antigua y tradicional, con movimientos suaves y cautivadores', color: 'from-carnival-gold' },
-              { name: 'Mapalé', emoji: '🎶', desc: 'Ritmo afro-colombiano con movimientos libres y energéticos', color: 'from-carnival-red' },
-              { name: 'Garabato', emoji: '🎄', desc: 'Danza folklórica tradicional con coreografía fluida y elegante', color: 'from-carnival-blue' },
+              { name: 'CUMBIA', emoji: '💃', desc: 'La danza más antigua y tradicional, con movimientos suaves y cautivadores', bgColor: 'bg-gradient-to-br from-carnival-yellow to-orange-400', borderColor: 'border-carnival-yellow' },
+              { name: 'MAPALÉ', emoji: '🎶', desc: 'Ritmo afro-colombiano con movimientos libres y energéticos', bgColor: 'bg-gradient-to-br from-carnival-red to-pink-500', borderColor: 'border-carnival-red' },
+              { name: 'GARABATO', emoji: '🎄', desc: 'Danza folklórica tradicional con coreografía fluida y elegante', bgColor: 'bg-gradient-to-br from-carnival-blue to-purple-600', borderColor: 'border-carnival-blue' },
             ].map((dance, i) => (
               <div
                 key={dance.name}
-                className={`group bg-gradient-to-br ${dance.color} to-transparent rounded-2xl p-8 text-center hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer animate-slide-up border-2 border-white/50`}
+                className={`group ${dance.bgColor} rounded-2xl p-8 text-center hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer animate-slide-up border-4 ${dance.borderColor} shadow-lg`}
                 style={{animationDelay: `${i * 0.1}s`}}
               >
-                <div className="text-7xl mb-6 animate-float group-hover:animate-bounce">{dance.emoji}</div>
-                <h3 className="text-3xl font-display font-bold mb-3 text-white drop-shadow-lg">{dance.name}</h3>
-                <p className="text-white/90 font-accent group-hover:text-white transition">{dance.desc}</p>
+                <div className="text-8xl mb-6 animate-float group-hover:animate-bounce drop-shadow-lg">{dance.emoji}</div>
+                <h3 className="text-4xl font-display font-bold mb-3 text-white drop-shadow-xl">{dance.name}</h3>
+                <p className="text-white font-accent group-hover:text-white transition text-lg drop-shadow-lg">{dance.desc}</p>
               </div>
             ))}
           </div>
@@ -143,8 +143,9 @@ export default function Home() {
       </section>
 
       {/* Featured Classes */}
-      <section className="py-24 bg-white">
-        <div className="container-max">
+      <section className="py-24 bg-gradient-to-b from-carnival-yellow/20 via-carnival-gold/10 to-carnival-red/20 relative">
+        <div className="absolute inset-0 opacity-5 bg-gradient-to-r from-carnival-yellow via-carnival-red to-carnival-blue"></div>
+        <div className="container-max relative z-10">
           <div className="text-center mb-16 animate-slide-down">
             <h2 className="text-5xl font-display font-bold text-carnival-darkBg mb-4">
               Clases Populares
@@ -154,23 +155,23 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { level: 'Principiante', time: 'Lunes & Miércoles', instructor: 'Mayra', icon: '🌱' },
-              { level: 'Intermedio', time: 'Martes & Jueves', instructor: 'Marilyn', icon: '🔥' },
-              { level: 'Avanzado', time: 'Sábados', instructor: 'Profesores', icon: '⭐' },
-              { level: 'Niños (5-12)', time: 'Viernes 5pm', instructor: 'Equipo', icon: '🎈' },
+              { level: 'Principiante', time: 'Lunes & Miércoles', instructor: 'Mayra', icon: '🌱', bgColor: 'bg-gradient-to-br from-carnival-yellow to-amber-300', borderColor: 'border-carnival-yellow' },
+              { level: 'Intermedio', time: 'Martes & Jueves', instructor: 'Marilyn', icon: '🔥', bgColor: 'bg-gradient-to-br from-carnival-red to-pink-400', borderColor: 'border-carnival-red' },
+              { level: 'Avanzado', time: 'Sábados', instructor: 'Profesores', icon: '⭐', bgColor: 'bg-gradient-to-br from-carnival-blue to-blue-600', borderColor: 'border-carnival-blue' },
+              { level: 'Niños (5-12)', time: 'Viernes 5pm', instructor: 'Equipo', icon: '🎈', bgColor: 'bg-gradient-to-br from-pink-400 to-purple-500', borderColor: 'border-pink-500' },
             ].map((cls, i) => (
               <div
                 key={cls.level}
-                className="bg-gradient-to-br from-carnival-lightBg to-white rounded-xl p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-l-4 border-carnival-gold animate-slide-up"
+                className={`${cls.bgColor} rounded-xl p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-l-4 ${cls.borderColor} shadow-lg animate-slide-up text-white`}
                 style={{animationDelay: `${i * 0.1}s`}}
               >
                 <div className="text-5xl mb-3 animate-bounce">{cls.icon}</div>
-                <h3 className="text-xl font-display font-bold text-carnival-red mb-3">{cls.level}</h3>
-                <div className="space-y-2 text-sm text-gray-600 mb-6">
+                <h3 className="text-xl font-display font-bold mb-3 drop-shadow-lg">{cls.level}</h3>
+                <div className="space-y-2 text-sm mb-6 font-accent drop-shadow-md">
                   <p>⏰ {cls.time}</p>
                   <p>👨‍🏫 {cls.instructor}</p>
                 </div>
-                <Link href="/inscripcion" className="w-full btn-secondary text-center py-2 transform hover:scale-105 transition">
+                <Link href="/inscripcion" className="w-full bg-white text-carnival-red font-accent font-bold py-2 rounded-lg text-center transform hover:scale-105 transition shadow-lg hover:shadow-2xl">
                   Inscribirse
                 </Link>
               </div>
@@ -178,7 +179,7 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-12">
-            <Link href="/clases" className="inline-block px-10 py-4 bg-gradient-to-r from-carnival-gold to-carnival-red text-white font-accent font-bold rounded-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <Link href="/clases" className="inline-block px-10 py-4 bg-gradient-to-r from-carnival-gold to-carnival-red text-white font-accent font-bold rounded-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 shadow-xl">
               Ver Todos los Horarios 📅
             </Link>
           </div>
