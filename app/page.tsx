@@ -96,12 +96,13 @@ export default function Home() {
 
             {/* Right Card */}
             <div className="animate-slide-right">
-              <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
-                <div className="absolute inset-0 bg-gradient-to-br from-carnival-gold via-carnival-red to-carnival-blue opacity-90"></div>
+              <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300 border-4 border-carnival-gold">
+                <div className="absolute inset-0 bg-gradient-to-br from-carnival-gold via-carnival-red to-carnival-blue opacity-95"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-carnival-darkBg/20 to-transparent"></div>
                 <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center p-8 space-y-6">
-                  <div className="text-8xl animate-float">🎭</div>
-                  <h3 className="text-4xl font-display font-bold">Marimonda</h3>
-                  <p className="text-lg font-accent">
+                  <div className="text-8xl animate-float drop-shadow-2xl">🎭</div>
+                  <h3 className="text-5xl font-display font-bold drop-shadow-2xl">Marimonda</h3>
+                  <p className="text-lg font-accent drop-shadow-lg">
                     El ícono más emblemático del Carnaval. Con su máscara característica, representa la alegría y la libertad
                   </p>
                 </div>
@@ -187,21 +188,22 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-r from-carnival-red via-carnival-blue to-carnival-gold text-white relative overflow-hidden">
+      <section className="py-32 bg-gradient-to-r from-carnival-red via-carnival-blue to-carnival-gold text-white relative overflow-hidden">
         {/* Background Animation */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{animationDelay: '3s'}}></div>
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-carnival-yellow rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
+          <div className="absolute top-1/2 right-0 w-96 h-96 bg-carnival-gold rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+          <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-white rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{animationDelay: '4s'}}></div>
         </div>
 
         <div className="container-max text-center relative z-10 animate-slide-up">
-          <h2 className="text-5xl md:text-6xl font-display font-bold mb-6 drop-shadow-lg">
+          <h2 className="text-6xl md:text-7xl font-display font-bold mb-8 drop-shadow-2xl">
             ¿Listo para Danzar?
           </h2>
-          <p className="text-xl md:text-2xl mb-10 max-w-2xl mx-auto font-accent drop-shadow-md">
+          <p className="text-2xl md:text-3xl mb-12 max-w-3xl mx-auto font-accent drop-shadow-lg leading-relaxed">
             Únete a nuestra comunidad y siente la alegría, energía y pasión del Carnaval de Barranquilla
           </p>
-          <Link href="/inscripcion" className="inline-block px-12 py-5 bg-white text-carnival-red font-accent font-bold text-xl rounded-full hover:bg-carnival-lightBg transform hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-3xl">
+          <Link href="/inscripcion" className="inline-block px-14 py-6 bg-white text-carnival-red font-accent font-bold text-2xl rounded-full hover:bg-carnival-lightBg transform hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-3xl border-4 border-carnival-yellow">
             🎉 ¡Inscribirse Ahora!
           </Link>
         </div>
