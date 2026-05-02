@@ -1,98 +1,141 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Home() {
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section - Epic */}
       <section className="relative min-h-screen bg-gradient-to-br from-carnival-gold via-carnival-red to-carnival-blue flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-carnival-gold rounded-full mix-blend-multiply filter blur-3xl animate-bounce-slow"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-carnival-red rounded-full mix-blend-multiply filter blur-3xl animate-bounce-slow animation-delay-2000"></div>
-          <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-carnival-blue rounded-full mix-blend-multiply filter blur-3xl animate-bounce-slow animation-delay-4000"></div>
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-0 -left-20 w-96 h-96 bg-carnival-gold rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
+          <div className="absolute top-1/3 right-0 w-96 h-96 bg-carnival-red rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+          <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-carnival-blue rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{animationDelay: '4s'}}></div>
         </div>
 
+        {/* Content */}
         <div className="relative z-10 container-max text-center py-20">
-          <div className="animate-slide-up">
-            <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 drop-shadow-lg">
-              ¡Bienvenido al Carnaval!
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto drop-shadow-md">
+          <div className="space-y-8 animate-slide-up">
+            {/* Main Heading */}
+            <div>
+              <h1 className="text-6xl md:text-8xl font-display font-bold text-white mb-6 drop-shadow-2xl animate-glow">
+                ¡BIENVENIDO AL CARNAVAL!
+              </h1>
+              <div className="h-1 w-32 bg-white mx-auto rounded-full animate-pulse"></div>
+            </div>
+
+            {/* Subheading */}
+            <p className="text-xl md:text-3xl text-white/95 max-w-3xl mx-auto drop-shadow-lg font-accent">
               Aprende las danzas tradicionales del Carnaval de Barranquilla, el festival más grande de Colombia
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/inscripcion" className="btn-primary text-lg">
-                🎉 Inscribirse Ahora
-              </Link>
-              <Link href="/clases" className="btn-outline text-lg">
-                Explorar Clases
-              </Link>
-            </div>
-          </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 mt-16 text-white">
-            <div className="glass-effect rounded-lg p-4">
-              <div className="text-3xl font-bold">200+</div>
-              <div className="text-sm">Estudiantes</div>
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
+              <Link
+                href="/inscripcion"
+                className="group relative px-8 py-4 bg-white text-carnival-red font-accent font-bold text-lg rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300 overflow-hidden"
+              >
+                <span className="relative z-10">🎉 Inscribirse Ahora</span>
+                <span className="absolute inset-0 bg-carnival-darkBg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </Link>
+              <Link
+                href="/clases"
+                className="group px-8 py-4 border-2 border-white text-white font-accent font-bold text-lg rounded-full hover:bg-white hover:text-carnival-red transform hover:scale-105 transition-all duration-300"
+              >
+                📚 Explorar Clases
+              </Link>
             </div>
-            <div className="glass-effect rounded-lg p-4">
-              <div className="text-3xl font-bold">15+</div>
-              <div className="text-sm">Años Experiencia</div>
-            </div>
-            <div className="glass-effect rounded-lg p-4">
-              <div className="text-3xl font-bold">50+</div>
-              <div className="text-sm">Eventos</div>
+
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20">
+              {[
+                { num: '200+', label: 'Estudiantes', icon: '👥' },
+                { num: '50+', label: 'Eventos', icon: '🎉' },
+                { num: '15+', label: 'Años de Pasión', icon: '💪' },
+              ].map((stat, i) => (
+                <div
+                  key={stat.label}
+                  className="glass-effect rounded-lg p-6 text-white backdrop-blur-xl border border-white/20 transform hover:scale-105 transition-all duration-300 animate-slide-up"
+                  style={{animationDelay: `${i * 0.1}s`}}
+                >
+                  <div className="text-4xl mb-2 animate-bounce">{stat.icon}</div>
+                  <div className="text-4xl font-display font-bold mb-2">{stat.num}</div>
+                  <div className="text-sm font-accent">{stat.label}</div>
+                </div>
+              ))}
             </div>
           </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+          <div className="text-4xl animate-pulse">👇</div>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="py-20 bg-white">
-        <div className="container-max">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-display font-bold text-carnival-darkBg mb-6">
+      <section className="py-24 bg-white relative">
+        <div className="absolute inset-0 opacity-5 bg-gradient-to-r from-carnival-gold to-carnival-blue"></div>
+        <div className="container-max relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            {/* Left Content */}
+            <div className="space-y-6 animate-slide-left">
+              <h2 className="text-5xl font-display font-bold text-carnival-darkBg">
                 Sobre Nosotros
               </h2>
-              <p className="text-lg text-gray-600 mb-4">
-                Carnaval de Barranquilla en Utah es una academia de danza dedicada a preservar y promover las tradiciones culturales del Carnaval de Barranquilla, el mayor festival anual de Colombia.
+              <div className="h-1 w-20 bg-gradient-to-r from-carnival-gold to-carnival-red rounded-full"></div>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Somos una academia de danza dedicada a <span className="font-bold text-carnival-red">preservar y promover</span> las tradiciones culturales del Carnaval de Barranquilla, el mayor festival anual de Colombia.
               </p>
-              <p className="text-lg text-gray-600 mb-6">
-                Fundada en 2022 por Mayra Rincon y Marilyn Gallardo, nuestro objetivo es llevar la alegría, energía y pasión del Carnaval a la comunidad de Utah.
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Fundada en 2022 por <span className="font-bold">Mayra Rincon y Marilyn Gallardo</span>, nuestro objetivo es llevar la alegría, energía y pasión del Carnaval a toda la comunidad de Utah.
               </p>
-              <Link href="/contacto" className="btn-primary inline-block">
-                Conocer Más
+              <Link href="/contacto" className="inline-block mt-6 px-8 py-4 bg-gradient-to-r from-carnival-gold to-carnival-red text-white font-accent font-bold rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                Conocer Más 🔥
               </Link>
             </div>
-            <div className="bg-carnival-lightBg rounded-lg p-8 text-center">
-              <div className="text-6xl mb-4">🎭</div>
-              <h3 className="text-2xl font-display font-bold mb-4">Marimonda</h3>
-              <p className="text-gray-600">
-                El personaje más emblemático del Carnaval. Con su máscara característica y traje colorido, representa la alegría y diversión de la celebración.
-              </p>
+
+            {/* Right Card */}
+            <div className="animate-slide-right">
+              <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-carnival-gold via-carnival-red to-carnival-blue opacity-90"></div>
+                <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center p-8 space-y-6">
+                  <div className="text-8xl animate-float">🎭</div>
+                  <h3 className="text-4xl font-display font-bold">Marimonda</h3>
+                  <p className="text-lg font-accent">
+                    El ícono más emblemático del Carnaval. Con su máscara característica, representa la alegría y la libertad
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Dance Styles Section */}
-      <section className="py-20 bg-carnival-lightBg">
+      <section className="py-24 bg-gradient-to-b from-carnival-lightBg to-white">
         <div className="container-max">
-          <h2 className="text-4xl font-display font-bold text-carnival-darkBg mb-12 text-center">
-            Danzas que Enseñamos
-          </h2>
+          <div className="text-center mb-16 animate-slide-down">
+            <h2 className="text-5xl font-display font-bold text-carnival-darkBg mb-4">
+              Danzas que Enseñamos
+            </h2>
+            <div className="h-1 w-32 bg-gradient-to-r from-carnival-gold to-carnival-red rounded-full mx-auto"></div>
+            <p className="text-gray-600 mt-6 max-w-2xl mx-auto">Aprende los ritmos más auténticos del Carnaval colombiano</p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { name: 'Cumbia', emoji: '💃', desc: 'La danza más tradicional del Carnaval' },
-              { name: 'Mapalé', emoji: '🎶', desc: 'Ritmo afro-colombiano con movimientos libres' },
-              { name: 'Garabato', emoji: '🎄', desc: 'Danza folklórica con coreografía fluida' },
-            ].map((dance) => (
-              <div key={dance.name} className="bg-white rounded-lg p-8 text-center hover:shadow-lg transition">
-                <div className="text-5xl mb-4">{dance.emoji}</div>
-                <h3 className="text-2xl font-display font-bold mb-2 text-carnival-red">{dance.name}</h3>
-                <p className="text-gray-600">{dance.desc}</p>
+              { name: 'Cumbia', emoji: '💃', desc: 'La danza más antigua y tradicional, con movimientos suaves y cautivadores', color: 'from-carnival-gold' },
+              { name: 'Mapalé', emoji: '🎶', desc: 'Ritmo afro-colombiano con movimientos libres y energéticos', color: 'from-carnival-red' },
+              { name: 'Garabato', emoji: '🎄', desc: 'Danza folklórica tradicional con coreografía fluida y elegante', color: 'from-carnival-blue' },
+            ].map((dance, i) => (
+              <div
+                key={dance.name}
+                className={`group bg-gradient-to-br ${dance.color} to-transparent rounded-2xl p-8 text-center hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer animate-slide-up border-2 border-white/50`}
+                style={{animationDelay: `${i * 0.1}s`}}
+              >
+                <div className="text-7xl mb-6 animate-float group-hover:animate-bounce">{dance.emoji}</div>
+                <h3 className="text-3xl font-display font-bold mb-3 text-white drop-shadow-lg">{dance.name}</h3>
+                <p className="text-white/90 font-accent group-hover:text-white transition">{dance.desc}</p>
               </div>
             ))}
           </div>
@@ -100,47 +143,65 @@ export default function Home() {
       </section>
 
       {/* Featured Classes */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-white">
         <div className="container-max">
-          <h2 className="text-4xl font-display font-bold text-carnival-darkBg mb-12 text-center">
-            Clases Populares
-          </h2>
+          <div className="text-center mb-16 animate-slide-down">
+            <h2 className="text-5xl font-display font-bold text-carnival-darkBg mb-4">
+              Clases Populares
+            </h2>
+            <div className="h-1 w-32 bg-gradient-to-r from-carnival-gold to-carnival-red rounded-full mx-auto"></div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { level: 'Principiante', time: 'Lunes & Miércoles', instructor: 'Mayra' },
-              { level: 'Intermedio', time: 'Martes & Jueves', instructor: 'Marilyn' },
-              { level: 'Avanzado', time: 'Sábados', instructor: 'Profesores' },
-              { level: 'Niños (5-12)', time: 'Viernes 5pm', instructor: 'Equipo' },
-            ].map((cls) => (
-              <div key={cls.level} className="bg-carnival-lightBg rounded-lg p-6 hover:shadow-lg transition">
-                <h3 className="text-xl font-display font-bold text-carnival-red mb-2">{cls.level}</h3>
-                <p className="text-sm text-gray-600 mb-1">⏰ {cls.time}</p>
-                <p className="text-sm text-gray-600 mb-4">👨‍🏫 {cls.instructor}</p>
-                <Link href="/inscripcion" className="btn-secondary text-sm block text-center py-2">
+              { level: 'Principiante', time: 'Lunes & Miércoles', instructor: 'Mayra', icon: '🌱' },
+              { level: 'Intermedio', time: 'Martes & Jueves', instructor: 'Marilyn', icon: '🔥' },
+              { level: 'Avanzado', time: 'Sábados', instructor: 'Profesores', icon: '⭐' },
+              { level: 'Niños (5-12)', time: 'Viernes 5pm', instructor: 'Equipo', icon: '🎈' },
+            ].map((cls, i) => (
+              <div
+                key={cls.level}
+                className="bg-gradient-to-br from-carnival-lightBg to-white rounded-xl p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-l-4 border-carnival-gold animate-slide-up"
+                style={{animationDelay: `${i * 0.1}s`}}
+              >
+                <div className="text-5xl mb-3 animate-bounce">{cls.icon}</div>
+                <h3 className="text-xl font-display font-bold text-carnival-red mb-3">{cls.level}</h3>
+                <div className="space-y-2 text-sm text-gray-600 mb-6">
+                  <p>⏰ {cls.time}</p>
+                  <p>👨‍🏫 {cls.instructor}</p>
+                </div>
+                <Link href="/inscripcion" className="w-full btn-secondary text-center py-2 transform hover:scale-105 transition">
                   Inscribirse
                 </Link>
               </div>
             ))}
           </div>
+
           <div className="text-center mt-12">
-            <Link href="/clases" className="btn-primary text-lg">
-              Ver Todos los Horarios
+            <Link href="/clases" className="inline-block px-10 py-4 bg-gradient-to-r from-carnival-gold to-carnival-red text-white font-accent font-bold rounded-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+              Ver Todos los Horarios 📅
             </Link>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-carnival-red to-carnival-blue text-white">
-        <div className="container-max text-center">
-          <h2 className="text-4xl font-display font-bold mb-6">
+      <section className="py-24 bg-gradient-to-r from-carnival-red via-carnival-blue to-carnival-gold text-white relative overflow-hidden">
+        {/* Background Animation */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{animationDelay: '3s'}}></div>
+        </div>
+
+        <div className="container-max text-center relative z-10 animate-slide-up">
+          <h2 className="text-5xl md:text-6xl font-display font-bold mb-6 drop-shadow-lg">
             ¿Listo para Danzar?
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Únete a nuestra comunidad y siente la alegría del Carnaval de Barranquilla
+          <p className="text-xl md:text-2xl mb-10 max-w-2xl mx-auto font-accent drop-shadow-md">
+            Únete a nuestra comunidad y siente la alegría, energía y pasión del Carnaval de Barranquilla
           </p>
-          <Link href="/inscripcion" className="btn-primary text-lg">
-            Inscribirse Ahora
+          <Link href="/inscripcion" className="inline-block px-12 py-5 bg-white text-carnival-red font-accent font-bold text-xl rounded-full hover:bg-carnival-lightBg transform hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-3xl">
+            🎉 ¡Inscribirse Ahora!
           </Link>
         </div>
       </section>
