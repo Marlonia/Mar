@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className="bg-white text-carnival-darkBg">
+      <body className="bg-carnival-darkBg text-white">
         <Header />
         <main className="min-h-screen">
           {children}
