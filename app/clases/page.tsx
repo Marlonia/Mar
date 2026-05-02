@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import ClassCard from '@/components/ClassCard';
+import ChoreographersSection from '@/components/ChoreographersSection';
 
 const CLASES_DATA = [
   {
@@ -194,6 +195,9 @@ export default function ClasesPage() {
           </p>
         </div>
       </section>
+
+      {/* Coreógrafos Section */}
+      <ChoreographersSection />
 
       {/* Filters Section */}
       <section className="bg-carnival-lightBg py-8">

@@ -124,3 +124,76 @@ export const HERO_FLOATING_IMAGES: { emoji: string; image?: string; position: st
   { emoji: '💃', image: '/images/hero/dancer.png', position: 'bottom-1/4 left-1/4' },
   { emoji: '🎶', image: '/images/hero/notes.png', position: 'top-2/3 right-1/3' },
 ];
+
+// ============= COREÓGRAFOS / INSTRUCTORES =============
+
+export interface Choreographer {
+  id: string;
+  name: string;
+  role: string; // ej: "Co-Fundadora & Instructora Principal"
+  image?: string; // Foto en /public/images/coreografos/[id].jpg
+  bio: string; // Resumen breve (2-3 oraciones)
+  yearsExperience: number;
+  specialties: string[]; // Las danzas que enseña
+  achievements?: string[]; // Logros opcionales
+  origin: string; // Ej: "Barranquilla, Colombia"
+  socials?: {
+    instagram?: string;
+    facebook?: string;
+    tiktok?: string;
+  };
+  accentColor: 'yellow' | 'red' | 'green'; // Color de acento de su card
+}
+
+export const CHOREOGRAPHERS: Choreographer[] = [
+  {
+    id: 'mayra-rincon',
+    name: 'Mayra Rincón',
+    role: 'Co-Fundadora & Instructora Principal',
+    image: '/images/coreografos/mayra-rincon.jpg',
+    bio: 'Nacida y criada en Barranquilla, Mayra creció bailando en las calles del Carnaval. Trae más de 15 años de experiencia profesional y una pasión inigualable por preservar las tradiciones colombianas en Utah.',
+    yearsExperience: 15,
+    specialties: ['Cumbia', 'Garabato', 'Salsa', 'Bullerengue'],
+    achievements: [
+      'Hispanic Day Parade NY 2024',
+      'Fundadora desde 2022',
+      'Festival Folklórico Colombia 2018',
+    ],
+    origin: 'Barranquilla, Colombia',
+    socials: {
+      instagram: 'https://instagram.com/carnavalbaq',
+    },
+    accentColor: 'yellow',
+  },
+  {
+    id: 'marilyn-gallardo',
+    name: 'Marilyn Gallardo',
+    role: 'Co-Fundadora & Instructora',
+    image: '/images/coreografos/marilyn-gallardo.jpg',
+    bio: 'Apasionada por la cultura afro-colombiana, Marilyn se especializa en danzas con raíces ancestrales. Su energía contagiosa y técnica refinada han formado a más de 200 estudiantes en Utah.',
+    yearsExperience: 12,
+    specialties: ['Mapalé', 'Son de Negro', 'Bullerengue', 'Champeta'],
+    achievements: [
+      'Hispanic Day Parade NY 2024',
+      'Co-Fundadora Carnaval BA Utah',
+      'Certificada en Folklore Colombiano',
+    ],
+    origin: 'Barranquilla, Colombia',
+    socials: {
+      facebook: 'https://facebook.com/carnavaldebarranquillautah',
+    },
+    accentColor: 'red',
+  },
+  // Espacio para más coreógrafos en el futuro
+  // {
+  //   id: 'nuevo-coreografo',
+  //   name: 'Nombre Apellido',
+  //   role: 'Instructor/a',
+  //   image: '/images/coreografos/nombre.jpg',
+  //   bio: 'Bio aquí...',
+  //   yearsExperience: 5,
+  //   specialties: ['Champeta', 'Urbano'],
+  //   origin: 'Cartagena, Colombia',
+  //   accentColor: 'green',
+  // },
+];
