@@ -7,7 +7,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-carnival-gold via-carnival-red to-carnival-blue shadow-2xl animate-slide-down">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-carnival-yellow via-carnival-red to-carnival-blue shadow-2xl animate-slide-down">
       <nav className="container-max flex items-center justify-between py-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">

@@ -9,27 +9,32 @@ const config: Config = {
     extend: {
       colors: {
         carnival: {
-          gold: '#FFD700',
-          red: '#DC143C',
-          blue: '#1E90FF',
-          green: '#228B22',
-          pink: '#FF69B4',
-          darkBg: '#1A1A1A',
-          lightBg: '#F5F5F5',
+          yellow: '#FFC600',    // Amarillo oficial Barranquilla
+          red: '#E31E24',       // Rojo oficial Barranquilla
+          blue: '#003DA5',      // Azul oficial Barranquilla
+          gold: '#FFC600',      // Alias para yellow
+          darkBg: '#0F1419',    // Negro profundo
+          lightBg: '#F8F9FA',   // Blanco casi puro
         },
         primary: {
-          50: '#fff9e6',
-          100: '#fff3cc',
-          500: '#FFD700',
-          600: '#e6c200',
-          700: '#ccaa00',
+          50: '#FFF8E1',
+          100: '#FFF1C2',
+          500: '#FFC600',
+          600: '#E6B000',
+          700: '#CCB000',
         },
         secondary: {
-          50: '#ffe6e6',
-          100: '#ffcccc',
-          500: '#DC143C',
-          600: '#c40d2f',
-          700: '#a80a28',
+          50: '#FFE8E8',
+          100: '#FFD1D1',
+          500: '#E31E24',
+          600: '#C91A20',
+          700: '#B01619',
+        },
+        accent: {
+          50: '#E8F4FF',
+          500: '#003DA5',
+          600: '#00338C',
+          700: '#002970',
         },
       },
       fontFamily: {

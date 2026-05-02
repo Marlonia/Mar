@@ -4,10 +4,10 @@ export default function Home() {
   return (
     <>
       {/* Hero Section - Epic */}
-      <section className="relative min-h-screen bg-gradient-to-br from-carnival-gold via-carnival-red to-carnival-blue flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen bg-gradient-to-b from-carnival-yellow via-carnival-red to-carnival-blue flex items-center justify-center overflow-hidden">
         {/* Animated Background Elements */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-0 -left-20 w-96 h-96 bg-carnival-gold rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
+        <div className="absolute inset-0 opacity-25">
+          <div className="absolute top-0 -left-20 w-96 h-96 bg-carnival-yellow rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
           <div className="absolute top-1/3 right-0 w-96 h-96 bg-carnival-red rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
           <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-carnival-blue rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{animationDelay: '4s'}}></div>
         </div>
