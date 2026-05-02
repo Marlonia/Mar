@@ -1,5 +1,18 @@
 import { Suspense } from 'react';
+import type { Metadata } from 'next';
 import InscripcionForm from '@/components/InscripcionForm';
+
+export const metadata: Metadata = {
+  title: 'Inscripción - Únete a Carnaval de Barranquilla en Utah',
+  description:
+    'Inscríbete en nuestras clases de danza colombiana. Cumbia, Mapalé, Garabato. Clases para todas las edades en West Valley City, Utah.',
+  alternates: { canonical: '/inscripcion' },
+  openGraph: {
+    title: 'Inscríbete - Carnaval de Barranquilla Utah',
+    description: 'Únete a la única academia auténtica del Carnaval de Barranquilla en Utah.',
+    url: '/inscripcion',
+  },
+};
 
 export default function InscripcionPage() {
   return (
