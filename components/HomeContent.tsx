@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
+import SmartImage from './SmartImage';
+import { HERO_FLOATING_IMAGES, ABOUT_IMAGE } from '@/lib/site-images';
 
 export default function HomeContent() {
   const t = useTranslations('Home');
@@ -68,10 +70,27 @@ export default function HomeContent() {
           }}
         />
 
-        <div className="absolute top-1/4 left-10 text-6xl animate-float opacity-30 hidden lg:block">🎭</div>
-        <div className="absolute top-1/3 right-20 text-5xl animate-float-reverse opacity-30 hidden lg:block">🎉</div>
-        <div className="absolute bottom-1/4 left-1/4 text-4xl animate-float opacity-30 hidden lg:block" style={{ animationDelay: '1s' }}>💃</div>
-        <div className="absolute top-2/3 right-1/3 text-5xl animate-float-reverse opacity-30 hidden lg:block" style={{ animationDelay: '2s' }}>🎶</div>
+        {/* Imágenes flotantes (con fallback automático a emojis) */}
+        {HERO_FLOATING_IMAGES.map((img, i) => {
+          const animationClass = i % 2 === 0 ? 'animate-float' : 'animate-float-reverse';
+          const sizeClass = i === 0 ? 'w-32 h-32 lg:w-40 lg:h-40' : i === 2 ? 'w-24 h-24 lg:w-32 lg:h-32' : 'w-28 h-28 lg:w-36 lg:h-36';
+          const emojiSize = i === 0 ? 'text-6xl lg:text-7xl' : i === 2 ? 'text-4xl lg:text-5xl' : 'text-5xl lg:text-6xl';
+          return (
+            <div
+              key={i}
+              className={`absolute ${img.position} ${sizeClass} ${animationClass} opacity-40 hidden lg:block pointer-events-none`}
+              style={img.delay ? { animationDelay: img.delay } : undefined}
+            >
+              <SmartImage
+                image={img}
+                emojiSize={emojiSize}
+                className="w-full h-full"
+                fill={true}
+                sizes="200px"
+              />
+            </div>
+          );
+        })}
 
         <div className="relative z-10 container-max py-20">
           <div className="max-w-6xl mx-auto">
@@ -235,8 +254,16 @@ export default function HomeContent() {
                 <div className="relative bg-gradient-to-br from-carnival-yellow via-carnival-red to-carnival-green rounded-3xl p-12 overflow-hidden shadow-2xl">
                   <div className="absolute inset-0 mesh-gradient-2 opacity-30"></div>
                   <div className="relative z-10 text-center space-y-6">
-                    <div className="inline-block">
-                      <div className="text-9xl animate-float">🎭</div>
+                    <div className="inline-block animate-float">
+                      <div className="w-32 h-32 mx-auto">
+                        <SmartImage
+                          image={ABOUT_IMAGE}
+                          emojiSize="text-9xl"
+                          className="w-32 h-32 rounded-full overflow-hidden"
+                          fill={true}
+                          sizes="128px"
+                        />
+                      </div>
                     </div>
                     <h3 className="font-massive text-5xl text-white drop-shadow-2xl">
                       {t('About.marimondaName')}
