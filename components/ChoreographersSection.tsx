@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { CHOREOGRAPHERS, type Choreographer } from '@/lib/site-content';
+import { DIRECTORS, CHOREOGRAPHERS_ONLY, type TeamMember } from '@/lib/site-content';
 
 const accentClasses = {
   yellow: {
@@ -41,11 +41,12 @@ function getInitials(name: string): string {
     .toUpperCase();
 }
 
-function ChoreographerCard({ choreographer, index }: { choreographer: Choreographer; index: number }) {
+function TeamCard({ member, index }: { member: TeamMember; index: number }) {
   const [imageError, setImageError] = useState(false);
-  const colors = accentClasses[choreographer.accentColor];
-  const showImage = choreographer.image && !imageError;
-  const initials = getInitials(choreographer.name);
+  const colors = accentClasses[member.accentColor];
+  const showImage = member.image && !imageError;
+  const initials = getInitials(member.name);
+  const isDirector = member.type === 'director';
 
   return (
     <div
@@ -57,8 +58,8 @@ function ChoreographerCard({ choreographer, index }: { choreographer: Choreograp
         <div className="relative h-80 overflow-hidden">
           {showImage ? (
             <Image
-              src={choreographer.image!}
-              alt={choreographer.name}
+              src={member.image!}
+              alt={member.name}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -76,45 +77,52 @@ function ChoreographerCard({ choreographer, index }: { choreographer: Choreograp
           {/* Overlay degradado */}
           <div className="absolute inset-0 bg-gradient-to-t from-carnival-darkBg via-carnival-darkBg/60 to-transparent"></div>
 
+          {/* Type badge (Directora / Coreógrafa) */}
+          <div className="absolute top-4 left-4 z-10">
+            <div className={`${isDirector ? 'bg-carnival-yellow text-carnival-darkBg' : 'bg-carnival-green text-white'} px-4 py-2 rounded-full shadow-lg`}>
+              <span className="font-accent font-bold text-xs uppercase tracking-widest">
+                {isDirector ? '⭐ Directora' : '🎬 Coreógrafa'}
+              </span>
+            </div>
+          </div>
+
           {/* Years badge */}
           <div className="absolute top-4 right-4 z-10">
             <div className={`${colors.badge} backdrop-blur-md border px-4 py-2 rounded-full`}>
               <span className="font-accent font-bold text-xs uppercase tracking-widest">
-                {choreographer.yearsExperience}+ años
+                {member.yearsExperience}+ años
               </span>
             </div>
           </div>
 
           {/* Origen */}
-          <div className="absolute top-4 left-4 z-10">
+          <div className="absolute bottom-24 left-6 z-10">
             <div className="glass-effect px-3 py-1.5 rounded-full">
-              <span className="text-white text-xs font-accent">📍 {choreographer.origin}</span>
+              <span className="text-white text-xs font-accent">📍 {member.origin}</span>
             </div>
           </div>
 
           {/* Nombre overlay */}
           <div className="absolute bottom-6 left-6 right-6 z-10">
             <h3 className="font-massive text-4xl md:text-5xl text-white leading-none drop-shadow-2xl group-hover:translate-x-2 transition-transform duration-500">
-              {choreographer.name}
+              {member.name}
             </h3>
             <p className={`mt-2 font-accent font-bold text-sm uppercase tracking-widest ${colors.text}`}>
-              {choreographer.role}
+              {member.role}
             </p>
           </div>
         </div>
 
         {/* Contenido */}
         <div className="p-8 space-y-6">
-          {/* Bio */}
-          <p className="text-white/80 leading-relaxed font-accent">{choreographer.bio}</p>
+          <p className="text-white/80 leading-relaxed font-accent">{member.bio}</p>
 
-          {/* Especialidades */}
           <div>
             <p className="text-xs font-accent font-bold uppercase tracking-widest text-white/50 mb-3">
-              Especialidades
+              {isDirector ? 'Áreas' : 'Especialidades'}
             </p>
             <div className="flex flex-wrap gap-2">
-              {choreographer.specialties.map((specialty) => (
+              {member.specialties.map((specialty) => (
                 <span
                   key={specialty}
                   className={`${colors.badge} border px-3 py-1.5 rounded-full text-xs font-accent font-bold`}
@@ -125,14 +133,13 @@ function ChoreographerCard({ choreographer, index }: { choreographer: Choreograp
             </div>
           </div>
 
-          {/* Logros */}
-          {choreographer.achievements && choreographer.achievements.length > 0 && (
+          {member.achievements && member.achievements.length > 0 && (
             <div>
               <p className="text-xs font-accent font-bold uppercase tracking-widest text-white/50 mb-3">
                 Logros
               </p>
               <ul className="space-y-2">
-                {choreographer.achievements.map((achievement) => (
+                {member.achievements.map((achievement) => (
                   <li key={achievement} className="flex items-start gap-2 text-sm text-white/70">
                     <span className={colors.text}>★</span>
                     <span>{achievement}</span>
@@ -142,37 +149,36 @@ function ChoreographerCard({ choreographer, index }: { choreographer: Choreograp
             </div>
           )}
 
-          {/* Redes sociales */}
-          {choreographer.socials && (
+          {member.socials && (
             <div className="flex gap-3 pt-2 border-t border-white/10">
-              {choreographer.socials.instagram && (
+              {member.socials.instagram && (
                 <a
-                  href={choreographer.socials.instagram}
+                  href={member.socials.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-10 h-10 rounded-full glass-effect flex items-center justify-center hover:${colors.bg} hover:scale-110 transition-all duration-300`}
+                  className="w-10 h-10 rounded-full glass-effect flex items-center justify-center hover:scale-110 transition-all duration-300"
                   aria-label="Instagram"
                 >
                   <span>📷</span>
                 </a>
               )}
-              {choreographer.socials.facebook && (
+              {member.socials.facebook && (
                 <a
-                  href={choreographer.socials.facebook}
+                  href={member.socials.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-10 h-10 rounded-full glass-effect flex items-center justify-center hover:${colors.bg} hover:scale-110 transition-all duration-300`}
+                  className="w-10 h-10 rounded-full glass-effect flex items-center justify-center hover:scale-110 transition-all duration-300"
                   aria-label="Facebook"
                 >
                   <span>👍</span>
                 </a>
               )}
-              {choreographer.socials.tiktok && (
+              {member.socials.tiktok && (
                 <a
-                  href={choreographer.socials.tiktok}
+                  href={member.socials.tiktok}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-10 h-10 rounded-full glass-effect flex items-center justify-center hover:${colors.bg} hover:scale-110 transition-all duration-300`}
+                  className="w-10 h-10 rounded-full glass-effect flex items-center justify-center hover:scale-110 transition-all duration-300"
                   aria-label="TikTok"
                 >
                   <span>🎵</span>
@@ -189,42 +195,67 @@ function ChoreographerCard({ choreographer, index }: { choreographer: Choreograp
 export default function ChoreographersSection() {
   return (
     <section className="relative py-24 bg-carnival-darkBg overflow-hidden">
-      {/* Background decoration */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-carnival-yellow rounded-full filter blur-[150px] opacity-20"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-carnival-red rounded-full filter blur-[150px] opacity-20"></div>
       </div>
 
       <div className="container-max relative z-10">
-        {/* Header */}
-        <div className="max-w-4xl mb-16 animate-slide-up">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-[2px] w-12 bg-carnival-yellow"></div>
-            <span className="font-accent font-bold text-carnival-yellow tracking-widest text-sm uppercase">
-              Conoce al equipo
-            </span>
+        {/* ===== DIRECTORAS ===== */}
+        <div className="mb-24">
+          <div className="max-w-4xl mb-12 animate-slide-up">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-[2px] w-12 bg-carnival-yellow"></div>
+              <span className="font-accent font-bold text-carnival-yellow tracking-widest text-sm uppercase">
+                Liderazgo
+              </span>
+            </div>
+            <h2 className="font-massive text-5xl md:text-7xl text-white leading-none">
+              Nuestras<br />
+              <span className="gradient-text-animated">directoras</span>
+            </h2>
+            <p className="text-lg md:text-xl text-white/70 mt-6 max-w-2xl">
+              Las co-fundadoras visionarias detrás de Carnaval BA Utah. Lideran el camino para preservar la cultura colombiana en Estados Unidos.
+            </p>
           </div>
-          <h2 className="font-massive text-5xl md:text-7xl text-white leading-none">
-            Nuestros<br />
-            <span className="gradient-text-animated">coreógrafos</span>
-          </h2>
-          <p className="text-lg md:text-xl text-white/70 mt-6 max-w-2xl">
-            Más de 27 años de experiencia combinada enseñando las danzas auténticas del Carnaval de Barranquilla.
-          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {DIRECTORS.map((member, i) => (
+              <TeamCard key={member.id} member={member} index={i} />
+            ))}
+          </div>
         </div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {CHOREOGRAPHERS.map((choreographer, i) => (
-            <ChoreographerCard key={choreographer.id} choreographer={choreographer} index={i} />
-          ))}
+        {/* ===== COREÓGRAFAS ===== */}
+        <div>
+          <div className="max-w-4xl mb-12 animate-slide-up">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-[2px] w-12 bg-carnival-green"></div>
+              <span className="font-accent font-bold text-carnival-green tracking-widest text-sm uppercase">
+                El arte del movimiento
+              </span>
+            </div>
+            <h2 className="font-massive text-5xl md:text-7xl text-white leading-none">
+              Nuestras<br />
+              <span className="gradient-text-animated">coreógrafas</span>
+            </h2>
+            <p className="text-lg md:text-xl text-white/70 mt-6 max-w-2xl">
+              El talento creativo que transforma cada paso en una experiencia inolvidable.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {CHOREOGRAPHERS_ONLY.map((member, i) => (
+              <TeamCard key={member.id} member={member} index={i} />
+            ))}
+          </div>
         </div>
 
-        {/* CTA para futuros coreógrafos */}
+        {/* CTA */}
         <div className="mt-16 text-center animate-slide-up">
           <div className="inline-block glass-effect rounded-3xl px-8 py-6">
             <p className="text-white/80 font-accent">
-              ✨ <span className="text-carnival-yellow font-bold">¿Eres coreógrafo/a profesional?</span>
+              ✨ <span className="text-carnival-yellow font-bold">¿Eres coreógrafa profesional?</span>
             </p>
             <p className="text-white/60 text-sm mt-2">
               Estamos siempre buscando talento. Contáctanos para unirte al equipo.

@@ -125,39 +125,47 @@ export const HERO_FLOATING_IMAGES: { emoji: string; image?: string; position: st
   { emoji: '🎶', image: '/images/hero/notes.png', position: 'top-2/3 right-1/3' },
 ];
 
-// ============= COREÓGRAFOS / INSTRUCTORES =============
+// ============= EQUIPO: DIRECTORAS Y COREÓGRAFAS =============
 
-export interface Choreographer {
+export type TeamMemberType = 'director' | 'choreographer';
+
+export interface TeamMember {
   id: string;
+  type: TeamMemberType;
   name: string;
-  role: string; // ej: "Co-Fundadora & Instructora Principal"
-  image?: string; // Foto en /public/images/coreografos/[id].jpg
-  bio: string; // Resumen breve (2-3 oraciones)
+  role: string;
+  image?: string;
+  bio: string;
   yearsExperience: number;
-  specialties: string[]; // Las danzas que enseña
-  achievements?: string[]; // Logros opcionales
-  origin: string; // Ej: "Barranquilla, Colombia"
+  specialties: string[];
+  achievements?: string[];
+  origin: string;
   socials?: {
     instagram?: string;
     facebook?: string;
     tiktok?: string;
   };
-  accentColor: 'yellow' | 'red' | 'green'; // Color de acento de su card
+  accentColor: 'yellow' | 'red' | 'green';
 }
 
-export const CHOREOGRAPHERS: Choreographer[] = [
+// Mantener alias para retrocompatibilidad
+export type Choreographer = TeamMember;
+
+export const TEAM_MEMBERS: TeamMember[] = [
+  // ===== DIRECTORAS =====
   {
     id: 'mayra-rincon',
+    type: 'director',
     name: 'Mayra Rincón',
-    role: 'Co-Fundadora & Instructora Principal',
+    role: 'Directora & Co-Fundadora',
     image: '/images/coreografos/mayra-rincon.jpg',
-    bio: 'Nacida y criada en Barranquilla, Mayra creció bailando en las calles del Carnaval. Trae más de 15 años de experiencia profesional y una pasión inigualable por preservar las tradiciones colombianas en Utah.',
+    bio: 'Co-fundadora de Carnaval BA Utah, Mayra lidera la visión cultural de la academia desde 2022. Nacida en Barranquilla, lleva la pasión del Carnaval a todos los rincones de Utah.',
     yearsExperience: 15,
-    specialties: ['Cumbia', 'Garabato', 'Salsa', 'Bullerengue'],
+    specialties: ['Liderazgo Cultural', 'Producción de Eventos'],
     achievements: [
+      'Co-Fundadora desde 2022',
       'Hispanic Day Parade NY 2024',
-      'Fundadora desde 2022',
-      'Festival Folklórico Colombia 2018',
+      'Embajadora Cultural Colombia-Utah',
     ],
     origin: 'Barranquilla, Colombia',
     socials: {
@@ -167,16 +175,17 @@ export const CHOREOGRAPHERS: Choreographer[] = [
   },
   {
     id: 'marilyn-gallardo',
+    type: 'director',
     name: 'Marilyn Gallardo',
-    role: 'Co-Fundadora & Instructora',
+    role: 'Directora & Co-Fundadora',
     image: '/images/coreografos/marilyn-gallardo.jpg',
-    bio: 'Apasionada por la cultura afro-colombiana, Marilyn se especializa en danzas con raíces ancestrales. Su energía contagiosa y técnica refinada han formado a más de 200 estudiantes en Utah.',
+    bio: 'Co-fundadora apasionada por la cultura afro-colombiana. Marilyn ha construido junto a Mayra una comunidad de más de 200 estudiantes en Utah.',
     yearsExperience: 12,
-    specialties: ['Mapalé', 'Son de Negro', 'Bullerengue', 'Champeta'],
+    specialties: ['Dirección Artística', 'Vinculación Comunitaria'],
     achievements: [
+      'Co-Fundadora desde 2022',
       'Hispanic Day Parade NY 2024',
-      'Co-Fundadora Carnaval BA Utah',
-      'Certificada en Folklore Colombiano',
+      'Líder Comunitaria Hispana Utah',
     ],
     origin: 'Barranquilla, Colombia',
     socials: {
@@ -184,16 +193,43 @@ export const CHOREOGRAPHERS: Choreographer[] = [
     },
     accentColor: 'red',
   },
-  // Espacio para más coreógrafos en el futuro
-  // {
-  //   id: 'nuevo-coreografo',
-  //   name: 'Nombre Apellido',
-  //   role: 'Instructor/a',
-  //   image: '/images/coreografos/nombre.jpg',
-  //   bio: 'Bio aquí...',
-  //   yearsExperience: 5,
-  //   specialties: ['Champeta', 'Urbano'],
-  //   origin: 'Cartagena, Colombia',
-  //   accentColor: 'green',
-  // },
+
+  // ===== COREÓGRAFAS =====
+  {
+    id: 'karely-chaus',
+    type: 'choreographer',
+    name: 'Karely Chaus',
+    role: 'Coreógrafa Principal',
+    image: '/images/coreografos/karely-chaus.jpg',
+    bio: 'Coreógrafa de gran talento y energía. Karely se especializa en crear coreografías que combinan tradición y modernidad para nuestras presentaciones.',
+    yearsExperience: 10,
+    specialties: ['Cumbia', 'Mapalé', 'Garabato', 'Champeta'],
+    achievements: [
+      'Coreógrafa Principal de la academia',
+      'Creadora de coreografías oficiales',
+    ],
+    origin: 'Colombia',
+    accentColor: 'green',
+  },
+  {
+    id: 'adriana-fornaris',
+    type: 'choreographer',
+    name: 'Adriana Fornaris',
+    role: 'Coreógrafa',
+    image: '/images/coreografos/adriana-fornaris.jpg',
+    bio: 'Coreógrafa con visión innovadora. Adriana aporta su experiencia y creatividad para enseñar las danzas tradicionales con técnica refinada.',
+    yearsExperience: 8,
+    specialties: ['Salsa', 'Bullerengue', 'Son de Negro', 'Urbano'],
+    achievements: [
+      'Coreógrafa de la academia',
+      'Especialista en danzas afro-caribeñas',
+    ],
+    origin: 'Colombia',
+    accentColor: 'yellow',
+  },
 ];
+
+// Aliases para retrocompatibilidad
+export const CHOREOGRAPHERS: TeamMember[] = TEAM_MEMBERS;
+export const DIRECTORS = TEAM_MEMBERS.filter((m) => m.type === 'director');
+export const CHOREOGRAPHERS_ONLY = TEAM_MEMBERS.filter((m) => m.type === 'choreographer');
