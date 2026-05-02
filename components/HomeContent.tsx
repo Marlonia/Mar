@@ -153,17 +153,27 @@ export default function Home() {
       {/* ============= MARQUEE TICKER ============= */}
       <section className="bg-carnival-yellow py-6 overflow-hidden border-y-4 border-carnival-darkBg">
         <div className="marquee-container">
-          <div className="marquee-content flex items-center gap-12">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="flex items-center gap-12">
+          <div className="marquee-content flex items-center gap-10">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="flex items-center gap-10">
                 <span className="font-massive text-4xl text-carnival-darkBg">CUMBIA</span>
-                <span className="text-3xl">★</span>
+                <span className="text-2xl">★</span>
                 <span className="font-massive text-4xl text-carnival-red">MAPALÉ</span>
-                <span className="text-3xl">★</span>
+                <span className="text-2xl">★</span>
                 <span className="font-massive text-4xl text-carnival-darkBg">GARABATO</span>
-                <span className="text-3xl">★</span>
-                <span className="font-massive text-4xl text-carnival-green">MARIMONDA</span>
-                <span className="text-3xl">★</span>
+                <span className="text-2xl">★</span>
+                <span className="font-massive text-4xl text-carnival-green">CHAMPETA</span>
+                <span className="text-2xl">★</span>
+                <span className="font-massive text-4xl text-carnival-red">SALSA</span>
+                <span className="text-2xl">★</span>
+                <span className="font-massive text-4xl text-carnival-darkBg">SON DE NEGRO</span>
+                <span className="text-2xl">★</span>
+                <span className="font-massive text-4xl text-carnival-green">BULLERENGUE</span>
+                <span className="text-2xl">★</span>
+                <span className="font-massive text-4xl text-carnival-red">URBANO</span>
+                <span className="text-2xl">★</span>
+                <span className="font-massive text-4xl text-carnival-darkBg">MARIMONDAS</span>
+                <span className="text-2xl">★</span>
               </div>
             ))}
           </div>
@@ -252,9 +262,12 @@ export default function Home() {
               <span className="font-accent font-bold text-carnival-red tracking-widest text-sm uppercase">Las Danzas</span>
             </div>
             <h2 className="font-massive text-6xl md:text-8xl text-white leading-none">
-              Tres ritmos.<br />
+              Nueve ritmos.<br />
               <span className="gradient-text-animated">Una sola pasión.</span>
             </h2>
+            <p className="text-lg md:text-xl text-white/70 mt-6 max-w-2xl">
+              Desde lo más tradicional hasta lo urbano. Te enseñamos toda la riqueza de la cultura caribeña colombiana.
+            </p>
           </div>
 
           {/* Dance cards - asymmetric layout */}
@@ -347,6 +360,111 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* === Más Danzas - Grid 3x2 === */}
+          <div className="mt-24">
+            <div className="flex items-center gap-3 mb-10 animate-slide-up">
+              <div className="h-[2px] w-12 bg-carnival-yellow"></div>
+              <span className="font-accent font-bold text-carnival-yellow tracking-widest text-sm uppercase">
+                Y mucho más
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  name: 'CHAMPETA',
+                  emoji: '🎵',
+                  desc: 'Ritmo afro-caribeño nacido en Cartagena. Movimientos sensuales y energéticos.',
+                  badge: 'Afro-Caribeño',
+                  bg: 'from-orange-500 via-red-600 to-pink-700',
+                  accent: 'text-orange-300',
+                },
+                {
+                  name: 'SALSA',
+                  emoji: '💋',
+                  desc: 'El ritmo más popular de Latinoamérica. Pasos elegantes con energía contagiosa.',
+                  badge: 'Latino',
+                  bg: 'from-rose-500 via-fuchsia-600 to-purple-700',
+                  accent: 'text-rose-300',
+                },
+                {
+                  name: 'SON DE NEGRO',
+                  emoji: '🥁',
+                  desc: 'Danza ancestral afro-colombiana. Tambores, máscaras y profunda raíz cultural.',
+                  badge: 'Tradicional',
+                  bg: 'from-amber-700 via-orange-800 to-red-900',
+                  accent: 'text-amber-300',
+                },
+                {
+                  name: 'BULLERENGUE',
+                  emoji: '🌊',
+                  desc: 'Ritmo de tambor y voz femenina. La esencia del Caribe colombiano.',
+                  badge: 'Folklórico',
+                  bg: 'from-cyan-600 via-blue-700 to-indigo-800',
+                  accent: 'text-cyan-300',
+                },
+                {
+                  name: 'URBANO',
+                  emoji: '🎤',
+                  desc: 'Reggaetón, dancehall y estilos modernos. La fusión del Caribe con lo contemporáneo.',
+                  badge: 'Moderno',
+                  bg: 'from-violet-600 via-purple-700 to-pink-800',
+                  accent: 'text-violet-300',
+                },
+                {
+                  name: 'MARIMONDAS',
+                  emoji: '🎭',
+                  desc: 'La danza del personaje icónico del Carnaval. Alegría, libertad y rebeldía pura.',
+                  badge: 'Icónico',
+                  bg: 'from-carnival-yellow via-amber-500 to-carnival-red',
+                  accent: 'text-yellow-300',
+                },
+              ].map((dance, i) => (
+                <div
+                  key={dance.name}
+                  className="group cursor-pointer animate-slide-up"
+                  style={{ animationDelay: `${i * 0.08}s` }}
+                >
+                  <div
+                    className={`relative h-[320px] rounded-3xl overflow-hidden bg-gradient-to-br ${dance.bg} shadow-2xl hover-lift`}
+                  >
+                    {/* Big emoji decoration */}
+                    <div className="absolute -top-6 -right-6 text-[12rem] opacity-15 leading-none rotate-12 group-hover:rotate-0 transition-transform duration-700">
+                      {dance.emoji}
+                    </div>
+                    {/* Mesh overlay */}
+                    <div className="absolute inset-0 mesh-gradient-2 opacity-20"></div>
+
+                    <div className="relative z-10 p-8 h-full flex flex-col justify-between">
+                      <div className="flex items-center justify-between">
+                        <span className="inline-block px-3 py-1 bg-carnival-darkBg/80 backdrop-blur-sm text-white font-accent text-[10px] uppercase tracking-widest rounded-full">
+                          {dance.badge}
+                        </span>
+                        <span className="text-3xl group-hover:scale-125 transition-transform duration-500">
+                          {dance.emoji}
+                        </span>
+                      </div>
+
+                      <div>
+                        <h3 className="font-massive text-4xl md:text-5xl text-white drop-shadow-2xl leading-none group-hover:translate-x-2 transition-transform duration-500">
+                          {dance.name}
+                        </h3>
+                        <p className="text-white/90 text-sm mt-3 font-accent leading-relaxed">
+                          {dance.desc}
+                        </p>
+                        <div className="mt-4 flex items-center gap-3 text-white">
+                          <span className="font-accent text-xs uppercase tracking-widest">Ver más</span>
+                          <div className="w-8 h-[1px] bg-white group-hover:w-16 transition-all duration-500"></div>
+                          <span className="text-lg group-hover:translate-x-1 transition-transform duration-500">→</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
