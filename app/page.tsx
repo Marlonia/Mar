@@ -4,12 +4,12 @@ export default function Home() {
   return (
     <>
       {/* Hero Section - Epic */}
-      <section className="relative min-h-screen bg-gradient-to-b from-carnival-yellow via-carnival-red to-carnival-blue flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen bg-gradient-to-b from-carnival-yellow via-carnival-red to-carnival-green flex items-center justify-center overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 opacity-25">
           <div className="absolute top-0 -left-20 w-96 h-96 bg-carnival-yellow rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
           <div className="absolute top-1/3 right-0 w-96 h-96 bg-carnival-red rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
-          <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-carnival-blue rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{animationDelay: '4s'}}></div>
+          <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-carnival-green rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{animationDelay: '4s'}}></div>
         </div>
 
         {/* Content */}
@@ -50,7 +50,7 @@ export default function Home() {
               {[
                 { num: '200+', label: 'Estudiantes', icon: '👥', bgColor: 'from-carnival-yellow/80 to-amber-400/80', borderColor: 'border-carnival-gold' },
                 { num: '50+', label: 'Eventos', icon: '🎉', bgColor: 'from-carnival-red/80 to-pink-500/80', borderColor: 'border-carnival-red' },
-                { num: '15+', label: 'Años de Pasión', icon: '💪', bgColor: 'from-carnival-blue/80 to-blue-600/80', borderColor: 'border-carnival-blue' },
+                { num: '15+', label: 'Años de Pasión', icon: '💪', bgColor: 'from-carnival-green/80 to-blue-600/80', borderColor: 'border-carnival-green' },
               ].map((stat, i) => (
                 <div
                   key={stat.label}
@@ -74,7 +74,7 @@ export default function Home() {
 
       {/* About Section */}
       <section className="py-24 bg-gradient-to-r from-carnival-yellow/20 via-white to-carnival-red/20 relative">
-        <div className="absolute inset-0 opacity-10 bg-gradient-to-r from-carnival-yellow via-carnival-red to-carnival-blue"></div>
+        <div className="absolute inset-0 opacity-10 bg-gradient-to-r from-carnival-yellow via-carnival-red to-carnival-green"></div>
         <div className="container-max relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
@@ -97,7 +97,7 @@ export default function Home() {
             {/* Right Card */}
             <div className="animate-slide-right">
               <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300 border-4 border-carnival-gold">
-                <div className="absolute inset-0 bg-gradient-to-br from-carnival-gold via-carnival-red to-carnival-blue opacity-95"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-carnival-gold via-carnival-red to-carnival-green opacity-95"></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-carnival-darkBg/20 to-transparent"></div>
                 <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center p-8 space-y-6">
                   <div className="text-8xl animate-float drop-shadow-2xl">🎭</div>
@@ -113,7 +113,7 @@ export default function Home() {
       </section>
 
       {/* Dance Styles Section */}
-      <section className="py-24 bg-gradient-to-b from-carnival-yellow/30 via-carnival-red/20 to-carnival-blue/20">
+      <section className="py-24 bg-gradient-to-b from-carnival-yellow/30 via-carnival-red/20 to-carnival-green/20">
         <div className="container-max">
           <div className="text-center mb-16 animate-slide-down">
             <h2 className="text-5xl font-display font-bold text-carnival-darkBg mb-4">
@@ -127,7 +127,7 @@ export default function Home() {
             {[
               { name: 'CUMBIA', emoji: '💃', desc: 'La danza más antigua y tradicional, con movimientos suaves y cautivadores', bgColor: 'bg-gradient-to-br from-carnival-yellow to-orange-400', borderColor: 'border-carnival-yellow' },
               { name: 'MAPALÉ', emoji: '🎶', desc: 'Ritmo afro-colombiano con movimientos libres y energéticos', bgColor: 'bg-gradient-to-br from-carnival-red to-pink-500', borderColor: 'border-carnival-red' },
-              { name: 'GARABATO', emoji: '🎄', desc: 'Danza folklórica tradicional con coreografía fluida y elegante', bgColor: 'bg-gradient-to-br from-carnival-blue to-purple-600', borderColor: 'border-carnival-blue' },
+              { name: 'GARABATO', emoji: '🎄', desc: 'Danza folklórica tradicional con coreografía fluida y elegante', bgColor: 'bg-gradient-to-br from-carnival-green to-purple-600', borderColor: 'border-carnival-green' },
             ].map((dance, i) => (
               <div
                 key={dance.name}
@@ -145,7 +145,7 @@ export default function Home() {
 
       {/* Featured Classes */}
       <section className="py-24 bg-gradient-to-b from-carnival-yellow/20 via-carnival-gold/10 to-carnival-red/20 relative">
-        <div className="absolute inset-0 opacity-5 bg-gradient-to-r from-carnival-yellow via-carnival-red to-carnival-blue"></div>
+        <div className="absolute inset-0 opacity-5 bg-gradient-to-r from-carnival-yellow via-carnival-red to-carnival-green"></div>
         <div className="container-max relative z-10">
           <div className="text-center mb-16 animate-slide-down">
             <h2 className="text-5xl font-display font-bold text-carnival-darkBg mb-4">
@@ -158,7 +158,7 @@ export default function Home() {
             {[
               { level: 'Principiante', time: 'Lunes & Miércoles', instructor: 'Mayra', icon: '🌱', bgColor: 'bg-gradient-to-br from-carnival-yellow to-amber-300', borderColor: 'border-carnival-yellow' },
               { level: 'Intermedio', time: 'Martes & Jueves', instructor: 'Marilyn', icon: '🔥', bgColor: 'bg-gradient-to-br from-carnival-red to-pink-400', borderColor: 'border-carnival-red' },
-              { level: 'Avanzado', time: 'Sábados', instructor: 'Profesores', icon: '⭐', bgColor: 'bg-gradient-to-br from-carnival-blue to-blue-600', borderColor: 'border-carnival-blue' },
+              { level: 'Avanzado', time: 'Sábados', instructor: 'Profesores', icon: '⭐', bgColor: 'bg-gradient-to-br from-carnival-green to-blue-600', borderColor: 'border-carnival-green' },
               { level: 'Niños (5-12)', time: 'Viernes 5pm', instructor: 'Equipo', icon: '🎈', bgColor: 'bg-gradient-to-br from-pink-400 to-purple-500', borderColor: 'border-pink-500' },
             ].map((cls, i) => (
               <div
@@ -188,7 +188,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 bg-gradient-to-r from-carnival-red via-carnival-blue to-carnival-gold text-white relative overflow-hidden">
+      <section className="py-32 bg-gradient-to-r from-carnival-red via-carnival-green to-carnival-gold text-white relative overflow-hidden">
         {/* Background Animation */}
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-0 left-0 w-96 h-96 bg-carnival-yellow rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>

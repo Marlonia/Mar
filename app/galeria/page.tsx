@@ -94,7 +94,7 @@ export default function GaleriaPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-carnival-blue to-carnival-pink text-white py-16">
+      <section className="bg-gradient-to-r from-carnival-green to-carnival-pink text-white py-16">
         <div className="container-max">
           <h1 className="text-5xl font-display font-bold mb-4">Galería</h1>
           <p className="text-xl text-white/90">
@@ -114,8 +114,8 @@ export default function GaleriaPage() {
                 onClick={() => setFilterEvent(event)}
                 className={`px-4 py-2 rounded-lg font-accent font-bold transition ${
                   filterEvent === event
-                    ? 'bg-carnival-blue text-white'
-                    : 'bg-white text-carnival-darkBg hover:bg-carnival-blue hover:text-white'
+                    ? 'bg-carnival-green text-white'
+                    : 'bg-white text-carnival-darkBg hover:bg-carnival-green hover:text-white'
                 }`}
               >
                 {event.charAt(0).toUpperCase() + event.slice(1)}

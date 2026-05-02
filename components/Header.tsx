@@ -7,7 +7,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-carnival-yellow via-carnival-red to-carnival-blue shadow-2xl animate-slide-down">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-carnival-yellow via-carnival-red to-carnival-green shadow-2xl animate-slide-down">
       <nav className="container-max flex items-center justify-between py-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
@@ -77,7 +77,7 @@ export default function Header() {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden bg-gradient-to-b from-carnival-gold/95 to-carnival-red/95 border-t-4 border-carnival-blue animate-slide-down">
+        <div className="md:hidden bg-gradient-to-b from-carnival-gold/95 to-carnival-red/95 border-t-4 border-carnival-green animate-slide-down">
           <div className="container-max py-4 flex flex-col gap-2">
             {[
               { href: '/', label: 'Inicio' },

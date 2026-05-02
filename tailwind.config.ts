@@ -11,7 +11,7 @@ const config: Config = {
         carnival: {
           yellow: '#FFC600',    // Amarillo oficial Barranquilla
           red: '#E31E24',       // Rojo oficial Barranquilla
-          blue: '#003DA5',      // Azul oficial Barranquilla
+          green: '#228B22',     // Verde vibrante para Carnaval
           gold: '#FFC600',      // Alias para yellow
           darkBg: '#0F1419',    // Negro profundo
           lightBg: '#F8F9FA',   // Blanco casi puro
@@ -32,9 +32,9 @@ const config: Config = {
         },
         accent: {
           50: '#E8F4FF',
-          500: '#003DA5',
-          600: '#00338C',
-          700: '#002970',
+          500: '#228B22',
+          600: '#1E7A1E',
+          700: '#155A15',
         },
       },
       fontFamily: {

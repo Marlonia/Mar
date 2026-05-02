@@ -36,7 +36,7 @@ export default function ContactoPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-carnival-green to-carnival-blue text-white py-16">
+      <section className="bg-gradient-to-r from-carnival-green to-carnival-red text-white py-16">
         <div className="container-max">
           <h1 className="text-5xl font-display font-bold mb-4">Contacto</h1>
           <p className="text-xl text-white/90">

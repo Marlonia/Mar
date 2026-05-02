@@ -220,7 +220,7 @@ export default function BlogPage() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="bg-gradient-to-r from-carnival-blue to-carnival-pink text-white py-16">
+      <section className="bg-gradient-to-r from-carnival-green to-carnival-pink text-white py-16">
         <div className="container-max max-w-2xl mx-auto text-center">
           <h2 className="text-3xl font-display font-bold mb-4">Recibe Noticias</h2>
           <p className="text-white/90 mb-6">

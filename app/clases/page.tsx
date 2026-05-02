@@ -114,7 +114,7 @@ export default function ClasesPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-carnival-red to-carnival-blue text-white py-16">
+      <section className="bg-gradient-to-r from-carnival-red to-carnival-green text-white py-16">
         <div className="container-max">
           <h1 className="text-5xl font-display font-bold mb-4">Nuestras Clases</h1>
           <p className="text-xl text-white/90">
