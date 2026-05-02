@@ -1,7 +1,219 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { MAIN_DANCES, SECONDARY_DANCES, MARIMONDA_CARD, type DanceVisual } from '@/lib/site-content';
+
+/**
+ * Imagen con fallback automático si falla la carga.
+ */
+function SafeImage({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
+  const [error, setError] = useState(false);
+  if (error) return null;
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      sizes="(max-width: 768px) 100vw, 50vw"
+      className={`object-cover ${className}`}
+      onError={() => setError(true)}
+    />
+  );
+}
+
+/**
+ * Card de danza principal (las 3 grandes).
+ */
+function MainDanceCard({ dance, variant }: { dance: DanceVisual; variant: 'large' | 'tall' | 'wide' }) {
+  const [imageError, setImageError] = useState(false);
+  const showImage = dance.image && !imageError;
+
+  if (variant === 'large') {
+    return (
+      <div className="md:col-span-7 group cursor-pointer animate-slide-left">
+        <div className={`relative h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br ${dance.bg} shadow-2xl hover-lift`}>
+          {showImage && (
+            <Image
+              src={dance.image!}
+              alt={dance.name}
+              fill
+              sizes="(max-width: 768px) 100vw, 60vw"
+              className="object-cover"
+              onError={() => setImageError(true)}
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+          {!showImage && <div className="absolute inset-0 mesh-gradient-2 opacity-50"></div>}
+          {!showImage && (
+            <div className="absolute top-0 right-0 text-[20rem] opacity-20 leading-none -mr-12 -mt-12">{dance.emoji}</div>
+          )}
+          <div className="relative z-10 p-12 h-full flex flex-col justify-between">
+            <div>
+              <span className="inline-block px-4 py-2 bg-carnival-darkBg text-carnival-yellow font-accent text-xs uppercase tracking-widest rounded-full">
+                {dance.badge}
+              </span>
+            </div>
+            <div>
+              <h3 className="font-massive text-8xl md:text-9xl text-white drop-shadow-2xl group-hover:translate-x-4 transition-transform duration-500">
+                {dance.name}
+              </h3>
+              <p className="text-white text-lg mt-4 max-w-md font-accent">{dance.description}</p>
+              <div className="mt-6 flex items-center gap-4 text-white">
+                <span className="font-accent text-sm">Aprender {dance.name.charAt(0) + dance.name.slice(1).toLowerCase()}</span>
+                <div className="w-12 h-[2px] bg-white group-hover:w-24 transition-all duration-500"></div>
+                <span className="text-2xl group-hover:translate-x-2 transition-transform duration-500">→</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (variant === 'tall') {
+    return (
+      <div className="md:col-span-5 group cursor-pointer animate-slide-right">
+        <div className={`relative h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br ${dance.bg} shadow-2xl hover-lift`}>
+          {showImage && (
+            <Image
+              src={dance.image!}
+              alt={dance.name}
+              fill
+              sizes="(max-width: 768px) 100vw, 40vw"
+              className="object-cover"
+              onError={() => setImageError(true)}
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+          {!showImage && (
+            <div className="absolute top-0 right-0 text-[15rem] opacity-20 leading-none -mr-8 -mt-8">{dance.emoji}</div>
+          )}
+          <div className="relative z-10 p-12 h-full flex flex-col justify-between">
+            <div>
+              <span className="inline-block px-4 py-2 bg-carnival-darkBg text-carnival-red font-accent text-xs uppercase tracking-widest rounded-full">
+                {dance.badge}
+              </span>
+            </div>
+            <div>
+              <h3 className="font-massive text-7xl md:text-8xl text-white drop-shadow-2xl group-hover:translate-x-4 transition-transform duration-500">
+                {dance.name}
+              </h3>
+              <p className="text-white text-base mt-4 font-accent">{dance.description}</p>
+              <div className="mt-6 flex items-center gap-4 text-white">
+                <span className="font-accent text-sm">Empezar</span>
+                <div className="w-12 h-[2px] bg-white group-hover:w-24 transition-all duration-500"></div>
+                <span className="text-2xl group-hover:translate-x-2 transition-transform duration-500">→</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // variant === 'wide'
+  return (
+    <div className="md:col-span-12 group cursor-pointer animate-slide-up">
+      <div className={`relative h-[400px] rounded-3xl overflow-hidden bg-gradient-to-br ${dance.bg} shadow-2xl hover-lift`}>
+        {showImage && (
+          <Image
+            src={dance.image!}
+            alt={dance.name}
+            fill
+            sizes="100vw"
+            className="object-cover"
+            onError={() => setImageError(true)}
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+        {!showImage && (
+          <>
+            <div className="absolute -top-20 right-1/4 text-[20rem] opacity-15 leading-none">{dance.emoji}</div>
+            <div className="absolute bottom-0 left-1/4 text-[15rem] opacity-15 leading-none -mb-12">🎭</div>
+          </>
+        )}
+        <div className="relative z-10 p-12 h-full flex items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full items-center">
+            <div>
+              <span className="inline-block px-4 py-2 bg-carnival-darkBg text-carnival-green font-accent text-xs uppercase tracking-widest rounded-full mb-6">
+                {dance.badge}
+              </span>
+              <h3 className="font-massive text-7xl md:text-9xl text-white drop-shadow-2xl group-hover:translate-x-4 transition-transform duration-500">
+                {dance.name}
+              </h3>
+            </div>
+            <div>
+              <p className="text-white text-lg leading-relaxed font-accent">{dance.description}</p>
+              <div className="mt-6 flex items-center gap-4 text-white">
+                <span className="font-accent text-sm">Conocer más</span>
+                <div className="w-12 h-[2px] bg-white group-hover:w-24 transition-all duration-500"></div>
+                <span className="text-2xl group-hover:translate-x-2 transition-transform duration-500">→</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Card de danza secundaria (las 6 más pequeñas).
+ */
+function SecondaryDanceCard({ dance, index }: { dance: DanceVisual; index: number }) {
+  const [imageError, setImageError] = useState(false);
+  const showImage = dance.image && !imageError;
+
+  return (
+    <div
+      className="group cursor-pointer animate-slide-up"
+      style={{ animationDelay: `${index * 0.08}s` }}
+    >
+      <div className={`relative h-[320px] rounded-3xl overflow-hidden bg-gradient-to-br ${dance.bg} shadow-2xl hover-lift`}>
+        {showImage && (
+          <Image
+            src={dance.image!}
+            alt={dance.name}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover"
+            onError={() => setImageError(true)}
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent"></div>
+        {!showImage && (
+          <>
+            <div className="absolute -top-6 -right-6 text-[12rem] opacity-15 leading-none rotate-12 group-hover:rotate-0 transition-transform duration-700">
+              {dance.emoji}
+            </div>
+            <div className="absolute inset-0 mesh-gradient-2 opacity-20"></div>
+          </>
+        )}
+        <div className="relative z-10 p-8 h-full flex flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <span className="inline-block px-3 py-1 bg-carnival-darkBg/80 backdrop-blur-sm text-white font-accent text-[10px] uppercase tracking-widest rounded-full">
+              {dance.badge}
+            </span>
+            <span className="text-3xl group-hover:scale-125 transition-transform duration-500">{dance.emoji}</span>
+          </div>
+          <div>
+            <h3 className="font-massive text-4xl md:text-5xl text-white drop-shadow-2xl leading-none group-hover:translate-x-2 transition-transform duration-500">
+              {dance.name}
+            </h3>
+            <p className="text-white/90 text-sm mt-3 font-accent leading-relaxed">{dance.description}</p>
+            <div className="mt-4 flex items-center gap-3 text-white">
+              <span className="font-accent text-xs uppercase tracking-widest">Ver más</span>
+              <div className="w-8 h-[1px] bg-white group-hover:w-16 transition-all duration-500"></div>
+              <span className="text-lg group-hover:translate-x-1 transition-transform duration-500">→</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -228,16 +440,28 @@ export default function Home() {
                 <div className="absolute -bottom-6 -right-6 w-full h-full bg-carnival-green rounded-3xl -rotate-3 opacity-80"></div>
 
                 {/* Main card */}
-                <div className="relative bg-gradient-to-br from-carnival-yellow via-carnival-red to-carnival-green rounded-3xl p-12 overflow-hidden shadow-2xl">
-                  <div className="absolute inset-0 mesh-gradient-2 opacity-30"></div>
-                  <div className="relative z-10 text-center space-y-6">
-                    <div className="inline-block">
-                      <div className="text-9xl animate-float">🎭</div>
-                    </div>
-                    <h3 className="font-massive text-5xl text-white drop-shadow-2xl">MARIMONDA</h3>
+                <div className="relative bg-gradient-to-br from-carnival-yellow via-carnival-red to-carnival-green rounded-3xl overflow-hidden shadow-2xl min-h-[400px]">
+                  {MARIMONDA_CARD.image && (
+                    <SafeImage
+                      src={MARIMONDA_CARD.image}
+                      alt="Marimonda - Carnaval de Barranquilla"
+                      className="absolute inset-0"
+                    />
+                  )}
+                  {/* Overlay para legibilidad */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                  <div className="absolute inset-0 mesh-gradient-2 opacity-20"></div>
+
+                  <div className="relative z-10 p-12 text-center space-y-6 h-full flex flex-col justify-center">
+                    {!MARIMONDA_CARD.image && (
+                      <div className="inline-block">
+                        <div className="text-9xl animate-float">{MARIMONDA_CARD.emoji}</div>
+                      </div>
+                    )}
+                    <h3 className="font-massive text-5xl text-white drop-shadow-2xl">{MARIMONDA_CARD.title}</h3>
                     <div className="h-1 w-20 bg-white mx-auto rounded-full"></div>
                     <p className="text-white text-lg leading-relaxed font-accent">
-                      Símbolo eterno del Carnaval. Su máscara icónica representa la libertad, la alegría y la rebeldía contra lo serio.
+                      {MARIMONDA_CARD.description}
                     </p>
                     <div className="flex justify-center gap-2 pt-4">
                       <span className="w-3 h-3 bg-white rounded-full animate-pulse-soft"></span>
@@ -272,95 +496,9 @@ export default function Home() {
 
           {/* Dance cards - asymmetric layout */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            {/* CUMBIA - Large */}
-            <div className="md:col-span-7 group cursor-pointer animate-slide-left">
-              <div className="relative h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br from-carnival-yellow via-amber-500 to-orange-600 shadow-2xl hover-lift">
-                <div className="absolute inset-0 mesh-gradient-2 opacity-50"></div>
-                <div className="absolute top-0 right-0 text-[20rem] opacity-20 leading-none -mr-12 -mt-12">💃</div>
-
-                <div className="relative z-10 p-12 h-full flex flex-col justify-between">
-                  <div>
-                    <span className="inline-block px-4 py-2 bg-carnival-darkBg text-carnival-yellow font-accent text-xs uppercase tracking-widest rounded-full">
-                      Más Tradicional
-                    </span>
-                  </div>
-
-                  <div>
-                    <h3 className="font-massive text-8xl md:text-9xl text-white drop-shadow-2xl group-hover:translate-x-4 transition-transform duration-500">
-                      CUMBIA
-                    </h3>
-                    <p className="text-white text-lg mt-4 max-w-md font-accent">
-                      La danza más antigua del Carnaval. Movimientos suaves, cautivadores y llenos de historia africana, indígena y española.
-                    </p>
-                    <div className="mt-6 flex items-center gap-4 text-white">
-                      <span className="font-accent text-sm">Aprender Cumbia</span>
-                      <div className="w-12 h-[2px] bg-white group-hover:w-24 transition-all duration-500"></div>
-                      <span className="text-2xl group-hover:translate-x-2 transition-transform duration-500">→</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* MAPALÉ - Tall */}
-            <div className="md:col-span-5 group cursor-pointer animate-slide-right">
-              <div className="relative h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br from-carnival-red via-pink-600 to-rose-700 shadow-2xl hover-lift">
-                <div className="absolute top-0 right-0 text-[15rem] opacity-20 leading-none -mr-8 -mt-8">🎶</div>
-
-                <div className="relative z-10 p-12 h-full flex flex-col justify-between">
-                  <div>
-                    <span className="inline-block px-4 py-2 bg-carnival-darkBg text-carnival-red font-accent text-xs uppercase tracking-widest rounded-full">
-                      Energético
-                    </span>
-                  </div>
-
-                  <div>
-                    <h3 className="font-massive text-7xl md:text-8xl text-white drop-shadow-2xl group-hover:translate-x-4 transition-transform duration-500">
-                      MAPALÉ
-                    </h3>
-                    <p className="text-white text-base mt-4 font-accent">
-                      Ritmo afro-colombiano libre y energético. Pura expresión.
-                    </p>
-                    <div className="mt-6 flex items-center gap-4 text-white">
-                      <span className="font-accent text-sm">Empezar</span>
-                      <div className="w-12 h-[2px] bg-white group-hover:w-24 transition-all duration-500"></div>
-                      <span className="text-2xl group-hover:translate-x-2 transition-transform duration-500">→</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* GARABATO - Wide */}
-            <div className="md:col-span-12 group cursor-pointer animate-slide-up">
-              <div className="relative h-[400px] rounded-3xl overflow-hidden bg-gradient-to-br from-carnival-green via-emerald-600 to-teal-700 shadow-2xl hover-lift">
-                <div className="absolute -top-20 right-1/4 text-[20rem] opacity-15 leading-none">🎄</div>
-                <div className="absolute bottom-0 left-1/4 text-[15rem] opacity-15 leading-none -mb-12">🎭</div>
-
-                <div className="relative z-10 p-12 h-full flex items-center">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full items-center">
-                    <div>
-                      <span className="inline-block px-4 py-2 bg-carnival-darkBg text-carnival-green font-accent text-xs uppercase tracking-widest rounded-full mb-6">
-                        Folklórico
-                      </span>
-                      <h3 className="font-massive text-7xl md:text-9xl text-white drop-shadow-2xl group-hover:translate-x-4 transition-transform duration-500">
-                        GARABATO
-                      </h3>
-                    </div>
-                    <div>
-                      <p className="text-white text-lg leading-relaxed font-accent">
-                        Danza folklórica con coreografía fluida y elegante. Representa la lucha simbólica entre la vida y la muerte.
-                      </p>
-                      <div className="mt-6 flex items-center gap-4 text-white">
-                        <span className="font-accent text-sm">Conocer más</span>
-                        <div className="w-12 h-[2px] bg-white group-hover:w-24 transition-all duration-500"></div>
-                        <span className="text-2xl group-hover:translate-x-2 transition-transform duration-500">→</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <MainDanceCard dance={MAIN_DANCES[0]} variant="large" />
+            <MainDanceCard dance={MAIN_DANCES[1]} variant="tall" />
+            <MainDanceCard dance={MAIN_DANCES[2]} variant="wide" />
           </div>
 
           {/* === Más Danzas - Grid 3x2 === */}
@@ -373,97 +511,8 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  name: 'CHAMPETA',
-                  emoji: '🎵',
-                  desc: 'Ritmo afro-caribeño nacido en Cartagena. Movimientos sensuales y energéticos.',
-                  badge: 'Afro-Caribeño',
-                  bg: 'from-orange-500 via-red-600 to-pink-700',
-                  accent: 'text-orange-300',
-                },
-                {
-                  name: 'SALSA',
-                  emoji: '💋',
-                  desc: 'El ritmo más popular de Latinoamérica. Pasos elegantes con energía contagiosa.',
-                  badge: 'Latino',
-                  bg: 'from-rose-500 via-fuchsia-600 to-purple-700',
-                  accent: 'text-rose-300',
-                },
-                {
-                  name: 'SON DE NEGRO',
-                  emoji: '🥁',
-                  desc: 'Danza ancestral afro-colombiana. Tambores, máscaras y profunda raíz cultural.',
-                  badge: 'Tradicional',
-                  bg: 'from-amber-700 via-orange-800 to-red-900',
-                  accent: 'text-amber-300',
-                },
-                {
-                  name: 'BULLERENGUE',
-                  emoji: '🌊',
-                  desc: 'Ritmo de tambor y voz femenina. La esencia del Caribe colombiano.',
-                  badge: 'Folklórico',
-                  bg: 'from-cyan-600 via-blue-700 to-indigo-800',
-                  accent: 'text-cyan-300',
-                },
-                {
-                  name: 'URBANO',
-                  emoji: '🎤',
-                  desc: 'Reggaetón, dancehall y estilos modernos. La fusión del Caribe con lo contemporáneo.',
-                  badge: 'Moderno',
-                  bg: 'from-violet-600 via-purple-700 to-pink-800',
-                  accent: 'text-violet-300',
-                },
-                {
-                  name: 'MARIMONDAS',
-                  emoji: '🎭',
-                  desc: 'La danza del personaje icónico del Carnaval. Alegría, libertad y rebeldía pura.',
-                  badge: 'Icónico',
-                  bg: 'from-carnival-yellow via-amber-500 to-carnival-red',
-                  accent: 'text-yellow-300',
-                },
-              ].map((dance, i) => (
-                <div
-                  key={dance.name}
-                  className="group cursor-pointer animate-slide-up"
-                  style={{ animationDelay: `${i * 0.08}s` }}
-                >
-                  <div
-                    className={`relative h-[320px] rounded-3xl overflow-hidden bg-gradient-to-br ${dance.bg} shadow-2xl hover-lift`}
-                  >
-                    {/* Big emoji decoration */}
-                    <div className="absolute -top-6 -right-6 text-[12rem] opacity-15 leading-none rotate-12 group-hover:rotate-0 transition-transform duration-700">
-                      {dance.emoji}
-                    </div>
-                    {/* Mesh overlay */}
-                    <div className="absolute inset-0 mesh-gradient-2 opacity-20"></div>
-
-                    <div className="relative z-10 p-8 h-full flex flex-col justify-between">
-                      <div className="flex items-center justify-between">
-                        <span className="inline-block px-3 py-1 bg-carnival-darkBg/80 backdrop-blur-sm text-white font-accent text-[10px] uppercase tracking-widest rounded-full">
-                          {dance.badge}
-                        </span>
-                        <span className="text-3xl group-hover:scale-125 transition-transform duration-500">
-                          {dance.emoji}
-                        </span>
-                      </div>
-
-                      <div>
-                        <h3 className="font-massive text-4xl md:text-5xl text-white drop-shadow-2xl leading-none group-hover:translate-x-2 transition-transform duration-500">
-                          {dance.name}
-                        </h3>
-                        <p className="text-white/90 text-sm mt-3 font-accent leading-relaxed">
-                          {dance.desc}
-                        </p>
-                        <div className="mt-4 flex items-center gap-3 text-white">
-                          <span className="font-accent text-xs uppercase tracking-widest">Ver más</span>
-                          <div className="w-8 h-[1px] bg-white group-hover:w-16 transition-all duration-500"></div>
-                          <span className="text-lg group-hover:translate-x-1 transition-transform duration-500">→</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              {SECONDARY_DANCES.map((dance, i) => (
+                <SecondaryDanceCard key={dance.id} dance={dance} index={i} />
               ))}
             </div>
           </div>
