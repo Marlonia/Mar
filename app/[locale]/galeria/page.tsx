@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface GalleryItem {
   id: string;
@@ -81,6 +82,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
 ];
 
 export default function GaleriaPage() {
+  const t = useTranslations('GalleryPage');
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
   const [filterEvent, setFilterEvent] = useState<string>('todos');
 
@@ -94,12 +96,10 @@ export default function GaleriaPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-carnival-green to-carnival-pink text-white py-16">
+      <section className="bg-gradient-to-r from-carnival-green to-carnival-red text-white pt-32 pb-16">
         <div className="container-max">
-          <h1 className="text-5xl font-display font-bold mb-4">Galería</h1>
-          <p className="text-xl text-white/90">
-            Revive los momentos más coloridos de nuestras actuaciones y eventos
-          </p>
+          <h1 className="text-5xl font-display font-bold mb-4">{t('hero.title')}</h1>
+          <p className="text-xl text-white/90">{t('hero.subtitle')}</p>
         </div>
       </section>
 

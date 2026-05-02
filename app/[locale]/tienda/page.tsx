@@ -1,4 +1,5 @@
 'use client';
+import { useTranslations } from 'next-intl';
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -89,6 +90,7 @@ const PRODUCTS: Product[] = [
 ];
 
 export default function TiendaPage() {
+  const t = useTranslations('StorePage');
   const [selectedCategory, setSelectedCategory] = useState<string>('todos');
   const [cartItems, setCartItems] = useState<Map<string, number>>(new Map());
   const [showCart, setShowCart] = useState(false);
@@ -132,13 +134,11 @@ export default function TiendaPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-carnival-red to-carnival-gold text-white py-16">
+      <section className="bg-gradient-to-r from-carnival-red to-carnival-yellow text-white pt-32 pb-16">
         <div className="container-max flex justify-between items-center">
           <div>
-            <h1 className="text-5xl font-display font-bold mb-4">Tienda</h1>
-            <p className="text-xl text-white/90">
-              Compra trajes, accesorios y entradas para eventos
-            </p>
+            <h1 className="text-5xl font-display font-bold mb-4">{t('hero.title')}</h1>
+            <p className="text-xl text-white/90">{t('hero.subtitle')}</p>
           </div>
           <button
             onClick={() => setShowCart(!showCart)}

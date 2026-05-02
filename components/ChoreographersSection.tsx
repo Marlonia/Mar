@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { DIRECTORS, CHOREOGRAPHERS_ONLY, type TeamMember } from '@/lib/site-content';
 
 const accentClasses = {
@@ -42,6 +43,7 @@ function getInitials(name: string): string {
 }
 
 function TeamCard({ member, index }: { member: TeamMember; index: number }) {
+  const t = useTranslations('Team');
   const [imageError, setImageError] = useState(false);
   const colors = accentClasses[member.accentColor];
   const showImage = member.image && !imageError;
@@ -77,11 +79,11 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
           {/* Overlay degradado */}
           <div className="absolute inset-0 bg-gradient-to-t from-carnival-darkBg via-carnival-darkBg/60 to-transparent"></div>
 
-          {/* Type badge (Directora / Coreógrafa) */}
+          {/* Type badge */}
           <div className="absolute top-4 left-4 z-10">
             <div className={`${isDirector ? 'bg-carnival-yellow text-carnival-darkBg' : 'bg-carnival-green text-white'} px-4 py-2 rounded-full shadow-lg`}>
               <span className="font-accent font-bold text-xs uppercase tracking-widest">
-                {isDirector ? '⭐ Directora' : '🎬 Coreógrafa'}
+                {isDirector ? t('badges.director') : t('badges.choreographer')}
               </span>
             </div>
           </div>
@@ -90,7 +92,7 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
           <div className="absolute top-4 right-4 z-10">
             <div className={`${colors.badge} backdrop-blur-md border px-4 py-2 rounded-full`}>
               <span className="font-accent font-bold text-xs uppercase tracking-widest">
-                {member.yearsExperience}+ años
+                {t('yearsBadge', { years: member.yearsExperience })}
               </span>
             </div>
           </div>
@@ -119,7 +121,7 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
 
           <div>
             <p className="text-xs font-accent font-bold uppercase tracking-widest text-white/50 mb-3">
-              {isDirector ? 'Áreas' : 'Especialidades'}
+              {isDirector ? t('areas') : t('specialties')}
             </p>
             <div className="flex flex-wrap gap-2">
               {member.specialties.map((specialty) => (
@@ -136,7 +138,7 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
           {member.achievements && member.achievements.length > 0 && (
             <div>
               <p className="text-xs font-accent font-bold uppercase tracking-widest text-white/50 mb-3">
-                Logros
+                {t('achievements')}
               </p>
               <ul className="space-y-2">
                 {member.achievements.map((achievement) => (
@@ -193,6 +195,7 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
 }
 
 export default function ChoreographersSection() {
+  const t = useTranslations('Team');
   return (
     <section className="relative py-24 bg-carnival-darkBg overflow-hidden">
       <div className="absolute inset-0 opacity-30">
@@ -207,15 +210,15 @@ export default function ChoreographersSection() {
             <div className="flex items-center gap-3 mb-6">
               <div className="h-[2px] w-12 bg-carnival-yellow"></div>
               <span className="font-accent font-bold text-carnival-yellow tracking-widest text-sm uppercase">
-                Liderazgo
+                {t('directors.tagline')}
               </span>
             </div>
             <h2 className="font-massive text-5xl md:text-7xl text-white leading-none">
-              Nuestras<br />
-              <span className="gradient-text-animated">directoras</span>
+              {t('directors.title.line1')}<br />
+              <span className="gradient-text-animated">{t('directors.title.highlight')}</span>
             </h2>
             <p className="text-lg md:text-xl text-white/70 mt-6 max-w-2xl">
-              Las co-fundadoras visionarias detrás de Carnaval BA Utah. Lideran el camino para preservar la cultura colombiana en Estados Unidos.
+              {t('directors.subtitle')}
             </p>
           </div>
 
@@ -232,15 +235,15 @@ export default function ChoreographersSection() {
             <div className="flex items-center gap-3 mb-6">
               <div className="h-[2px] w-12 bg-carnival-green"></div>
               <span className="font-accent font-bold text-carnival-green tracking-widest text-sm uppercase">
-                El arte del movimiento
+                {t('choreographers.tagline')}
               </span>
             </div>
             <h2 className="font-massive text-5xl md:text-7xl text-white leading-none">
-              Nuestras<br />
-              <span className="gradient-text-animated">coreógrafas</span>
+              {t('choreographers.title.line1')}<br />
+              <span className="gradient-text-animated">{t('choreographers.title.highlight')}</span>
             </h2>
             <p className="text-lg md:text-xl text-white/70 mt-6 max-w-2xl">
-              El talento creativo que transforma cada paso en una experiencia inolvidable.
+              {t('choreographers.subtitle')}
             </p>
           </div>
 
@@ -255,11 +258,9 @@ export default function ChoreographersSection() {
         <div className="mt-16 text-center animate-slide-up">
           <div className="inline-block glass-effect rounded-3xl px-8 py-6">
             <p className="text-white/80 font-accent">
-              ✨ <span className="text-carnival-yellow font-bold">¿Eres coreógrafa profesional?</span>
+              <span className="text-carnival-yellow font-bold">{t('cta.question')}</span>
             </p>
-            <p className="text-white/60 text-sm mt-2">
-              Estamos siempre buscando talento. Contáctanos para unirte al equipo.
-            </p>
+            <p className="text-white/60 text-sm mt-2">{t('cta.subtitle')}</p>
           </div>
         </div>
       </div>

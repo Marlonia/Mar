@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 interface BlogPost {
   id: string;
@@ -91,6 +92,7 @@ const BLOG_POSTS: BlogPost[] = [
 ];
 
 export default function BlogPage() {
+  const t = useTranslations('BlogPage');
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -107,12 +109,10 @@ export default function BlogPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-carnival-pink to-carnival-gold text-white py-16">
+      <section className="bg-gradient-to-r from-carnival-red to-carnival-yellow text-white pt-32 pb-16">
         <div className="container-max">
-          <h1 className="text-5xl font-display font-bold mb-4">Blog</h1>
-          <p className="text-xl text-white/90">
-            Historias, guías y noticias sobre el Carnaval de Barranquilla
-          </p>
+          <h1 className="text-5xl font-display font-bold mb-4">{t('hero.title')}</h1>
+          <p className="text-xl text-white/90">{t('hero.subtitle')}</p>
         </div>
       </section>
 

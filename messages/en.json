@@ -1,0 +1,408 @@
+{
+  "Header": {
+    "tagline": "Academy • Utah",
+    "nav": {
+      "home": "Home",
+      "classes": "Classes",
+      "gallery": "Gallery",
+      "blog": "Blog",
+      "store": "Store",
+      "contact": "Contact"
+    },
+    "cta": "Register",
+    "ctaHover": "Let's go!",
+    "footerText": "Carnival of Barranquilla • Utah",
+    "ctaMobile": "✨ Register Now"
+  },
+  "Footer": {
+    "ctaTitle": "Let's {dance} together.",
+    "ctaDance": "dance",
+    "ctaSubtitle": "Join the only authentic Carnival of Barranquilla academy in Utah.",
+    "ctaButton": "Register Now",
+    "brandTagline": "Promoting the Colombian culture of the Carnival of Barranquilla in Utah since 2022.",
+    "navigation": "Navigation",
+    "services": "Services",
+    "contact": "Contact",
+    "navLinks": {
+      "home": "Home",
+      "classes": "Classes",
+      "gallery": "Gallery",
+      "blog": "Blog"
+    },
+    "serviceLinks": {
+      "classes": "Classes",
+      "store": "Store",
+      "register": "Register",
+      "events": "Events"
+    },
+    "address": "West Valley City, Utah",
+    "rights": "All rights reserved.",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
+  "Home": {
+    "tagline": "Carnival of Barranquilla • Utah 2026",
+    "title": {
+      "line1": "DANCE",
+      "line2": "CARNIVAL",
+      "line3": "PASSION."
+    },
+    "subtitle": "Experience Colombian culture in Utah. Learn the traditional dances of the world's largest carnival with our expert instructors.",
+    "ctaPrimary": "Start Now",
+    "ctaPrimaryHover": "Let's go!",
+    "ctaSecondary": "View Classes",
+    "scroll": "Scroll",
+    "stats": {
+      "students": "Students",
+      "events": "Events",
+      "years": "Years"
+    },
+    "About": {
+      "tagline": "Our Story",
+      "title": {
+        "part1": "A",
+        "highlight1": "tradition",
+        "part2": "that has",
+        "highlight2": "danced",
+        "part3": "since 2022."
+      },
+      "description": "Founded by <directors>Mayra Rincón and Marilyn Gallardo</directors>, we are the only academy in Utah preserving the authentic dances of the Carnival of Barranquilla, declared a UNESCO World Cultural Heritage.",
+      "tags": {
+        "authentic": "🇨🇴 Authentic Colombian",
+        "unesco": "🏆 UNESCO Heritage",
+        "rated": "⭐ Top Rated"
+      },
+      "marimondaName": "MARIMONDA",
+      "marimondaDescription": "Eternal symbol of the Carnival. Its iconic mask represents freedom, joy, and rebellion against seriousness."
+    },
+    "Dances": {
+      "tagline": "The Dances",
+      "title": {
+        "line1": "Nine rhythms.",
+        "line2": "One single passion."
+      },
+      "subtitle": "From the most traditional to the urban. We teach you the full richness of Colombian Caribbean culture.",
+      "moreTagline": "And much more",
+      "actions": {
+        "learn": "Learn Cumbia",
+        "start": "Start",
+        "knowMore": "Learn more",
+        "seeMore": "See more"
+      },
+      "badges": {
+        "traditional": "Most Traditional",
+        "energetic": "Energetic",
+        "folkloric": "Folkloric",
+        "afroCaribbean": "Afro-Caribbean",
+        "latino": "Latin",
+        "ancestral": "Traditional",
+        "modern": "Modern",
+        "iconic": "Iconic"
+      },
+      "main": {
+        "cumbia": "The oldest dance of the Carnival. Smooth, captivating movements full of African, Indigenous, and Spanish history.",
+        "mapale": "Free and energetic Afro-Colombian rhythm. Pure expression.",
+        "garabato": "Folkloric dance with fluid and elegant choreography. Represents the symbolic struggle between life and death."
+      },
+      "more": {
+        "champeta": "Afro-Caribbean rhythm born in Cartagena. Sensual and energetic movements.",
+        "salsa": "The most popular rhythm in Latin America. Elegant steps with contagious energy.",
+        "sonDeNegro": "Ancestral Afro-Colombian dance. Drums, masks, and deep cultural roots.",
+        "bullerengue": "Drum rhythm with female voices. The essence of the Colombian Caribbean.",
+        "urbano": "Reggaeton, dancehall, and modern styles. The fusion of the Caribbean with the contemporary.",
+        "marimondas": "The dance of the Carnival's iconic character. Pure joy, freedom, and rebellion."
+      }
+    },
+    "Classes": {
+      "tagline": "Programs",
+      "title": {
+        "line1": "Classes for",
+        "highlight": "all levels."
+      },
+      "viewAll": "View All Schedules",
+      "level": "Level",
+      "register": "Register",
+      "items": {
+        "beginner": "Beginner",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced",
+        "kids": "Kids 5-12"
+      },
+      "instructors": {
+        "mayra": "Mayra Rincón",
+        "marilyn": "Marilyn Gallardo",
+        "team": "Pro Team",
+        "kids": "Kids Team"
+      },
+      "schedule": {
+        "monWed": "Mon & Wed",
+        "tueThu": "Tue & Thu",
+        "saturday": "Saturdays",
+        "fridayKids": "Fridays 5pm"
+      }
+    },
+    "Features": {
+      "tagline": "Why us",
+      "title": {
+        "line1": "The difference",
+        "line2": "is in the",
+        "highlight": "details"
+      },
+      "items": {
+        "0": {
+          "title": "Certified Instructors",
+          "desc": "Over 15 years of experience dancing in the Carnival of Barranquilla."
+        },
+        "1": {
+          "title": "Authentic Classes",
+          "desc": "Learn the dances exactly as they are taught in Colombia."
+        },
+        "2": {
+          "title": "Vibrant Community",
+          "desc": "Join a family of over 200 passionate students."
+        }
+      }
+    },
+    "FinalCTA": {
+      "badge": "✨ Limited Spots",
+      "title": {
+        "line1": "Ready to",
+        "highlight": "dance?"
+      },
+      "subtitle": "Join today and feel the energy of the world's largest Carnival.",
+      "primary": "🎉 Register Now",
+      "secondary": "Talk to us"
+    }
+  },
+  "ClassesPage": {
+    "hero": {
+      "title": "Our Classes",
+      "subtitle": "Find the perfect class for you and start your Carnival journey"
+    },
+    "filterByLevel": "Filter by Level:",
+    "levels": {
+      "all": "All",
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "kids": "Kids",
+      "adults": "Adults"
+    },
+    "showing": "Showing {count} of {total} classes",
+    "noClasses": "No classes available at this level.",
+    "whyJoin": {
+      "title": "Why Join Us?",
+      "items": {
+        "instructors": {
+          "title": "Professional Instructors",
+          "desc": "Teachers with years of experience in the Carnival of Barranquilla"
+        },
+        "community": {
+          "title": "Vibrant Community",
+          "desc": "Meet people passionate about Colombian culture"
+        },
+        "performance": {
+          "title": "Performance Opportunities",
+          "desc": "Participate in local events and performances"
+        },
+        "health": {
+          "title": "Health Benefits",
+          "desc": "Improve your coordination, flexibility, and physical fitness"
+        },
+        "education": {
+          "title": "Cultural Education",
+          "desc": "Learn about the history and traditions of the Carnival"
+        },
+        "music": {
+          "title": "Authentic Music",
+          "desc": "Dance to traditional Colombian rhythms"
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": {
+        "experience": {
+          "q": "Do I need previous experience?",
+          "a": "No, we have classes for all levels from beginners to advanced."
+        },
+        "cost": {
+          "q": "What is the cost of the classes?",
+          "a": "Contact us by phone or email to learn about prices and payment options."
+        },
+        "trial": {
+          "q": "Can I take a trial class?",
+          "a": "Yes, we offer a free trial class for new students."
+        },
+        "summer": {
+          "q": "Are there classes during the summer?",
+          "a": "Yes, we offer special programs during the summer. Check the calendar."
+        }
+      }
+    }
+  },
+  "Team": {
+    "directors": {
+      "tagline": "Leadership",
+      "title": {
+        "line1": "Our",
+        "highlight": "directors"
+      },
+      "subtitle": "The visionary co-founders behind Carnaval BA Utah. They lead the way to preserve Colombian culture in the United States."
+    },
+    "choreographers": {
+      "tagline": "The art of movement",
+      "title": {
+        "line1": "Our",
+        "highlight": "choreographers"
+      },
+      "subtitle": "The creative talent that transforms every step into an unforgettable experience."
+    },
+    "badges": {
+      "director": "⭐ Director",
+      "choreographer": "🎬 Choreographer"
+    },
+    "yearsBadge": "{years}+ years",
+    "specialties": "Specialties",
+    "areas": "Areas",
+    "achievements": "Achievements",
+    "cta": {
+      "question": "✨ Are you a professional choreographer?",
+      "subtitle": "We're always looking for talent. Contact us to join the team."
+    }
+  },
+  "GalleryPage": {
+    "hero": {
+      "title": "Gallery",
+      "subtitle": "Relive the most colorful moments of our performances and events"
+    },
+    "filterByEvent": "Filter by Event:",
+    "showing": "Showing {count} of {total} items",
+    "stats": {
+      "events": "Events",
+      "photos": "Photos",
+      "videos": "Videos",
+      "since": "Since"
+    },
+    "subscribe": {
+      "title": "Want More Updates?",
+      "subtitle": "Subscribe to our newsletter to receive exclusive photos and videos from our events",
+      "placeholder": "Your email",
+      "button": "Subscribe"
+    },
+    "media": {
+      "video": "🎬 Video",
+      "photo": "📷 Photo"
+    }
+  },
+  "BlogPage": {
+    "hero": {
+      "title": "Blog",
+      "subtitle": "Stories, guides, and news from the world of the Carnival of Barranquilla"
+    },
+    "search": "Search articles...",
+    "categories": {
+      "all": "All"
+    },
+    "by": "By",
+    "readMore": "Read More",
+    "minRead": "min read",
+    "newsletter": {
+      "title": "Get News",
+      "subtitle": "Subscribe to our newsletter to receive stories, guides, and event updates",
+      "placeholder": "Your email",
+      "button": "Subscribe"
+    },
+    "noResults": "No articles found with these criteria."
+  },
+  "StorePage": {
+    "hero": {
+      "title": "Store",
+      "subtitle": "Authentic products from the Carnival of Barranquilla"
+    },
+    "filterByCategory": "Category:",
+    "addToCart": "Add to Cart",
+    "viewCart": "View Cart",
+    "cart": "Cart",
+    "empty": "Your cart is empty",
+    "checkout": "Checkout",
+    "total": "Total",
+    "remove": "Remove",
+    "categories": {
+      "all": "All",
+      "costumes": "Costumes",
+      "accessories": "Accessories",
+      "tickets": "Tickets"
+    },
+    "currency": "USD"
+  },
+  "ContactPage": {
+    "hero": {
+      "title": "Contact",
+      "subtitle": "Get in touch with us. We'll respond as soon as possible."
+    },
+    "form": {
+      "title": "Send us a message",
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "subjectOptions": {
+        "info": "General Information",
+        "classes": "About the Classes",
+        "events": "Private Events",
+        "other": "Other"
+      },
+      "message": "Message",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent! We'll respond soon.",
+      "error": "There was an error. Please try again."
+    },
+    "info": {
+      "title": "Contact Information",
+      "address": "West Valley City, Utah",
+      "hours": "Mon-Sat 9am-9pm",
+      "social": "Follow us"
+    }
+  },
+  "RegisterPage": {
+    "hero": {
+      "title": "Register Today",
+      "subtitle": "Complete the form and join our dance community"
+    },
+    "loading": "Loading form...",
+    "form": {
+      "title": "Student Information",
+      "fullName": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "age": "Age",
+      "level": "Level",
+      "danceClass": "Desired Class",
+      "experience": "Previous experience (optional)",
+      "comments": "Additional comments",
+      "submit": "Register",
+      "submitting": "Processing...",
+      "success": "Registration submitted successfully! We'll contact you soon.",
+      "error": "There was an error. Please try again."
+    }
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "Languages": {
+    "selector": "Language",
+    "es": "Español",
+    "en": "English"
+  }
+}

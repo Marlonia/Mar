@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 export default function ContactoPage() {
+  const t = useTranslations('ContactPage');
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -36,12 +38,10 @@ export default function ContactoPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-carnival-green to-carnival-red text-white py-16">
+      <section className="bg-gradient-to-r from-carnival-green to-carnival-red text-white pt-32 pb-16">
         <div className="container-max">
-          <h1 className="text-5xl font-display font-bold mb-4">Contacto</h1>
-          <p className="text-xl text-white/90">
-            Ponte en contacto con nosotros. Te responderemos lo antes posible.
-          </p>
+          <h1 className="text-5xl font-display font-bold mb-4">{t('hero.title')}</h1>
+          <p className="text-xl text-white/90">{t('hero.subtitle')}</p>
         </div>
       </section>
 

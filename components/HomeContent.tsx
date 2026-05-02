@@ -1,221 +1,11 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { MAIN_DANCES, SECONDARY_DANCES, MARIMONDA_CARD, type DanceVisual } from '@/lib/site-content';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 
-/**
- * Imagen con fallback automático si falla la carga.
- */
-function SafeImage({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
-  const [error, setError] = useState(false);
-  if (error) return null;
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      fill
-      sizes="(max-width: 768px) 100vw, 50vw"
-      className={`object-cover ${className}`}
-      onError={() => setError(true)}
-    />
-  );
-}
-
-/**
- * Card de danza principal (las 3 grandes).
- */
-function MainDanceCard({ dance, variant }: { dance: DanceVisual; variant: 'large' | 'tall' | 'wide' }) {
-  const [imageError, setImageError] = useState(false);
-  const showImage = dance.image && !imageError;
-
-  if (variant === 'large') {
-    return (
-      <div className="md:col-span-7 group cursor-pointer animate-slide-left">
-        <div className={`relative h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br ${dance.bg} shadow-2xl hover-lift`}>
-          {showImage && (
-            <Image
-              src={dance.image!}
-              alt={dance.name}
-              fill
-              sizes="(max-width: 768px) 100vw, 60vw"
-              className="object-cover"
-              onError={() => setImageError(true)}
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-          {!showImage && <div className="absolute inset-0 mesh-gradient-2 opacity-50"></div>}
-          {!showImage && (
-            <div className="absolute top-0 right-0 text-[20rem] opacity-20 leading-none -mr-12 -mt-12">{dance.emoji}</div>
-          )}
-          <div className="relative z-10 p-12 h-full flex flex-col justify-between">
-            <div>
-              <span className="inline-block px-4 py-2 bg-carnival-darkBg text-carnival-yellow font-accent text-xs uppercase tracking-widest rounded-full">
-                {dance.badge}
-              </span>
-            </div>
-            <div>
-              <h3 className="font-massive text-8xl md:text-9xl text-white drop-shadow-2xl group-hover:translate-x-4 transition-transform duration-500">
-                {dance.name}
-              </h3>
-              <p className="text-white text-lg mt-4 max-w-md font-accent">{dance.description}</p>
-              <div className="mt-6 flex items-center gap-4 text-white">
-                <span className="font-accent text-sm">Aprender {dance.name.charAt(0) + dance.name.slice(1).toLowerCase()}</span>
-                <div className="w-12 h-[2px] bg-white group-hover:w-24 transition-all duration-500"></div>
-                <span className="text-2xl group-hover:translate-x-2 transition-transform duration-500">→</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (variant === 'tall') {
-    return (
-      <div className="md:col-span-5 group cursor-pointer animate-slide-right">
-        <div className={`relative h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br ${dance.bg} shadow-2xl hover-lift`}>
-          {showImage && (
-            <Image
-              src={dance.image!}
-              alt={dance.name}
-              fill
-              sizes="(max-width: 768px) 100vw, 40vw"
-              className="object-cover"
-              onError={() => setImageError(true)}
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-          {!showImage && (
-            <div className="absolute top-0 right-0 text-[15rem] opacity-20 leading-none -mr-8 -mt-8">{dance.emoji}</div>
-          )}
-          <div className="relative z-10 p-12 h-full flex flex-col justify-between">
-            <div>
-              <span className="inline-block px-4 py-2 bg-carnival-darkBg text-carnival-red font-accent text-xs uppercase tracking-widest rounded-full">
-                {dance.badge}
-              </span>
-            </div>
-            <div>
-              <h3 className="font-massive text-7xl md:text-8xl text-white drop-shadow-2xl group-hover:translate-x-4 transition-transform duration-500">
-                {dance.name}
-              </h3>
-              <p className="text-white text-base mt-4 font-accent">{dance.description}</p>
-              <div className="mt-6 flex items-center gap-4 text-white">
-                <span className="font-accent text-sm">Empezar</span>
-                <div className="w-12 h-[2px] bg-white group-hover:w-24 transition-all duration-500"></div>
-                <span className="text-2xl group-hover:translate-x-2 transition-transform duration-500">→</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // variant === 'wide'
-  return (
-    <div className="md:col-span-12 group cursor-pointer animate-slide-up">
-      <div className={`relative h-[400px] rounded-3xl overflow-hidden bg-gradient-to-br ${dance.bg} shadow-2xl hover-lift`}>
-        {showImage && (
-          <Image
-            src={dance.image!}
-            alt={dance.name}
-            fill
-            sizes="100vw"
-            className="object-cover"
-            onError={() => setImageError(true)}
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
-        {!showImage && (
-          <>
-            <div className="absolute -top-20 right-1/4 text-[20rem] opacity-15 leading-none">{dance.emoji}</div>
-            <div className="absolute bottom-0 left-1/4 text-[15rem] opacity-15 leading-none -mb-12">🎭</div>
-          </>
-        )}
-        <div className="relative z-10 p-12 h-full flex items-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full items-center">
-            <div>
-              <span className="inline-block px-4 py-2 bg-carnival-darkBg text-carnival-green font-accent text-xs uppercase tracking-widest rounded-full mb-6">
-                {dance.badge}
-              </span>
-              <h3 className="font-massive text-7xl md:text-9xl text-white drop-shadow-2xl group-hover:translate-x-4 transition-transform duration-500">
-                {dance.name}
-              </h3>
-            </div>
-            <div>
-              <p className="text-white text-lg leading-relaxed font-accent">{dance.description}</p>
-              <div className="mt-6 flex items-center gap-4 text-white">
-                <span className="font-accent text-sm">Conocer más</span>
-                <div className="w-12 h-[2px] bg-white group-hover:w-24 transition-all duration-500"></div>
-                <span className="text-2xl group-hover:translate-x-2 transition-transform duration-500">→</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/**
- * Card de danza secundaria (las 6 más pequeñas).
- */
-function SecondaryDanceCard({ dance, index }: { dance: DanceVisual; index: number }) {
-  const [imageError, setImageError] = useState(false);
-  const showImage = dance.image && !imageError;
-
-  return (
-    <div
-      className="group cursor-pointer animate-slide-up"
-      style={{ animationDelay: `${index * 0.08}s` }}
-    >
-      <div className={`relative h-[320px] rounded-3xl overflow-hidden bg-gradient-to-br ${dance.bg} shadow-2xl hover-lift`}>
-        {showImage && (
-          <Image
-            src={dance.image!}
-            alt={dance.name}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover"
-            onError={() => setImageError(true)}
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent"></div>
-        {!showImage && (
-          <>
-            <div className="absolute -top-6 -right-6 text-[12rem] opacity-15 leading-none rotate-12 group-hover:rotate-0 transition-transform duration-700">
-              {dance.emoji}
-            </div>
-            <div className="absolute inset-0 mesh-gradient-2 opacity-20"></div>
-          </>
-        )}
-        <div className="relative z-10 p-8 h-full flex flex-col justify-between">
-          <div className="flex items-center justify-between">
-            <span className="inline-block px-3 py-1 bg-carnival-darkBg/80 backdrop-blur-sm text-white font-accent text-[10px] uppercase tracking-widest rounded-full">
-              {dance.badge}
-            </span>
-            <span className="text-3xl group-hover:scale-125 transition-transform duration-500">{dance.emoji}</span>
-          </div>
-          <div>
-            <h3 className="font-massive text-4xl md:text-5xl text-white drop-shadow-2xl leading-none group-hover:translate-x-2 transition-transform duration-500">
-              {dance.name}
-            </h3>
-            <p className="text-white/90 text-sm mt-3 font-accent leading-relaxed">{dance.description}</p>
-            <div className="mt-4 flex items-center gap-3 text-white">
-              <span className="font-accent text-xs uppercase tracking-widest">Ver más</span>
-              <div className="w-8 h-[1px] bg-white group-hover:w-16 transition-all duration-500"></div>
-              <span className="text-lg group-hover:translate-x-1 transition-transform duration-500">→</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default function Home() {
+export default function HomeContent() {
+  const t = useTranslations('Home');
   const [scrollY, setScrollY] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLDivElement>(null);
@@ -249,7 +39,10 @@ export default function Home() {
       />
 
       {/* ============= HERO SECTION ============= */}
-      <section ref={heroRef} className="relative min-h-screen mesh-gradient-1 overflow-hidden flex items-center">
+      <section
+        ref={heroRef}
+        className="relative min-h-screen mesh-gradient-1 overflow-hidden flex items-center"
+      >
         {/* Animated Blobs */}
         <div className="absolute inset-0 overflow-hidden">
           <div
@@ -266,61 +59,55 @@ export default function Home() {
           />
         </div>
 
-        {/* Grid pattern overlay */}
         <div
           className="absolute inset-0 opacity-10"
           style={{
-            backgroundImage: 'linear-gradient(rgba(255,198,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,198,0,0.3) 1px, transparent 1px)',
+            backgroundImage:
+              'linear-gradient(rgba(255,198,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,198,0,0.3) 1px, transparent 1px)',
             backgroundSize: '50px 50px',
           }}
         />
 
-        {/* Floating elements */}
         <div className="absolute top-1/4 left-10 text-6xl animate-float opacity-30 hidden lg:block">🎭</div>
         <div className="absolute top-1/3 right-20 text-5xl animate-float-reverse opacity-30 hidden lg:block">🎉</div>
         <div className="absolute bottom-1/4 left-1/4 text-4xl animate-float opacity-30 hidden lg:block" style={{ animationDelay: '1s' }}>💃</div>
         <div className="absolute top-2/3 right-1/3 text-5xl animate-float-reverse opacity-30 hidden lg:block" style={{ animationDelay: '2s' }}>🎶</div>
 
-        {/* Content */}
         <div className="relative z-10 container-max py-20">
           <div className="max-w-6xl mx-auto">
-            {/* Top tagline */}
             <div className="flex items-center gap-3 mb-8 animate-slide-down">
               <div className="h-[2px] w-12 bg-gradient-to-r from-carnival-yellow to-carnival-red"></div>
               <span className="font-accent font-bold text-carnival-yellow tracking-widest text-sm uppercase">
-                Carnaval de Barranquilla • Utah 2026
+                {t('tagline')}
               </span>
             </div>
 
-            {/* Massive title */}
             <div className="space-y-2 animate-slide-up">
               <h1 className="font-massive text-7xl md:text-9xl lg:text-[12rem] text-white leading-none">
-                <span className="block gradient-text-animated">DANZA</span>
-                <span className="block text-stroke">CARNAVAL</span>
-                <span className="block text-white">PASIÓN.</span>
+                <span className="block gradient-text-animated">{t('title.line1')}</span>
+                <span className="block text-stroke">{t('title.line2')}</span>
+                <span className="block text-white">{t('title.line3')}</span>
               </h1>
             </div>
 
-            {/* Subtitle */}
             <div className="mt-12 max-w-2xl animate-slide-up" style={{ animationDelay: '0.3s' }}>
               <p className="text-lg md:text-2xl text-white/80 font-light leading-relaxed">
-                Vive la cultura colombiana en Utah. Aprende las danzas tradicionales del carnaval más grande del mundo con nuestros instructores expertos.
+                {t('subtitle')}
               </p>
             </div>
 
-            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mt-12 animate-slide-up" style={{ animationDelay: '0.5s' }}>
               <Link
                 href="/inscripcion"
                 className="group relative px-10 py-5 bg-carnival-yellow text-carnival-darkBg font-accent font-bold text-lg rounded-full overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl"
               >
                 <span className="relative z-10 flex items-center gap-3">
-                  Empezar Ahora
+                  {t('ctaPrimary')}
                   <span className="text-2xl transition-transform duration-500 group-hover:translate-x-2">→</span>
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-carnival-red to-carnival-green transform translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
                 <span className="absolute inset-0 flex items-center justify-center text-white font-accent font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
-                  ¡Vamos!
+                  {t('ctaPrimaryHover')}
                 </span>
               </Link>
 
@@ -329,32 +116,32 @@ export default function Home() {
                 className="group px-10 py-5 glass-effect rounded-full text-white font-accent font-bold text-lg hover:bg-white/10 transition-all duration-500"
               >
                 <span className="flex items-center gap-3">
-                  Ver Clases
+                  {t('ctaSecondary')}
                   <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-sm transition-transform duration-500 group-hover:rotate-45">↗</span>
                 </span>
               </Link>
             </div>
 
-            {/* Stats inline */}
             <div className="grid grid-cols-3 gap-8 mt-20 max-w-2xl animate-slide-up" style={{ animationDelay: '0.7s' }}>
               {[
-                { num: '200+', label: 'Estudiantes' },
-                { num: '50+', label: 'Eventos' },
-                { num: '15+', label: 'Años' },
+                { num: '200+', key: 'students' },
+                { num: '50+', key: 'events' },
+                { num: '15+', key: 'years' },
               ].map((stat) => (
-                <div key={stat.label} className="border-l-2 border-carnival-yellow pl-4">
+                <div key={stat.key} className="border-l-2 border-carnival-yellow pl-4">
                   <div className="font-massive text-4xl md:text-5xl gradient-text">{stat.num}</div>
-                  <div className="text-xs md:text-sm text-white/70 font-accent uppercase tracking-wider mt-1">{stat.label}</div>
+                  <div className="text-xs md:text-sm text-white/70 font-accent uppercase tracking-wider mt-1">
+                    {t(`stats.${stat.key}` as 'stats.students')}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
           <div className="flex flex-col items-center gap-2">
-            <span className="text-white/60 font-accent text-xs uppercase tracking-widest">Scroll</span>
+            <span className="text-white/60 font-accent text-xs uppercase tracking-widest">{t('scroll')}</span>
             <div className="w-[2px] h-12 bg-gradient-to-b from-carnival-yellow to-transparent overflow-hidden relative">
               <div className="absolute inset-x-0 top-0 h-1/3 bg-white animate-pulse-soft"></div>
             </div>
@@ -394,7 +181,6 @@ export default function Home() {
 
       {/* ============= ABOUT SECTION ============= */}
       <section className="relative py-32 bg-carnival-darkBg overflow-hidden">
-        {/* Background pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-20 left-20 w-96 h-96 border-4 border-carnival-yellow rounded-full animate-spin-slow"></div>
           <div className="absolute bottom-20 right-20 w-64 h-64 border-4 border-carnival-red rounded-full animate-spin-medium"></div>
@@ -402,66 +188,62 @@ export default function Home() {
 
         <div className="container-max relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left: Big text */}
             <div className="lg:col-span-7 space-y-8 animate-slide-left">
               <div className="flex items-center gap-3">
                 <div className="h-[2px] w-12 bg-carnival-yellow"></div>
-                <span className="font-accent font-bold text-carnival-yellow tracking-widest text-sm uppercase">Nuestra Historia</span>
+                <span className="font-accent font-bold text-carnival-yellow tracking-widest text-sm uppercase">
+                  {t('About.tagline')}
+                </span>
               </div>
 
               <h2 className="font-massive text-6xl md:text-8xl text-white leading-none">
-                Una <span className="gradient-text">tradición</span><br />
-                que <span className="text-stroke">danza</span><br />
-                desde 2022.
+                {t('About.title.part1')} <span className="gradient-text">{t('About.title.highlight1')}</span>
+                <br />
+                {t('About.title.part2')} <span className="text-stroke">{t('About.title.highlight2')}</span>
+                <br />
+                {t('About.title.part3')}
               </h2>
 
               <p className="text-lg text-white/70 leading-relaxed max-w-2xl">
-                Fundada por <span className="text-carnival-yellow font-bold">Mayra Rincón</span> y <span className="text-carnival-red font-bold">Marilyn Gallardo</span>, somos la única academia en Utah que preserva las danzas auténticas del Carnaval de Barranquilla, declarado Patrimonio Cultural de la Humanidad por la UNESCO.
+                {t.rich('About.description', {
+                  directors: (chunks) => (
+                    <span>
+                      <span className="text-carnival-yellow font-bold">{chunks}</span>
+                    </span>
+                  ),
+                })}
               </p>
 
               <div className="flex flex-wrap gap-4">
                 <div className="glass-effect px-6 py-3 rounded-full">
-                  <span className="text-white font-accent text-sm">🇨🇴 Colombiano Auténtico</span>
+                  <span className="text-white font-accent text-sm">{t('About.tags.authentic')}</span>
                 </div>
                 <div className="glass-effect px-6 py-3 rounded-full">
-                  <span className="text-white font-accent text-sm">🏆 UNESCO Heritage</span>
+                  <span className="text-white font-accent text-sm">{t('About.tags.unesco')}</span>
                 </div>
                 <div className="glass-effect px-6 py-3 rounded-full">
-                  <span className="text-white font-accent text-sm">⭐ Top Rated</span>
+                  <span className="text-white font-accent text-sm">{t('About.tags.rated')}</span>
                 </div>
               </div>
             </div>
 
-            {/* Right: Visual card */}
             <div className="lg:col-span-5 animate-slide-right">
               <div className="relative">
-                {/* Background decorative cards */}
                 <div className="absolute -top-6 -left-6 w-full h-full bg-carnival-red rounded-3xl rotate-3 opacity-80"></div>
                 <div className="absolute -bottom-6 -right-6 w-full h-full bg-carnival-green rounded-3xl -rotate-3 opacity-80"></div>
 
-                {/* Main card */}
-                <div className="relative bg-gradient-to-br from-carnival-yellow via-carnival-red to-carnival-green rounded-3xl overflow-hidden shadow-2xl min-h-[400px]">
-                  {MARIMONDA_CARD.image && (
-                    <SafeImage
-                      src={MARIMONDA_CARD.image}
-                      alt="Marimonda - Carnaval de Barranquilla"
-                      className="absolute inset-0"
-                    />
-                  )}
-                  {/* Overlay para legibilidad */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-                  <div className="absolute inset-0 mesh-gradient-2 opacity-20"></div>
-
-                  <div className="relative z-10 p-12 text-center space-y-6 h-full flex flex-col justify-center">
-                    {!MARIMONDA_CARD.image && (
-                      <div className="inline-block">
-                        <div className="text-9xl animate-float">{MARIMONDA_CARD.emoji}</div>
-                      </div>
-                    )}
-                    <h3 className="font-massive text-5xl text-white drop-shadow-2xl">{MARIMONDA_CARD.title}</h3>
+                <div className="relative bg-gradient-to-br from-carnival-yellow via-carnival-red to-carnival-green rounded-3xl p-12 overflow-hidden shadow-2xl">
+                  <div className="absolute inset-0 mesh-gradient-2 opacity-30"></div>
+                  <div className="relative z-10 text-center space-y-6">
+                    <div className="inline-block">
+                      <div className="text-9xl animate-float">🎭</div>
+                    </div>
+                    <h3 className="font-massive text-5xl text-white drop-shadow-2xl">
+                      {t('About.marimondaName')}
+                    </h3>
                     <div className="h-1 w-20 bg-white mx-auto rounded-full"></div>
                     <p className="text-white text-lg leading-relaxed font-accent">
-                      {MARIMONDA_CARD.description}
+                      {t('About.marimondaDescription')}
                     </p>
                     <div className="flex justify-center gap-2 pt-4">
                       <span className="w-3 h-3 bg-white rounded-full animate-pulse-soft"></span>
@@ -479,40 +261,188 @@ export default function Home() {
       {/* ============= DANCES SECTION ============= */}
       <section className="relative py-32 bg-gradient-to-b from-carnival-darkBg to-black overflow-hidden">
         <div className="container-max">
-          {/* Section header */}
           <div className="max-w-4xl mb-20 animate-slide-up">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-[2px] w-12 bg-carnival-red"></div>
-              <span className="font-accent font-bold text-carnival-red tracking-widest text-sm uppercase">Las Danzas</span>
+              <span className="font-accent font-bold text-carnival-red tracking-widest text-sm uppercase">
+                {t('Dances.tagline')}
+              </span>
             </div>
             <h2 className="font-massive text-6xl md:text-8xl text-white leading-none">
-              Nueve ritmos.<br />
-              <span className="gradient-text-animated">Una sola pasión.</span>
+              {t('Dances.title.line1')}
+              <br />
+              <span className="gradient-text-animated">{t('Dances.title.line2')}</span>
             </h2>
-            <p className="text-lg md:text-xl text-white/70 mt-6 max-w-2xl">
-              Desde lo más tradicional hasta lo urbano. Te enseñamos toda la riqueza de la cultura caribeña colombiana.
-            </p>
+            <p className="text-lg md:text-xl text-white/70 mt-6 max-w-2xl">{t('Dances.subtitle')}</p>
           </div>
 
-          {/* Dance cards - asymmetric layout */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            <MainDanceCard dance={MAIN_DANCES[0]} variant="large" />
-            <MainDanceCard dance={MAIN_DANCES[1]} variant="tall" />
-            <MainDanceCard dance={MAIN_DANCES[2]} variant="wide" />
+            {/* CUMBIA */}
+            <div className="md:col-span-7 group cursor-pointer animate-slide-left">
+              <div className="relative h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br from-carnival-yellow via-amber-500 to-orange-600 shadow-2xl hover-lift">
+                <div className="absolute inset-0 mesh-gradient-2 opacity-50"></div>
+                <div className="absolute top-0 right-0 text-[20rem] opacity-20 leading-none -mr-12 -mt-12">💃</div>
+                <div className="relative z-10 p-12 h-full flex flex-col justify-between">
+                  <div>
+                    <span className="inline-block px-4 py-2 bg-carnival-darkBg text-carnival-yellow font-accent text-xs uppercase tracking-widest rounded-full">
+                      {t('Dances.badges.traditional')}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="font-massive text-8xl md:text-9xl text-white drop-shadow-2xl group-hover:translate-x-4 transition-transform duration-500">
+                      CUMBIA
+                    </h3>
+                    <p className="text-white text-lg mt-4 max-w-md font-accent">{t('Dances.main.cumbia')}</p>
+                    <div className="mt-6 flex items-center gap-4 text-white">
+                      <span className="font-accent text-sm">{t('Dances.actions.learn')}</span>
+                      <div className="w-12 h-[2px] bg-white group-hover:w-24 transition-all duration-500"></div>
+                      <span className="text-2xl group-hover:translate-x-2 transition-transform duration-500">→</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* MAPALÉ */}
+            <div className="md:col-span-5 group cursor-pointer animate-slide-right">
+              <div className="relative h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br from-carnival-red via-pink-600 to-rose-700 shadow-2xl hover-lift">
+                <div className="absolute top-0 right-0 text-[15rem] opacity-20 leading-none -mr-8 -mt-8">🎶</div>
+                <div className="relative z-10 p-12 h-full flex flex-col justify-between">
+                  <div>
+                    <span className="inline-block px-4 py-2 bg-carnival-darkBg text-carnival-red font-accent text-xs uppercase tracking-widest rounded-full">
+                      {t('Dances.badges.energetic')}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="font-massive text-7xl md:text-8xl text-white drop-shadow-2xl group-hover:translate-x-4 transition-transform duration-500">
+                      MAPALÉ
+                    </h3>
+                    <p className="text-white text-base mt-4 font-accent">{t('Dances.main.mapale')}</p>
+                    <div className="mt-6 flex items-center gap-4 text-white">
+                      <span className="font-accent text-sm">{t('Dances.actions.start')}</span>
+                      <div className="w-12 h-[2px] bg-white group-hover:w-24 transition-all duration-500"></div>
+                      <span className="text-2xl group-hover:translate-x-2 transition-transform duration-500">→</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* GARABATO */}
+            <div className="md:col-span-12 group cursor-pointer animate-slide-up">
+              <div className="relative h-[400px] rounded-3xl overflow-hidden bg-gradient-to-br from-carnival-green via-emerald-600 to-teal-700 shadow-2xl hover-lift">
+                <div className="absolute -top-20 right-1/4 text-[20rem] opacity-15 leading-none">🎄</div>
+                <div className="absolute bottom-0 left-1/4 text-[15rem] opacity-15 leading-none -mb-12">🎭</div>
+                <div className="relative z-10 p-12 h-full flex items-center">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full items-center">
+                    <div>
+                      <span className="inline-block px-4 py-2 bg-carnival-darkBg text-carnival-green font-accent text-xs uppercase tracking-widest rounded-full mb-6">
+                        {t('Dances.badges.folkloric')}
+                      </span>
+                      <h3 className="font-massive text-7xl md:text-9xl text-white drop-shadow-2xl group-hover:translate-x-4 transition-transform duration-500">
+                        GARABATO
+                      </h3>
+                    </div>
+                    <div>
+                      <p className="text-white text-lg leading-relaxed font-accent">{t('Dances.main.garabato')}</p>
+                      <div className="mt-6 flex items-center gap-4 text-white">
+                        <span className="font-accent text-sm">{t('Dances.actions.knowMore')}</span>
+                        <div className="w-12 h-[2px] bg-white group-hover:w-24 transition-all duration-500"></div>
+                        <span className="text-2xl group-hover:translate-x-2 transition-transform duration-500">→</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* === Más Danzas - Grid 3x2 === */}
+          {/* === Más Danzas === */}
           <div className="mt-24">
             <div className="flex items-center gap-3 mb-10 animate-slide-up">
               <div className="h-[2px] w-12 bg-carnival-yellow"></div>
               <span className="font-accent font-bold text-carnival-yellow tracking-widest text-sm uppercase">
-                Y mucho más
+                {t('Dances.moreTagline')}
               </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {SECONDARY_DANCES.map((dance, i) => (
-                <SecondaryDanceCard key={dance.id} dance={dance} index={i} />
+              {[
+                {
+                  name: 'CHAMPETA',
+                  emoji: '🎵',
+                  desc: t('Dances.more.champeta'),
+                  badge: t('Dances.badges.afroCaribbean'),
+                  bg: 'from-orange-500 via-red-600 to-pink-700',
+                },
+                {
+                  name: 'SALSA',
+                  emoji: '💋',
+                  desc: t('Dances.more.salsa'),
+                  badge: t('Dances.badges.latino'),
+                  bg: 'from-rose-500 via-fuchsia-600 to-purple-700',
+                },
+                {
+                  name: 'SON DE NEGRO',
+                  emoji: '🥁',
+                  desc: t('Dances.more.sonDeNegro'),
+                  badge: t('Dances.badges.ancestral'),
+                  bg: 'from-amber-700 via-orange-800 to-red-900',
+                },
+                {
+                  name: 'BULLERENGUE',
+                  emoji: '🌊',
+                  desc: t('Dances.more.bullerengue'),
+                  badge: t('Dances.badges.folkloric'),
+                  bg: 'from-cyan-600 via-blue-700 to-indigo-800',
+                },
+                {
+                  name: 'URBANO',
+                  emoji: '🎤',
+                  desc: t('Dances.more.urbano'),
+                  badge: t('Dances.badges.modern'),
+                  bg: 'from-violet-600 via-purple-700 to-pink-800',
+                },
+                {
+                  name: 'MARIMONDAS',
+                  emoji: '🎭',
+                  desc: t('Dances.more.marimondas'),
+                  badge: t('Dances.badges.iconic'),
+                  bg: 'from-carnival-yellow via-amber-500 to-carnival-red',
+                },
+              ].map((dance, i) => (
+                <div
+                  key={dance.name}
+                  className="group cursor-pointer animate-slide-up"
+                  style={{ animationDelay: `${i * 0.08}s` }}
+                >
+                  <div className={`relative h-[320px] rounded-3xl overflow-hidden bg-gradient-to-br ${dance.bg} shadow-2xl hover-lift`}>
+                    <div className="absolute -top-6 -right-6 text-[12rem] opacity-15 leading-none rotate-12 group-hover:rotate-0 transition-transform duration-700">
+                      {dance.emoji}
+                    </div>
+                    <div className="absolute inset-0 mesh-gradient-2 opacity-20"></div>
+                    <div className="relative z-10 p-8 h-full flex flex-col justify-between">
+                      <div className="flex items-center justify-between">
+                        <span className="inline-block px-3 py-1 bg-carnival-darkBg/80 backdrop-blur-sm text-white font-accent text-[10px] uppercase tracking-widest rounded-full">
+                          {dance.badge}
+                        </span>
+                        <span className="text-3xl group-hover:scale-125 transition-transform duration-500">{dance.emoji}</span>
+                      </div>
+
+                      <div>
+                        <h3 className="font-massive text-4xl md:text-5xl text-white drop-shadow-2xl leading-none group-hover:translate-x-2 transition-transform duration-500">
+                          {dance.name}
+                        </h3>
+                        <p className="text-white/90 text-sm mt-3 font-accent leading-relaxed">{dance.desc}</p>
+                        <div className="mt-4 flex items-center gap-3 text-white">
+                          <span className="font-accent text-xs uppercase tracking-widest">{t('Dances.actions.seeMore')}</span>
+                          <div className="w-8 h-[1px] bg-white group-hover:w-16 transition-all duration-500"></div>
+                          <span className="text-lg group-hover:translate-x-1 transition-transform duration-500">→</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -521,7 +451,6 @@ export default function Home() {
 
       {/* ============= CLASSES SECTION ============= */}
       <section className="relative py-32 bg-black overflow-hidden">
-        {/* Background gradient */}
         <div className="absolute inset-0 opacity-50">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-carnival-yellow rounded-full filter blur-[150px] opacity-20"></div>
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-carnival-red rounded-full filter blur-[150px] opacity-20"></div>
@@ -532,57 +461,50 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-[2px] w-12 bg-carnival-green"></div>
-                <span className="font-accent font-bold text-carnival-green tracking-widest text-sm uppercase">Programas</span>
+                <span className="font-accent font-bold text-carnival-green tracking-widest text-sm uppercase">
+                  {t('Classes.tagline')}
+                </span>
               </div>
               <h2 className="font-massive text-6xl md:text-8xl text-white leading-none">
-                Clases para<br />
-                <span className="gradient-text-animated">todos los niveles.</span>
+                {t('Classes.title.line1')}
+                <br />
+                <span className="gradient-text-animated">{t('Classes.title.highlight')}</span>
               </h2>
             </div>
-            <Link href="/clases" className="hidden md:inline-flex items-center gap-3 text-white font-accent font-bold link-underline">
-              Ver Todos los Horarios
+            <Link
+              href="/clases"
+              className="hidden md:inline-flex items-center gap-3 text-white font-accent font-bold link-underline"
+            >
+              {t('Classes.viewAll')}
               <span className="text-2xl">→</span>
             </Link>
           </div>
 
-          {/* Class cards grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { level: 'Principiante', time: 'Lun & Mié', instructor: 'Mayra Rincón', icon: '🌱', color: 'from-carnival-yellow to-amber-500', accent: 'text-carnival-yellow' },
-              { level: 'Intermedio', time: 'Mar & Jue', instructor: 'Marilyn Gallardo', icon: '🔥', color: 'from-carnival-red to-pink-600', accent: 'text-carnival-red' },
-              { level: 'Avanzado', time: 'Sábados', instructor: 'Equipo Pro', icon: '⭐', color: 'from-carnival-green to-emerald-600', accent: 'text-carnival-green' },
-              { level: 'Niños 5-12', time: 'Viernes 5pm', instructor: 'Equipo Kids', icon: '🎈', color: 'from-purple-500 to-pink-500', accent: 'text-pink-400' },
+              { level: t('Classes.items.beginner'), time: t('Classes.schedule.monWed'), instructor: t('Classes.instructors.mayra'), icon: '🌱', color: 'from-carnival-yellow to-amber-500', accent: 'text-carnival-yellow' },
+              { level: t('Classes.items.intermediate'), time: t('Classes.schedule.tueThu'), instructor: t('Classes.instructors.marilyn'), icon: '🔥', color: 'from-carnival-red to-pink-600', accent: 'text-carnival-red' },
+              { level: t('Classes.items.advanced'), time: t('Classes.schedule.saturday'), instructor: t('Classes.instructors.team'), icon: '⭐', color: 'from-carnival-green to-emerald-600', accent: 'text-carnival-green' },
+              { level: t('Classes.items.kids'), time: t('Classes.schedule.fridayKids'), instructor: t('Classes.instructors.kids'), icon: '🎈', color: 'from-purple-500 to-pink-500', accent: 'text-pink-400' },
             ].map((cls, i) => (
-              <div
-                key={cls.level}
-                className="group relative animate-slide-up"
-                style={{ animationDelay: `${i * 0.1}s` }}
-              >
+              <div key={cls.level} className="group relative animate-slide-up" style={{ animationDelay: `${i * 0.1}s` }}>
                 <div className="relative h-full glass-dark rounded-3xl p-8 overflow-hidden transition-all duration-500 hover:scale-105 hover:border-white/30 border border-white/10">
-                  {/* Hover gradient */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${cls.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-
                   <div className="relative z-10 space-y-4">
                     <div className="text-6xl group-hover:scale-110 transition-transform duration-500">{cls.icon}</div>
                     <div>
                       <div className={`text-xs font-accent uppercase tracking-widest ${cls.accent} group-hover:text-white transition-colors duration-500`}>
-                        Nivel
+                        {t('Classes.level')}
                       </div>
                       <h4 className="font-display text-2xl font-bold text-white mt-1">{cls.level}</h4>
                     </div>
                     <div className="space-y-2 text-white/70 group-hover:text-white text-sm font-accent transition-colors duration-500">
-                      <div className="flex items-center gap-2">
-                        <span>⏰</span>
-                        <span>{cls.time}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span>👨‍🏫</span>
-                        <span>{cls.instructor}</span>
-                      </div>
+                      <div className="flex items-center gap-2"><span>⏰</span><span>{cls.time}</span></div>
+                      <div className="flex items-center gap-2"><span>👨‍🏫</span><span>{cls.instructor}</span></div>
                     </div>
                     <div className="pt-4 border-t border-white/10 group-hover:border-white/30 transition-colors duration-500">
                       <Link href="/inscripcion" className="flex items-center justify-between text-white font-accent font-bold text-sm">
-                        Inscribirse
+                        {t('Classes.register')}
                         <span className="w-8 h-8 rounded-full bg-white/10 group-hover:bg-white flex items-center justify-center group-hover:text-carnival-darkBg transition-all duration-500 group-hover:rotate-45">
                           ↗
                         </span>
@@ -594,46 +516,44 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Mobile CTA */}
           <div className="text-center mt-12 md:hidden">
-            <Link href="/clases" className="btn-primary">
-              Ver Todos los Horarios
-            </Link>
+            <Link href="/clases" className="btn-primary">{t('Classes.viewAll')}</Link>
           </div>
         </div>
       </section>
 
-      {/* ============= TESTIMONIALS / FEATURES ============= */}
+      {/* ============= FEATURES ============= */}
       <section className="relative py-32 bg-gradient-to-b from-black to-carnival-darkBg overflow-hidden">
         <div className="container-max">
           <div className="text-center max-w-4xl mx-auto mb-16 animate-slide-up">
             <div className="flex items-center justify-center gap-3 mb-6">
               <div className="h-[2px] w-12 bg-carnival-yellow"></div>
-              <span className="font-accent font-bold text-carnival-yellow tracking-widest text-sm uppercase">Por qué nosotros</span>
+              <span className="font-accent font-bold text-carnival-yellow tracking-widest text-sm uppercase">
+                {t('Features.tagline')}
+              </span>
               <div className="h-[2px] w-12 bg-carnival-yellow"></div>
             </div>
             <h2 className="font-massive text-5xl md:text-7xl text-white leading-none">
-              La diferencia<br />
-              está en el <span className="gradient-text">detalle</span>.
+              {t('Features.title.line1')}
+              <br />
+              {t('Features.title.line2')} <span className="gradient-text">{t('Features.title.highlight')}</span>.
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { num: '01', title: 'Instructores Certificados', desc: 'Más de 15 años de experiencia bailando en el Carnaval de Barranquilla.' },
-              { num: '02', title: 'Clases Auténticas', desc: 'Aprende las danzas exactamente como se enseñan en Colombia.' },
-              { num: '03', title: 'Comunidad Vibrante', desc: 'Únete a una familia de más de 200 estudiantes apasionados.' },
-            ].map((item, i) => (
+            {(['0', '1', '2'] as const).map((idx, i) => (
               <div
-                key={item.num}
+                key={idx}
                 className="group relative p-8 glass-effect rounded-3xl hover-lift animate-slide-up"
                 style={{ animationDelay: `${i * 0.15}s` }}
               >
                 <div className="font-massive text-7xl gradient-text mb-4 opacity-50 group-hover:opacity-100 transition-opacity duration-500">
-                  {item.num}
+                  0{i + 1}
                 </div>
-                <h4 className="font-display text-2xl font-bold text-white mb-3">{item.title}</h4>
-                <p className="text-white/70 leading-relaxed">{item.desc}</p>
+                <h4 className="font-display text-2xl font-bold text-white mb-3">
+                  {t(`Features.items.${idx}.title`)}
+                </h4>
+                <p className="text-white/70 leading-relaxed">{t(`Features.items.${idx}.desc`)}</p>
               </div>
             ))}
           </div>
@@ -642,10 +562,7 @@ export default function Home() {
 
       {/* ============= CTA FINAL ============= */}
       <section className="relative py-32 overflow-hidden">
-        {/* Background */}
         <div className="absolute inset-0 mesh-gradient-1"></div>
-
-        {/* Animated blobs */}
         <div className="absolute top-0 left-0 w-96 h-96 bg-carnival-yellow rounded-full mix-blend-screen filter blur-3xl animate-float opacity-40"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-carnival-red rounded-full mix-blend-screen filter blur-3xl animate-float opacity-40" style={{ animationDelay: '2s' }}></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-carnival-green rounded-full mix-blend-screen filter blur-3xl animate-float opacity-40" style={{ animationDelay: '4s' }}></div>
@@ -654,17 +571,18 @@ export default function Home() {
           <div className="max-w-4xl mx-auto space-y-8 animate-zoom-in">
             <div className="inline-block">
               <span className="px-6 py-3 glass-yellow rounded-full text-carnival-yellow font-accent text-sm uppercase tracking-widest">
-                ✨ Cupos Limitados
+                {t('FinalCTA.badge')}
               </span>
             </div>
 
             <h2 className="font-massive text-7xl md:text-9xl text-white leading-none">
-              ¿Listo para<br />
-              <span className="gradient-text-animated">danzar?</span>
+              {t('FinalCTA.title.line1')}
+              <br />
+              <span className="gradient-text-animated">{t('FinalCTA.title.highlight')}</span>
             </h2>
 
             <p className="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto leading-relaxed">
-              Únete hoy y siente la energía del Carnaval más grande del mundo.
+              {t('FinalCTA.subtitle')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
@@ -673,7 +591,7 @@ export default function Home() {
                 className="group relative px-12 py-6 bg-white text-carnival-darkBg font-accent font-bold text-lg rounded-full overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl"
               >
                 <span className="relative z-10 flex items-center gap-3">
-                  🎉 Inscribirse Ahora
+                  {t('FinalCTA.primary')}
                   <span className="text-2xl transition-transform duration-500 group-hover:translate-x-2">→</span>
                 </span>
               </Link>
@@ -682,7 +600,7 @@ export default function Home() {
                 href="/contacto"
                 className="px-12 py-6 border-2 border-white/30 text-white font-accent font-bold text-lg rounded-full hover:bg-white/10 transition-all duration-500"
               >
-                Hablar con nosotros
+                {t('FinalCTA.secondary')}
               </Link>
             </div>
           </div>

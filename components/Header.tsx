@@ -1,9 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header() {
+  const t = useTranslations('Header');
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -14,13 +17,13 @@ export default function Header() {
   }, []);
 
   const navLinks = [
-    { href: '/', label: 'Inicio' },
-    { href: '/clases', label: 'Clases' },
-    { href: '/galeria', label: 'Galería' },
-    { href: '/blog', label: 'Blog' },
-    { href: '/tienda', label: 'Tienda' },
-    { href: '/contacto', label: 'Contacto' },
-  ];
+    { href: '/', label: t('nav.home') },
+    { href: '/clases', label: t('nav.classes') },
+    { href: '/galeria', label: t('nav.gallery') },
+    { href: '/blog', label: t('nav.blog') },
+    { href: '/tienda', label: t('nav.store') },
+    { href: '/contacto', label: t('nav.contact') },
+  ] as const;
 
   return (
     <>
@@ -42,7 +45,9 @@ export default function Header() {
               <span className="font-display text-xl font-bold text-white tracking-tight">
                 Carnaval <span className="gradient-text">BA</span>
               </span>
-              <p className="text-[10px] text-white/60 font-accent uppercase tracking-widest">Academia • Utah</p>
+              <p className="text-[10px] text-white/60 font-accent uppercase tracking-widest">
+                {t('tagline')}
+              </p>
             </div>
           </Link>
 
@@ -59,33 +64,49 @@ export default function Header() {
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Right side: Language + CTA */}
+          <div className="flex items-center gap-3">
+            {/* Language Switcher */}
+            <LanguageSwitcher />
+
+            {/* CTA Desktop */}
             <Link
               href="/inscripcion"
-              className="group relative px-6 py-3 bg-carnival-yellow text-carnival-darkBg font-accent font-bold text-sm rounded-full overflow-hidden transition-all duration-500 hover:scale-105"
+              className="hidden sm:inline-flex group relative px-6 py-3 bg-carnival-yellow text-carnival-darkBg font-accent font-bold text-sm rounded-full overflow-hidden transition-all duration-500 hover:scale-105 items-center"
             >
               <span className="relative z-10 flex items-center gap-2">
-                Inscribirse
+                {t('cta')}
                 <span className="text-base transition-transform duration-500 group-hover:translate-x-1">→</span>
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-carnival-red to-carnival-green transform translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
               <span className="absolute inset-0 flex items-center justify-center text-white font-accent font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
-                ¡Vamos!
+                {t('ctaHover')}
               </span>
             </Link>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden relative w-12 h-12 flex flex-col items-center justify-center gap-1.5 glass-effect rounded-full"
-            aria-label="Menu"
-          >
-            <span className={`w-5 h-[2px] bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1' : ''}`}></span>
-            <span className={`w-5 h-[2px] bg-white transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`w-5 h-[2px] bg-white transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-          </button>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden relative w-12 h-12 flex flex-col items-center justify-center gap-1.5 glass-effect rounded-full"
+              aria-label="Menu"
+            >
+              <span
+                className={`w-5 h-[2px] bg-white transition-all duration-300 ${
+                  isOpen ? 'rotate-45 translate-y-1' : ''
+                }`}
+              ></span>
+              <span
+                className={`w-5 h-[2px] bg-white transition-all duration-300 ${
+                  isOpen ? 'opacity-0' : ''
+                }`}
+              ></span>
+              <span
+                className={`w-5 h-[2px] bg-white transition-all duration-300 ${
+                  isOpen ? '-rotate-45 -translate-y-2' : ''
+                }`}
+              ></span>
+            </button>
+          </div>
         </nav>
       </header>
 
@@ -118,12 +139,12 @@ export default function Header() {
             onClick={() => setIsOpen(false)}
             className="mt-12 px-10 py-5 bg-carnival-yellow text-carnival-darkBg font-accent font-bold text-lg rounded-full hover:scale-105 transition-all duration-500 shadow-2xl"
           >
-            ✨ Inscribirse Ahora
+            {t('ctaMobile')}
           </Link>
 
           <div className="absolute bottom-8 left-0 right-0 text-center">
             <p className="text-white/50 font-accent text-xs uppercase tracking-widest">
-              Carnaval de Barranquilla • Utah
+              {t('footerText')}
             </p>
           </div>
         </div>

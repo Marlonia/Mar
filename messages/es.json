@@ -1,0 +1,408 @@
+{
+  "Header": {
+    "tagline": "Academia • Utah",
+    "nav": {
+      "home": "Inicio",
+      "classes": "Clases",
+      "gallery": "Galería",
+      "blog": "Blog",
+      "store": "Tienda",
+      "contact": "Contacto"
+    },
+    "cta": "Inscribirse",
+    "ctaHover": "¡Vamos!",
+    "footerText": "Carnaval de Barranquilla • Utah",
+    "ctaMobile": "✨ Inscribirse Ahora"
+  },
+  "Footer": {
+    "ctaTitle": "Vamos a {dance} juntos.",
+    "ctaDance": "danzar",
+    "ctaSubtitle": "Únete a la única academia auténtica del Carnaval de Barranquilla en Utah.",
+    "ctaButton": "Inscribirse Ahora",
+    "brandTagline": "Promoviendo la cultura colombiana del Carnaval de Barranquilla en Utah desde 2022.",
+    "navigation": "Navegación",
+    "services": "Servicios",
+    "contact": "Contacto",
+    "navLinks": {
+      "home": "Inicio",
+      "classes": "Clases",
+      "gallery": "Galería",
+      "blog": "Blog"
+    },
+    "serviceLinks": {
+      "classes": "Clases",
+      "store": "Tienda",
+      "register": "Inscripción",
+      "events": "Eventos"
+    },
+    "address": "West Valley City, Utah",
+    "rights": "Todos los derechos reservados.",
+    "privacy": "Privacidad",
+    "terms": "Términos"
+  },
+  "Home": {
+    "tagline": "Carnaval de Barranquilla • Utah 2026",
+    "title": {
+      "line1": "DANZA",
+      "line2": "CARNAVAL",
+      "line3": "PASIÓN."
+    },
+    "subtitle": "Vive la cultura colombiana en Utah. Aprende las danzas tradicionales del carnaval más grande del mundo con nuestros instructores expertos.",
+    "ctaPrimary": "Empezar Ahora",
+    "ctaPrimaryHover": "¡Vamos!",
+    "ctaSecondary": "Ver Clases",
+    "scroll": "Scroll",
+    "stats": {
+      "students": "Estudiantes",
+      "events": "Eventos",
+      "years": "Años"
+    },
+    "About": {
+      "tagline": "Nuestra Historia",
+      "title": {
+        "part1": "Una",
+        "highlight1": "tradición",
+        "part2": "que",
+        "highlight2": "danza",
+        "part3": "desde 2022."
+      },
+      "description": "Fundada por <directors>Mayra Rincón y Marilyn Gallardo</directors>, somos la única academia en Utah que preserva las danzas auténticas del Carnaval de Barranquilla, declarado Patrimonio Cultural de la Humanidad por la UNESCO.",
+      "tags": {
+        "authentic": "🇨🇴 Colombiano Auténtico",
+        "unesco": "🏆 UNESCO Heritage",
+        "rated": "⭐ Top Rated"
+      },
+      "marimondaName": "MARIMONDA",
+      "marimondaDescription": "Símbolo eterno del Carnaval. Su máscara icónica representa la libertad, la alegría y la rebeldía contra lo serio."
+    },
+    "Dances": {
+      "tagline": "Las Danzas",
+      "title": {
+        "line1": "Nueve ritmos.",
+        "line2": "Una sola pasión."
+      },
+      "subtitle": "Desde lo más tradicional hasta lo urbano. Te enseñamos toda la riqueza de la cultura caribeña colombiana.",
+      "moreTagline": "Y mucho más",
+      "actions": {
+        "learn": "Aprender Cumbia",
+        "start": "Empezar",
+        "knowMore": "Conocer más",
+        "seeMore": "Ver más"
+      },
+      "badges": {
+        "traditional": "Más Tradicional",
+        "energetic": "Energético",
+        "folkloric": "Folklórico",
+        "afroCaribbean": "Afro-Caribeño",
+        "latino": "Latino",
+        "ancestral": "Tradicional",
+        "modern": "Moderno",
+        "iconic": "Icónico"
+      },
+      "main": {
+        "cumbia": "La danza más antigua del Carnaval. Movimientos suaves, cautivadores y llenos de historia africana, indígena y española.",
+        "mapale": "Ritmo afro-colombiano libre y energético. Pura expresión.",
+        "garabato": "Danza folklórica con coreografía fluida y elegante. Representa la lucha simbólica entre la vida y la muerte."
+      },
+      "more": {
+        "champeta": "Ritmo afro-caribeño nacido en Cartagena. Movimientos sensuales y energéticos.",
+        "salsa": "El ritmo más popular de Latinoamérica. Pasos elegantes con energía contagiosa.",
+        "sonDeNegro": "Danza ancestral afro-colombiana. Tambores, máscaras y profunda raíz cultural.",
+        "bullerengue": "Ritmo de tambor y voz femenina. La esencia del Caribe colombiano.",
+        "urbano": "Reggaetón, dancehall y estilos modernos. La fusión del Caribe con lo contemporáneo.",
+        "marimondas": "La danza del personaje icónico del Carnaval. Alegría, libertad y rebeldía pura."
+      }
+    },
+    "Classes": {
+      "tagline": "Programas",
+      "title": {
+        "line1": "Clases para",
+        "highlight": "todos los niveles."
+      },
+      "viewAll": "Ver Todos los Horarios",
+      "level": "Nivel",
+      "register": "Inscribirse",
+      "items": {
+        "beginner": "Principiante",
+        "intermediate": "Intermedio",
+        "advanced": "Avanzado",
+        "kids": "Niños 5-12"
+      },
+      "instructors": {
+        "mayra": "Mayra Rincón",
+        "marilyn": "Marilyn Gallardo",
+        "team": "Equipo Pro",
+        "kids": "Equipo Kids"
+      },
+      "schedule": {
+        "monWed": "Lun & Mié",
+        "tueThu": "Mar & Jue",
+        "saturday": "Sábados",
+        "fridayKids": "Viernes 5pm"
+      }
+    },
+    "Features": {
+      "tagline": "Por qué nosotros",
+      "title": {
+        "line1": "La diferencia",
+        "line2": "está en el",
+        "highlight": "detalle"
+      },
+      "items": {
+        "0": {
+          "title": "Instructores Certificados",
+          "desc": "Más de 15 años de experiencia bailando en el Carnaval de Barranquilla."
+        },
+        "1": {
+          "title": "Clases Auténticas",
+          "desc": "Aprende las danzas exactamente como se enseñan en Colombia."
+        },
+        "2": {
+          "title": "Comunidad Vibrante",
+          "desc": "Únete a una familia de más de 200 estudiantes apasionados."
+        }
+      }
+    },
+    "FinalCTA": {
+      "badge": "✨ Cupos Limitados",
+      "title": {
+        "line1": "¿Listo para",
+        "highlight": "danzar?"
+      },
+      "subtitle": "Únete hoy y siente la energía del Carnaval más grande del mundo.",
+      "primary": "🎉 Inscribirse Ahora",
+      "secondary": "Hablar con nosotros"
+    }
+  },
+  "ClassesPage": {
+    "hero": {
+      "title": "Nuestras Clases",
+      "subtitle": "Encuentra la clase perfecta para ti y comienza tu viaje en el Carnaval"
+    },
+    "filterByLevel": "Filtrar por Nivel:",
+    "levels": {
+      "all": "Todos",
+      "beginner": "Principiante",
+      "intermediate": "Intermedio",
+      "advanced": "Avanzado",
+      "kids": "Niños",
+      "adults": "Adultos"
+    },
+    "showing": "Mostrando {count} de {total} clases",
+    "noClasses": "No hay clases disponibles en este nivel.",
+    "whyJoin": {
+      "title": "¿Por Qué Unirse a Nosotros?",
+      "items": {
+        "instructors": {
+          "title": "Instructores Profesionales",
+          "desc": "Maestros con años de experiencia en el Carnaval de Barranquilla"
+        },
+        "community": {
+          "title": "Comunidad Vibrante",
+          "desc": "Conoce personas apasionadas por la cultura colombiana"
+        },
+        "performance": {
+          "title": "Oportunidades de Performance",
+          "desc": "Participa en eventos y presentaciones locales"
+        },
+        "health": {
+          "title": "Beneficios para la Salud",
+          "desc": "Mejora tu coordinación, flexibilidad y estado físico"
+        },
+        "education": {
+          "title": "Educación Cultural",
+          "desc": "Aprende sobre la historia y tradiciones del Carnaval"
+        },
+        "music": {
+          "title": "Música Auténtica",
+          "desc": "Baila con ritmos tradicionales colombianos"
+        }
+      }
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "items": {
+        "experience": {
+          "q": "¿Necesito experiencia previa?",
+          "a": "No, tenemos clases para todos los niveles desde principiantes hasta avanzados."
+        },
+        "cost": {
+          "q": "¿Cuál es el costo de las clases?",
+          "a": "Consulta con nosotros por teléfono o email para conocer los precios y opciones de pago."
+        },
+        "trial": {
+          "q": "¿Puedo tomar clases de prueba?",
+          "a": "Sí, ofrecemos una clase de prueba gratuita para nuevos estudiantes."
+        },
+        "summer": {
+          "q": "¿Hay clases durante el verano?",
+          "a": "Sí, ofrecemos programas especiales durante el verano. Consulta el calendario."
+        }
+      }
+    }
+  },
+  "Team": {
+    "directors": {
+      "tagline": "Liderazgo",
+      "title": {
+        "line1": "Nuestras",
+        "highlight": "directoras"
+      },
+      "subtitle": "Las co-fundadoras visionarias detrás de Carnaval BA Utah. Lideran el camino para preservar la cultura colombiana en Estados Unidos."
+    },
+    "choreographers": {
+      "tagline": "El arte del movimiento",
+      "title": {
+        "line1": "Nuestras",
+        "highlight": "coreógrafas"
+      },
+      "subtitle": "El talento creativo que transforma cada paso en una experiencia inolvidable."
+    },
+    "badges": {
+      "director": "⭐ Directora",
+      "choreographer": "🎬 Coreógrafa"
+    },
+    "yearsBadge": "{years}+ años",
+    "specialties": "Especialidades",
+    "areas": "Áreas",
+    "achievements": "Logros",
+    "cta": {
+      "question": "✨ ¿Eres coreógrafa profesional?",
+      "subtitle": "Estamos siempre buscando talento. Contáctanos para unirte al equipo."
+    }
+  },
+  "GalleryPage": {
+    "hero": {
+      "title": "Galería",
+      "subtitle": "Revive los momentos más coloridos de nuestras actuaciones y eventos"
+    },
+    "filterByEvent": "Filtrar por Evento:",
+    "showing": "Mostrando {count} de {total} elementos",
+    "stats": {
+      "events": "Eventos",
+      "photos": "Fotos",
+      "videos": "Videos",
+      "since": "Desde"
+    },
+    "subscribe": {
+      "title": "¿Quieres Más Actualizaciones?",
+      "subtitle": "Suscríbete a nuestro newsletter para recibir fotos y videos exclusivos de nuestros eventos",
+      "placeholder": "Tu email",
+      "button": "Suscribirse"
+    },
+    "media": {
+      "video": "🎬 Video",
+      "photo": "📷 Foto"
+    }
+  },
+  "BlogPage": {
+    "hero": {
+      "title": "Blog",
+      "subtitle": "Historias, guías y noticias del mundo del Carnaval de Barranquilla"
+    },
+    "search": "Buscar artículos...",
+    "categories": {
+      "all": "Todos"
+    },
+    "by": "Por",
+    "readMore": "Leer Más",
+    "minRead": "min de lectura",
+    "newsletter": {
+      "title": "Recibe Noticias",
+      "subtitle": "Suscríbete a nuestro newsletter para recibir historias, guías y actualizaciones de eventos",
+      "placeholder": "Tu email",
+      "button": "Suscribirse"
+    },
+    "noResults": "No se encontraron artículos con esos criterios."
+  },
+  "StorePage": {
+    "hero": {
+      "title": "Tienda",
+      "subtitle": "Productos auténticos del Carnaval de Barranquilla"
+    },
+    "filterByCategory": "Categoría:",
+    "addToCart": "Agregar al Carrito",
+    "viewCart": "Ver Carrito",
+    "cart": "Carrito",
+    "empty": "Tu carrito está vacío",
+    "checkout": "Finalizar Compra",
+    "total": "Total",
+    "remove": "Eliminar",
+    "categories": {
+      "all": "Todos",
+      "costumes": "Trajes",
+      "accessories": "Accesorios",
+      "tickets": "Entradas"
+    },
+    "currency": "USD"
+  },
+  "ContactPage": {
+    "hero": {
+      "title": "Contacto",
+      "subtitle": "Ponte en contacto con nosotros. Te responderemos lo antes posible."
+    },
+    "form": {
+      "title": "Envíanos un mensaje",
+      "name": "Nombre",
+      "email": "Email",
+      "subject": "Asunto",
+      "subjectOptions": {
+        "info": "Información General",
+        "classes": "Sobre las Clases",
+        "events": "Eventos Privados",
+        "other": "Otro"
+      },
+      "message": "Mensaje",
+      "send": "Enviar Mensaje",
+      "sending": "Enviando...",
+      "success": "¡Mensaje enviado! Te responderemos pronto.",
+      "error": "Hubo un error. Inténtalo de nuevo."
+    },
+    "info": {
+      "title": "Información de Contacto",
+      "address": "West Valley City, Utah",
+      "hours": "Lun-Sáb 9am-9pm",
+      "social": "Síguenos"
+    }
+  },
+  "RegisterPage": {
+    "hero": {
+      "title": "Inscríbete Hoy",
+      "subtitle": "Completa el formulario y únete a nuestra comunidad de danza"
+    },
+    "loading": "Cargando formulario...",
+    "form": {
+      "title": "Información del Estudiante",
+      "fullName": "Nombre Completo",
+      "email": "Email",
+      "phone": "Teléfono",
+      "age": "Edad",
+      "level": "Nivel",
+      "danceClass": "Clase Deseada",
+      "experience": "Experiencia previa (opcional)",
+      "comments": "Comentarios adicionales",
+      "submit": "Inscribirse",
+      "submitting": "Procesando...",
+      "success": "¡Inscripción enviada con éxito! Te contactaremos pronto.",
+      "error": "Hubo un error. Inténtalo de nuevo."
+    }
+  },
+  "Common": {
+    "loading": "Cargando...",
+    "error": "Ha ocurrido un error",
+    "retry": "Reintentar",
+    "close": "Cerrar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior"
+  },
+  "Languages": {
+    "selector": "Idioma",
+    "es": "Español",
+    "en": "English"
+  }
+}
