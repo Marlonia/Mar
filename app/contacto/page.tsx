@@ -99,6 +99,11 @@ export default function ContactoPage() {
                 <div className="flex gap-4">
                   {[
                     {
+                      name: 'WhatsApp',
+                      url: 'https://wa.me/18015550100',
+                      emoji: '💬',
+                    },
+                    {
                       name: 'Instagram',
                       url: 'https://instagram.com/carnavalbaq',
                       emoji: '📸',
