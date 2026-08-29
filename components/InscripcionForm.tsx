@@ -58,8 +58,15 @@ export default function InscripcionForm() {
       {submitted && (
         <div className="bg-green-50 border-l-4 border-green-500 p-6 mb-8 rounded">
           <h3 className="text-xl font-bold text-green-700 mb-2">¡Inscripción Exitosa! 🎉</h3>
-          <p className="text-green-600">
+          <p className="text-green-600 mb-3">
             Gracias por tu inscripción. Nos pondremos en contacto contigo pronto para confirmar tu registro.
+          </p>
+          <p className="text-green-600">
+            ¿Listo para asegurar tu cupo?{' '}
+            <Link href="/membresias" className="font-bold underline">
+              Activa tu membresía mensual aquí
+            </Link>
+            .
           </p>
         </div>
       )}

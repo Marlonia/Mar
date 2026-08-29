@@ -27,6 +27,7 @@ export default function Header() {
           {[
             { href: '/', label: 'Inicio' },
             { href: '/clases', label: 'Clases' },
+            { href: '/membresias', label: 'Membresías' },
             { href: '/galeria', label: 'Galería' },
             { href: '/blog', label: 'Blog' },
             { href: '/tienda', label: 'Tienda' },
@@ -82,6 +83,7 @@ export default function Header() {
             {[
               { href: '/', label: 'Inicio' },
               { href: '/clases', label: 'Clases' },
+              { href: '/membresias', label: 'Membresías' },
               { href: '/galeria', label: 'Galería' },
               { href: '/blog', label: 'Blog' },
               { href: '/tienda', label: 'Tienda' },

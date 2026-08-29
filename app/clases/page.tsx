@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import ClassCard from '@/components/ClassCard';
 
 const CLASES_DATA = [
@@ -232,7 +233,7 @@ export default function ClasesPage() {
               },
               {
                 q: '¿Cuál es el costo de las clases?',
-                a: 'Consulta con nosotros por teléfono o email para conocer los precios y opciones de pago.',
+                a: 'Ofrecemos membresías mensuales individuales y familiares con cobro automático. Consulta los planes y precios en nuestra página de Membresías.',
               },
               {
                 q: '¿Puedo tomar clases de prueba?',
@@ -248,6 +249,11 @@ export default function ClasesPage() {
                 <p className="text-gray-600">{faq.a}</p>
               </div>
             ))}
+          </div>
+          <div className="text-center mt-10">
+            <Link href="/membresias" className="btn-primary inline-block">
+              💳 Ver planes de membresía
+            </Link>
           </div>
         </div>
       </section>
