@@ -42,3 +42,7 @@ Thumbs.db
 
 # Analytics
 .next/analytics
+
+# TypeScript build cache
+/dist
+*.tsbuildinfo
