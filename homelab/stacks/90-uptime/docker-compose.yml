@@ -1,0 +1,21 @@
+# ── Uptime Kuma · avisos cuando algo se cae (reemplaza a UptimeRobot) ──────────
+# Vigila los sitios de los clientes y los servicios del homelab; avisa por Telegram, WhatsApp, correo, etc.
+# Panel: https://estado.<dominio>  ·  LAN: http://IP:3001
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - uptime_data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro   # para monitores de tipo "contenedor Docker"
+    networks: [agencia]
+
+volumes:
+  uptime_data:
+
+networks:
+  agencia:
+    external: true

@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# hl — atajos para operar el homelab de la agencia (requiere Docker + Compose v2).
+#   ./hl env                      crea los .env a partir de los .env.example (con secretos aleatorios)
+#   ./hl up <stack>               levanta un stack   (ej: ./hl up n8n   o   ./hl up 10-n8n)
+#   ./hl down <stack>             lo apaga
+#   ./hl restart <stack>          lo reinicia
+#   ./hl logs <stack>             logs en vivo
+#   ./hl update <stack>           descarga imágenes nuevas y reinicia (actualizar)
+#   ./hl compose <stack> <args…>  cualquier comando de docker compose (ej: ./hl compose chatwoot run --rm rails …)
+#   ./hl ps                       estado de todos los contenedores del nodo
+#   ./hl node up|down <nodo>      levanta/apaga todos los stacks listados en nodes/<nodo>.stacks
+#   ./hl backup                   ejecuta scripts/backup.sh
+#   ./hl list                     lista los stacks disponibles
+set -euo pipefail
+SELF="$(readlink -f "${BASH_SOURCE[0]}")"
+cd "$(dirname "$SELF")"
+
+die() { echo "❌ $*" >&2; exit 1; }
+
+# Acepta el nombre completo (10-n8n) o solo el sufijo (n8n)
+resolve_stack() {
+  local s="$1" m
+  if [[ -f "stacks/$s/docker-compose.yml" ]]; then echo "stacks/$s"; return; fi
+  m=$(ls -d stacks/*-"$s" 2>/dev/null | head -n1 || true)
+  [[ -n "$m" ]] || die "No existe el stack '$s'. Mira ./hl list"
+  echo "$m"
+}
+
+compose() { # compose <stack> <args…>
+  local dir; dir=$(resolve_stack "$1"); shift
+  [[ -f "$dir/.env" ]] || echo "⚠️  Falta $dir/.env — ejecuta ./hl env (se usarán valores por defecto)" >&2
+  docker compose --project-directory "$dir" -f "$dir/docker-compose.yml" "$@"
+}
+
+node_each() { # node_each <nodo> <args…>
+  local f="nodes/$1.stacks"; shift
+  [[ -f "$f" ]] || die "No existe $f"
+  grep -Ev '^\s*(#|$)' "$f" | while read -r s; do
+    echo "==> $s"
+    compose "$s" "$@"
+  done
+}
+
+cmd="${1:-help}"; shift || true
+case "$cmd" in
+  env)     ./scripts/init-env.sh ;;
+  up)      compose "${1:?stack}" up -d --remove-orphans ;;
+  down)    compose "${1:?stack}" down ;;
+  restart) compose "${1:?stack}" restart ;;
+  logs)    compose "${1:?stack}" logs -f --tail=200 ;;
+  pull)    compose "${1:?stack}" pull ;;
+  update)  compose "${1:?stack}" pull && compose "$1" up -d --remove-orphans ;;
+  compose) s="${1:?stack}"; shift; compose "$s" "$@" ;;
+  ps)      docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}' ;;
+  node)
+    sub="${1:?up|down}"; nodo="${2:?nodo}"
+    case "$sub" in
+      up)   node_each "$nodo" up -d --remove-orphans ;;
+      down) node_each "$nodo" down ;;
+      *)    die "uso: ./hl node up|down <nodo>" ;;
+    esac ;;
+  backup)  ./scripts/backup.sh ;;
+  list)    ls -1 stacks ;;
+  help|*)  sed -n '2,13p' "$SELF" | sed 's/^# \{0,1\}//' ;;
+esac

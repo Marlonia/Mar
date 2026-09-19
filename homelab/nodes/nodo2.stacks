@@ -1,0 +1,8 @@
+# Stacks del NODO 2 (segundo mini PC). Se levantan con: ./hl node up nodo2
+# Si solo tienes un equipo, añade estas líneas a nodo1.stacks: todo cabe en un solo nodo con 32 GB de RAM.
+01-node-agent
+60-chatwoot
+70-analytics
+80-vaultwarden
+90-uptime
+# 95-ia   ← descomenta si quieres el laboratorio de IA (Ollama + Open WebUI)

@@ -1,0 +1,75 @@
+# ── Twenty CRM · clientes y ventas (reemplaza a HubSpot) ───────────────────────
+# Panel: https://crm.<dominio>  ·  LAN: http://IP:3010
+x-twenty: &twenty
+  image: twentycrm/twenty:latest
+  restart: unless-stopped
+  environment: &twenty-env
+    NODE_PORT: 3000
+    PG_DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@db:5432/default
+    REDIS_URL: redis://redis:6379
+    SERVER_URL: https://${CRM_HOST}
+    APP_SECRET: ${APP_SECRET}
+    STORAGE_TYPE: local
+  volumes:
+    - server_local_data:/app/packages/twenty-server/.local-storage
+
+services:
+  server:
+    <<: *twenty
+    container_name: twenty
+    ports:
+      - "3010:3000"
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:3000/healthz || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks: [default, agencia]
+
+  worker:
+    <<: *twenty
+    container_name: twenty-worker
+    command: ["yarn", "worker:prod"]
+    environment:
+      <<: *twenty-env
+      DISABLE_DB_MIGRATIONS: "true"
+      DISABLE_CRON_JOBS_REGISTRATION: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+      server:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    container_name: twenty-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -h localhost -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: twenty-redis
+    restart: unless-stopped
+    command: ["redis-server", "--maxmemory-policy", "noeviction"]
+
+volumes:
+  db_data:
+  server_local_data:
+
+networks:
+  agencia:
+    external: true

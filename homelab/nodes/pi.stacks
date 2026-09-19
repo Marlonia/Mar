@@ -1,0 +1,4 @@
+# Stacks de la Raspberry Pi: DNS con bloqueo de anuncios + agente de monitoreo. ./hl node up pi
+# En stacks/01-node-agent/.env de la Pi deja COMPOSE_PROFILES vacío (la Pi no necesita túnel).
+01-node-agent
+pi-adguard

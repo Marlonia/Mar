@@ -1,0 +1,8 @@
+# Stacks que corren en el NODO 1 (mini PC principal). Se levantan en este orden con: ./hl node up nodo1
+01-node-agent
+00-core
+10-n8n
+20-crm
+30-docs
+40-nextcloud
+50-git

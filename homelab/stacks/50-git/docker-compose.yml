@@ -1,0 +1,53 @@
+# ── Forgejo · git de la agencia (reemplaza a GitHub Team) ──────────────────────
+# Panel: https://git.<dominio>  ·  LAN: http://IP:3014  ·  SSH: puerto 2222 (solo LAN; por internet usa HTTPS)
+services:
+  forgejo:
+    image: codeberg.org/forgejo/forgejo:12
+    container_name: forgejo
+    restart: unless-stopped
+    ports:
+      - "3014:3000"
+      - "2222:22"
+    environment:
+      USER_UID: "1000"
+      USER_GID: "1000"
+      FORGEJO__database__DB_TYPE: postgres
+      FORGEJO__database__HOST: db:5432
+      FORGEJO__database__NAME: forgejo
+      FORGEJO__database__USER: forgejo
+      FORGEJO__database__PASSWD: ${POSTGRES_PASSWORD}
+      FORGEJO__server__DOMAIN: ${GIT_HOST}
+      FORGEJO__server__ROOT_URL: https://${GIT_HOST}/
+      FORGEJO__server__SSH_DOMAIN: ${GIT_HOST}
+      FORGEJO__server__SSH_PORT: "2222"
+      FORGEJO__service__DISABLE_REGISTRATION: ${FORGEJO_DISABLE_REGISTRATION}
+    volumes:
+      - forgejo_data:/data
+    depends_on:
+      db:
+        condition: service_healthy
+    networks: [default, agencia]
+
+  db:
+    image: postgres:16-alpine
+    container_name: forgejo-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: forgejo
+      POSTGRES_USER: forgejo
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U forgejo -d forgejo"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  forgejo_data:
+  db_data:
+
+networks:
+  agencia:
+    external: true

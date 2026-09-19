@@ -1,0 +1,44 @@
+# ── Laboratorio de IA · Ollama + Open WebUI (opcional; reemplaza a ChatGPT Plus) ──
+# Modelos de lenguaje corriendo en tu propio equipo: nada sale de la oficina.
+# En CPU con 16-32 GB de RAM van bien modelos de 3-8B (llama3.2:3b, qwen2.5:7b). Con GPU NVIDIA, descomenta "deploy".
+# Panel: https://ia.<dominio>  ·  LAN: http://IP:3015
+# Descargar un modelo:  ./hl compose ia exec ollama ollama pull llama3.2:3b
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    volumes:
+      - ollama_data:/root/.ollama
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: unless-stopped
+    ports:
+      - "3015:8080"
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+      WEBUI_URL: https://${IA_HOST}
+      WEBUI_SECRET_KEY: ${WEBUI_SECRET_KEY}
+      DEFAULT_USER_ROLE: pending      # la primera cuenta es admin; las siguientes esperan aprobación
+    volumes:
+      - open_webui_data:/app/backend/data
+    depends_on:
+      - ollama
+    networks: [default, agencia]
+
+volumes:
+  ollama_data:
+  open_webui_data:
+
+networks:
+  agencia:
+    external: true

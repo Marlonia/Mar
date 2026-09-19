@@ -1,0 +1,26 @@
+# Panel NETOPS de la agencia — https://gethomepage.dev/configs/settings/
+title: AGENCIA // NETOPS
+description: Panel de servicios y nodos de la agencia
+language: es
+theme: dark
+color: zinc
+headerStyle: boxed
+hideVersion: true
+statusStyle: dot
+showStats: true
+layout:
+  Automatización y clientes:
+    style: row
+    columns: 3
+  Documentos y archivos:
+    style: row
+    columns: 3
+  Métricas y seguridad:
+    style: row
+    columns: 4
+  Infraestructura:
+    style: row
+    columns: 4
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: true

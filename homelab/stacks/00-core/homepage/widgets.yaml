@@ -1,0 +1,15 @@
+- logo:
+    icon: mdi-server-network
+- datetime:
+    text_size: xl
+    format:
+      dateStyle: long
+      timeStyle: short
+- resources:
+    label: Nodo 1
+    cpu: true
+    memory: true
+    disk: /
+    cputemp: true
+    uptime: true
+    units: metric

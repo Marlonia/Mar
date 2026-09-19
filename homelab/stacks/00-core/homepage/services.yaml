@@ -1,0 +1,90 @@
+# Servicios del panel. La descripción dice qué suscripción reemplaza cada uno (precios de referencia, USD/mes).
+# siteMonitor: muestra el estado del servicio · server/container: CPU y RAM del contenedor (solo los que corren en este nodo).
+- Automatización y clientes:
+    - n8n:
+        icon: n8n.png
+        href: https://n8n.{{HOMEPAGE_VAR_DOMINIO}}
+        description: Automatizaciones · reemplaza a Zapier ($29.99)
+        siteMonitor: https://n8n.{{HOMEPAGE_VAR_DOMINIO}}
+        server: nodo1
+        container: n8n
+    - Twenty CRM:
+        icon: mdi-account-group
+        href: https://crm.{{HOMEPAGE_VAR_DOMINIO}}
+        description: Clientes y pipeline de ventas · reemplaza a HubSpot ($20)
+        siteMonitor: https://crm.{{HOMEPAGE_VAR_DOMINIO}}
+        server: nodo1
+        container: twenty
+    - Chatwoot:
+        icon: chatwoot.png
+        href: https://chat.{{HOMEPAGE_VAR_DOMINIO}}
+        description: Chat web, WhatsApp e Instagram en una bandeja · reemplaza a Intercom ($39)
+        siteMonitor: https://chat.{{HOMEPAGE_VAR_DOMINIO}}
+
+- Documentos y archivos:
+    - Docmost:
+        icon: mdi-book-open-page-variant
+        href: https://docs.{{HOMEPAGE_VAR_DOMINIO}}
+        description: Wiki y documentación del equipo · reemplaza a Notion ($12/usuario)
+        siteMonitor: https://docs.{{HOMEPAGE_VAR_DOMINIO}}
+        server: nodo1
+        container: docmost
+    - Nextcloud:
+        icon: nextcloud.png
+        href: https://nube.{{HOMEPAGE_VAR_DOMINIO}}
+        description: Archivos, calendario y contactos · reemplaza a Dropbox 2 TB ($11.99)
+        siteMonitor: https://nube.{{HOMEPAGE_VAR_DOMINIO}}
+        server: nodo1
+        container: nextcloud
+    - Forgejo:
+        icon: forgejo.png
+        href: https://git.{{HOMEPAGE_VAR_DOMINIO}}
+        description: Código de los sitios de los clientes · reemplaza a GitHub Team ($4/usuario)
+        siteMonitor: https://git.{{HOMEPAGE_VAR_DOMINIO}}
+        server: nodo1
+        container: forgejo
+
+- Métricas y seguridad:
+    - Umami:
+        icon: umami.png
+        href: https://analitica.{{HOMEPAGE_VAR_DOMINIO}}
+        description: Analítica web sin cookies · reemplaza a Plausible ($9)
+        siteMonitor: https://analitica.{{HOMEPAGE_VAR_DOMINIO}}
+    - Vaultwarden:
+        icon: vaultwarden.png
+        href: https://claves.{{HOMEPAGE_VAR_DOMINIO}}
+        description: Contraseñas del equipo · reemplaza a 1Password ($5.99)
+        siteMonitor: https://claves.{{HOMEPAGE_VAR_DOMINIO}}
+    - Uptime Kuma:
+        icon: uptime-kuma.png
+        href: https://estado.{{HOMEPAGE_VAR_DOMINIO}}
+        description: Avisos si un sitio o servicio se cae · reemplaza a UptimeRobot (~$7)
+        siteMonitor: https://estado.{{HOMEPAGE_VAR_DOMINIO}}
+    - Open WebUI:
+        icon: open-webui.png
+        href: https://ia.{{HOMEPAGE_VAR_DOMINIO}}
+        description: IA local con Ollama · reemplaza a ChatGPT Plus ($20)
+        siteMonitor: https://ia.{{HOMEPAGE_VAR_DOMINIO}}
+
+- Infraestructura:
+    - Portainer:
+        icon: portainer.png
+        href: https://{{HOMEPAGE_VAR_NODO1_IP}}:9443
+        description: Contenedores del nodo 1
+        server: nodo1
+        container: portainer
+    - Beszel:
+        icon: beszel.png
+        href: http://{{HOMEPAGE_VAR_NODO1_IP}}:8090
+        description: CPU, RAM, disco y temperatura de todos los nodos
+        server: nodo1
+        container: beszel
+    - AdGuard Home:
+        icon: adguard-home.png
+        href: http://{{HOMEPAGE_VAR_PI_IP}}:3053
+        description: DNS de la oficina con bloqueo de anuncios (Raspberry Pi) · reemplaza a NextDNS ($1.99)
+        siteMonitor: http://{{HOMEPAGE_VAR_PI_IP}}:3053
+    - Cloudflare Zero Trust:
+        icon: cloudflare-zero-trust.png
+        href: https://one.dash.cloudflare.com
+        description: Túneles, dominios públicos y control de acceso

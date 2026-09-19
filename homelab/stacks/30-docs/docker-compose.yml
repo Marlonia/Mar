@@ -1,0 +1,55 @@
+# ── Docmost · wiki y documentación del equipo (reemplaza a Notion) ─────────────
+# Panel: https://docs.<dominio>  ·  LAN: http://IP:3011
+# (En el video usan AppFlowy; Docmost hace lo mismo con 3 contenedores en vez de 8.)
+services:
+  docmost:
+    image: docmost/docmost:latest
+    container_name: docmost
+    restart: unless-stopped
+    ports:
+      - "3011:3000"
+    environment:
+      APP_URL: https://${DOCS_HOST}
+      APP_SECRET: ${APP_SECRET}
+      DATABASE_URL: postgresql://docmost:${POSTGRES_PASSWORD}@db:5432/docmost?schema=public
+      REDIS_URL: redis://redis:6379
+    volumes:
+      - docmost_data:/app/data/storage
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks: [default, agencia]
+
+  db:
+    image: postgres:16-alpine
+    container_name: docmost-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: docmost
+      POSTGRES_USER: docmost
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U docmost -d docmost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: docmost-redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+
+volumes:
+  docmost_data:
+  db_data:
+  redis_data:
+
+networks:
+  agencia:
+    external: true

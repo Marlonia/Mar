@@ -1,0 +1,50 @@
+# ── Núcleo (solo en el nodo 1) ─────────────────────────────────────────────────
+#   · homepage  → panel "NETOPS": todos los servicios, estado y recursos (puerto 3000)
+#   · portainer → administrar contenedores desde el navegador (puerto 9443, https)
+#   · beszel    → monitoreo de todos los nodos: CPU, RAM, disco, temperaturas (puerto 8090)
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: ${HOMEPAGE_ALLOWED_HOSTS}
+      HOMEPAGE_VAR_DOMINIO: ${DOMINIO}
+      HOMEPAGE_VAR_NODO1_IP: ${NODO1_IP}
+      HOMEPAGE_VAR_NODO2_IP: ${NODO2_IP}
+      HOMEPAGE_VAR_PI_IP: ${PI_IP}
+    volumes:
+      - ./homepage:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks: [agencia]
+
+  portainer:
+    image: portainer/portainer-ce:lts
+    container_name: portainer
+    restart: unless-stopped
+    ports:
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks: [agencia]
+
+  beszel:
+    image: henrygd/beszel:latest
+    container_name: beszel
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    volumes:
+      - beszel_data:/beszel_data
+    networks: [agencia]
+
+volumes:
+  portainer_data:
+  beszel_data:
+
+networks:
+  agencia:
+    external: true

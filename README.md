@@ -119,6 +119,12 @@ npm run build
 vercel deploy
 ```
 
+## 🖥️ Homelab de la agencia
+
+En [`homelab/`](homelab/README.md) está el servidor propio de la agencia (Docker Compose): automatizaciones (n8n),
+CRM, documentación, archivos (Nextcloud), chat con clientes (Chatwoot), analítica, contraseñas, git y un panel de
+monitoreo tipo NETOPS, todo publicado por Cloudflare Tunnel sin abrir puertos. Guía, hardware y costos en su README.
+
 ## 📄 Licencia
 
 GNU General Public License v3.0

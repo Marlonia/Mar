@@ -1,0 +1,8 @@
+# Secretos y datos locales: nunca al repositorio
+.env
+stacks/*/.env
+stacks/*/data/
+stacks/pi-adguard/work/
+stacks/pi-adguard/conf/
+backups/
+*.log

@@ -1,0 +1,3 @@
+# Docker de este nodo: permite mostrar estado y CPU/RAM de cada contenedor en el panel
+nodo1:
+  socket: /var/run/docker.sock

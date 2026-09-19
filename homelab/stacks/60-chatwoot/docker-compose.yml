@@ -1,0 +1,65 @@
+# ── Chatwoot · bandeja de atención al cliente (reemplaza a Intercom) ───────────
+# Chat web, WhatsApp, Instagram, Facebook, correo y Telegram en una sola bandeja.
+# Panel: https://chat.<dominio>  ·  LAN: http://IP:3013
+# Primera vez:  ./hl compose chatwoot run --rm rails bundle exec rails db:chatwoot_prepare
+x-chatwoot: &chatwoot
+  image: chatwoot/chatwoot:latest
+  restart: unless-stopped
+  env_file: .env
+  environment:
+    REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+  volumes:
+    - storage:/app/storage
+  depends_on:
+    db:
+      condition: service_healthy
+    redis:
+      condition: service_started
+
+services:
+  rails:
+    <<: *chatwoot
+    container_name: chatwoot
+    ports:
+      - "3013:3000"
+    entrypoint: docker/entrypoints/rails.sh
+    command: ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
+    networks: [default, agencia]
+
+  sidekiq:
+    <<: *chatwoot
+    container_name: chatwoot-sidekiq
+    command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
+
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: chatwoot-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: chatwoot
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: chatwoot-redis
+    restart: unless-stopped
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
+    volumes:
+      - redis_data:/data
+
+volumes:
+  storage:
+  db_data:
+  redis_data:
+
+networks:
+  agencia:
+    external: true

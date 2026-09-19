@@ -1,0 +1,28 @@
+# ── Vaultwarden · contraseñas del equipo (reemplaza a 1Password / LastPass) ────
+# Compatible con las apps y extensiones de Bitwarden. Panel: https://claves.<dominio>  ·  Admin: /admin
+# Solo pueden registrarse correos del dominio de la agencia (SIGNUPS_DOMAINS_WHITELIST).
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    ports:
+      - "8082:80"
+    env_file: .env
+    environment:
+      DOMAIN: https://${VAULT_HOST}
+      SIGNUPS_ALLOWED: "false"
+      SIGNUPS_DOMAINS_WHITELIST: ${DOMINIO_CORREO}
+      INVITATIONS_ALLOWED: "true"
+      SHOW_PASSWORD_HINT: "false"
+      ADMIN_TOKEN: ${VW_ADMIN_TOKEN}
+    volumes:
+      - vw_data:/data
+    networks: [agencia]
+
+volumes:
+  vw_data:
+
+networks:
+  agencia:
+    external: true

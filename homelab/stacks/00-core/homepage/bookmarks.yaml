@@ -1,0 +1,14 @@
+- Agencia:
+    - Repositorio:
+        - abbr: GIT
+          href: https://github.com/marlonia/Mar
+    - Guía del homelab:
+        - abbr: DOC
+          href: https://github.com/marlonia/Mar/tree/main/homelab
+- Referencias:
+    - Homepage (panel):
+        - abbr: HP
+          href: https://gethomepage.dev
+    - Awesome Self-hosted:
+        - abbr: ASH
+          href: https://awesome-selfhosted.net
