@@ -42,3 +42,6 @@ Thumbs.db
 
 # Analytics
 .next/analytics
+
+# Videos generados por el editor de Reels
+scripts/reels/out/

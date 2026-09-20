@@ -1,0 +1,9 @@
+{
+  "transition": "smoothleft",
+  "slides": [
+    {"bg": "fiesta", "badge": "Nuevo grupo", "headline": "Clases de Cumbia", "sub": "Sábados 10:00 AM · West Valley City", "duration": 3.4},
+    {"bg": "noche", "badge": "Niños y adultos", "headline": "Mapalé y Garabato", "sub": "Todos los niveles, sin experiencia previa", "duration": 3.4},
+    {"bg": "carnaval", "badge": "Próximo evento", "headline": "Hispanic Day Parade", "sub": "Nueva York · Octubre", "duration": 3.4}
+  ],
+  "end": {"headline": "¿Quieres bailar con nosotros?", "cta": "Inscríbete hoy"}
+}
