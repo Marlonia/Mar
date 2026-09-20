@@ -45,3 +45,5 @@ Thumbs.db
 
 # Videos generados por el editor de Reels
 scripts/reels/out/
+__pycache__/
+*.pyc
