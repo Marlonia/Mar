@@ -1,0 +1,16 @@
+{
+  "name": "auditoria-web-rootbiz",
+  "private": true,
+  "type": "module",
+  "description": "Auditoría pasiva de sitios web con herramientas de código abierto (Playwright, axe-core, Lighthouse) y segunda opinión opcional con la API de OpenAI",
+  "scripts": {
+    "auditar": "node auditar.mjs",
+    "segunda-opinion": "NODE_USE_ENV_PROXY=1 node --no-warnings segunda-opinion.mjs",
+    "pagespeed": "NODE_USE_ENV_PROXY=1 node --no-warnings pagespeed.mjs"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "4.10.2",
+    "lighthouse": "12.8.2",
+    "playwright": "1.56.1"
+  }
+}
