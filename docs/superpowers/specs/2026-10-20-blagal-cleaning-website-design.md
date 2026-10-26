@@ -93,9 +93,9 @@ El texto final se ajusta a los servicios y la cobertura que confirme el dueño.
 
 ### 3.4 Contenido que el dueño debe confirmar antes de publicar
 
-- Nombres, alcance y exclusiones de los servicios.
+- Alcance y exclusiones de los servicios. **Los 7 servicios están confirmados** por el dueño (2026-10-26).
 - Cobertura geográfica y disponibilidad.
-- Servicios y etapas de construcción que se ofrecen.
+- Detalle de las etapas de construcción. **Rough, Final y Touch-up están confirmadas** por el dueño (2026-10-26).
 - Seguro, licencias y documentación disponible.
 - Experiencia, teléfono y WhatsApp. El correo `blagalcleaning@gmail.com` ya está confirmado.
 - Compromisos de respuesta, facturación, reportes y atención recurrente.
@@ -149,8 +149,8 @@ Por cada propiedad:
 | Nombre del proyecto | No |
 | Tipo: residencial, multifamiliar, comercial, remodelación/TI | No |
 | Tamaño aproximado: sq ft, unidades, pisos | No |
-| **Etapas de limpieza** (solo las confirmadas): Rough cleaning, Final cleaning, Touch-up cleaning, **"Not sure"** | Sí: al menos una etapa, un servicio adicional o "Not sure" |
-| **Servicios adicionales** (solo los confirmados): Window Cleaning, Pressure Washing (limpieza exterior), otros | No |
+| **Etapas de limpieza** (confirmadas): Rough cleaning, Final cleaning, Touch-up cleaning, **"Not sure"** | Sí: al menos una etapa, un servicio adicional o "Not sure" |
+| **Servicios adicionales** (confirmados): Window Cleaning, Pressure Washing (limpieza exterior), más "Other" para otros servicios de los 7 | No |
 | **Fecha**, preguntada una sola vez, con un campo para aclarar fechas por etapa | No |
 | Requisitos de acceso o seguridad (badge, PPE) | No |
 | Notas | No |
@@ -731,3 +731,4 @@ Las encontró una revisión independiente del documento y del prompt maestro. Ni
 | 7.1 | **Astro 7** (7.4.x) con `@astrojs/cloudflare` 14.x en lugar de Astro 6. | Astro 7 es la versión vigente desde junio de 2026. La serie 6 no recibe parches desde el 2026-06-17 y el adaptador actual exige `astro ^7.4.0`. Se verificó en npm el 2026-10-26. |
 | 6.1 | La tabla de colores coincide con la regla de bordes de §6.2. | Contradicción interna. |
 | 3.4, 4.3 y 4.10 | No se usan imágenes de muestra ni de stock. El correo del negocio ya está confirmado. "Cada dos semanas" en lugar de "quincenal". La confirmación usa "su solicitud". | Coherencia con el registro usted y el glosario. "Quincenal" es ambiguo. |
+| 3.4 y 4.4 | El dueño confirmó los 7 servicios y las etapas de construcción. También indicó que atiende hogares; cómo incluirlos en el sitio se define en la Parte 6 (publicidad y medición), pendiente de aprobación. | Decisión del dueño, 2026-10-26. |
