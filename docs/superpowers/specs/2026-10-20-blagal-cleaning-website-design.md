@@ -97,7 +97,7 @@ El texto final se ajusta a los servicios y la cobertura que confirme el dueño.
 - Cobertura geográfica y disponibilidad.
 - Servicios y etapas de construcción que se ofrecen.
 - Seguro, licencias y documentación disponible.
-- Experiencia, teléfono, correo y WhatsApp.
+- Experiencia, teléfono y WhatsApp. El correo `blagalcleaning@gmail.com` ya está confirmado.
 - Compromisos de respuesta, facturación, reportes y atención recurrente.
 - Fotos propias y testimonios con autorización.
 - Si "House Cleaning" se refiere a casas en alquiler. En ese caso conviene llamarlo "Single-Family Rental Cleaning", lo que cambiaría también el nombre del servicio 7 y su ruta.
@@ -105,7 +105,7 @@ El texto final se ajusta a los servicios y la cobertura que confirme el dueño.
 **Reglas de contenido:**
 - Cada dato pendiente se marca en el contenido con `[[CONFIRM: ...]]`.
 - Las fotos pendientes usan un marco "foto pendiente" y nunca se presentan como trabajos de Blagal.
-- Las imágenes de muestra solo se usan durante el diseño.
+- No se usan imágenes de muestra ni de stock, ni en las maquetas ni en el sitio. Hasta tener fotos propias se usan marcos "Foto pendiente".
 - Ninguna promesa de rapidez, disponibilidad o resultado se publica si no está confirmada.
 
 **Comprobación automática** (sección 9.1): mientras el sitio esté privado, solo informa de marcadores pendientes. Desde el lanzamiento, **bloquea la publicación** si queda alguno.
@@ -134,7 +134,7 @@ Por cada propiedad:
 | Tipo: apartamentos, HOA/condo, comercial/oficinas, casa/townhome, otro | No |
 | Tamaño: unidades o sq ft | No |
 | Servicios, incluida la opción **"Not sure / need guidance"** | Sí (al menos uno) |
-| Frecuencia **por servicio**: una vez, semanal, quincenal, mensual, trimestral, según necesidad, **"Not sure"** | No |
+| Frecuencia **por servicio**: una vez, semanal, cada dos semanas, mensual, trimestral, según necesidad, **"Not sure"** | No |
 | Notas | No |
 
 - Botones **"Add another property"** y **"Copy services from previous property"**.
@@ -217,7 +217,7 @@ Por cada propiedad:
 - **Confirmación al cliente:**
   - Va en su idioma.
   - Al responder, la respuesta llega al Gmail del negocio, por ejemplo para enviar fotos o planos.
-  - El texto dice "recibimos tu solicitud" e incluye la referencia y el resumen.
+  - El texto dice "recibimos su solicitud" (registro usted) e incluye la referencia y el resumen.
   - **No promete** precio, disponibilidad ni contratación.
 - El contenido de cada correo se arma solo con datos guardados, así que cada reintento manda exactamente lo mismo. Esto es necesario porque Resend rechaza una clave reutilizada con contenido distinto.
 
@@ -289,8 +289,8 @@ Filtros: tipo, estado de avisos y pruebas.
 | Ámbar | `#F2A900` | Cotización y pequeños acentos de marca |
 | Blanco | `#FFFFFF` | Fondo principal |
 | Blanco frío | `#F6FAFC` | Secciones alternas |
-| Gris texto | `#56636F` | Textos secundarios |
-| Línea | `#D6E4EE` | Bordes y divisores |
+| Gris texto | `#56636F` | Textos secundarios y bordes de campos, casillas y tarjetas seleccionables |
+| Línea | `#D6E4EE` | Solo divisores decorativos (nunca bordes de controles) |
 | Azul claro | `#9CC8E8` | Foco y detalles sobre marino |
 
 ### 6.2 Reglas
@@ -359,7 +359,7 @@ Referencia visual: `Blagal-Cleaning-Identidad-Final.pdf` (versión revisada con 
 
 | Pieza | Tecnología |
 |---|---|
-| Sitio | **Astro 6** con `@astrojs/cloudflare`. Las páginas se generan estáticas y el Worker atiende solo las rutas dinámicas. |
+| Sitio | **Astro 7** (vigente: 7.4.x) con `@astrojs/cloudflare` 14.x. Las páginas se generan estáticas y el Worker atiende solo las rutas dinámicas. |
 | Estilos | **Tailwind CSS v4** con los tokens de la sección 6 |
 | Interacción del formulario | **Alpine.js**: pasos, agregar y copiar propiedades, teléfono condicional |
 | Validación | **Zod**, el mismo esquema en el navegador y en el servidor |
@@ -673,9 +673,9 @@ Para cada alerta: qué significa, cómo confirmarla y qué hacer. También inclu
 
 ---
 
-## 15. Decisiones por defecto (revisar)
+## 15. Decisiones por defecto (aceptadas; se pueden cuestionar como propuesta)
 
-Estas decisiones no se discutieron explícitamente. Se tomaron con criterio razonable y se pueden cambiar en la revisión:
+Estas decisiones no se discutieron explícitamente. Se tomaron con criterio razonable y se aceptan por ahora. Cualquier cambio se presenta como propuesta y necesita la aprobación del dueño:
 
 | Decisión | Valor |
 |---|---|
@@ -690,7 +690,7 @@ Estas decisiones no se discutieron explícitamente. Se tomaron con criterio razo
 | Glosario EN/ES | Propuesto en el prompt maestro (sección 1). El dueño puede cambiarlo. |
 | Umbral de alerta de aviso pendiente | 30 minutos |
 | Frecuencia máxima de alertas | 1 cada 15 minutos por tipo |
-| Monitor externo | UptimeRobot gratis (alternativa: Uptime Kuma del homelab) |
+| Monitor externo | UptimeRobot gratis (alternativa autoalojada: Uptime Kuma) |
 | Retención del respaldo en R2 | 90 días |
 | Retención de solicitudes en D1 | Hasta que el dueño las borre. Se indica en Privacy. |
 
@@ -728,3 +728,6 @@ Las encontró una revisión independiente del documento y del prompt maestro. Ni
 | 5 | El panel está en español. | El dueño habla español. |
 | 8.3 y 13 | Se separan el token de publicación (solo en GitHub) y el token de aprovisionamiento (opcional, temporal, en el entorno de Claude). | Había una contradicción entre las dos secciones. |
 | 3.4 | Se agrega la pregunta sobre el nombre de "House Cleaning". | Puede no describir bien el servicio para property managers. |
+| 7.1 | **Astro 7** (7.4.x) con `@astrojs/cloudflare` 14.x en lugar de Astro 6. | Astro 7 es la versión vigente desde junio de 2026. La serie 6 no recibe parches desde el 2026-06-17 y el adaptador actual exige `astro ^7.4.0`. Se verificó en npm el 2026-10-26. |
+| 6.1 | La tabla de colores coincide con la regla de bordes de §6.2. | Contradicción interna. |
+| 3.4, 4.3 y 4.10 | No se usan imágenes de muestra ni de stock. El correo del negocio ya está confirmado. "Cada dos semanas" en lugar de "quincenal". La confirmación usa "su solicitud". | Coherencia con el registro usted y el glosario. "Quincenal" es ambiguo. |

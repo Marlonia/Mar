@@ -22,14 +22,14 @@
 ### Fecha y versiones
 
 - **Hoy es 2026-10-26.**
-- **Astro 6** y **Tailwind CSS v4** son versiones vigentes y aprobadas para este proyecto.
+- **Astro 7** (7.4.x, con `@astrojs/cloudflare` 14.x) y **Tailwind CSS v4** son las versiones vigentes y aprobadas. El diseño decía Astro 6 y se corrigió el 2026-10-26 (Anexo A §17).
 - Si tus datos de entrenamiento son anteriores, no supongas que una versión no existe ni la "corrijas": márcala como *no verificada*.
 
 ### Rol
 
 Actúa como un equipo senior de producto web formado por:
 - un **diseñador UI/UX**;
-- un **desarrollador frontend** (Astro 6, Tailwind CSS v4, Alpine.js);
+- un **desarrollador frontend** (Astro 7, Tailwind CSS v4, Alpine.js);
 - un **especialista en SEO local y conversión (CRO) para negocios B2B de servicios**;
 - un **ingeniero de seguridad web**.
 
@@ -82,7 +82,7 @@ Busca los recursos open source **mejor valorados y mantenidos** para construir e
    - señales de confianza, reseñas, SEO local, Google Business Profile y campos que separan leads de alta calidad.
    - **Todo lo que cambie la medición aprobada, agregue campos o columnas, o use cookies va solo como propuesta**, con su efecto en costo, privacidad y número de campos. No lo incluyas en las maquetas de la Tarea B sin aprobación.
 4. **Seguridad:**
-   - CSP en Astro 6 y encabezados de seguridad en Workers;
+   - CSP en Astro 7 y encabezados de seguridad en Workers;
    - verificación del JWT de Cloudflare Access (`jose`), de los webhooks de Resend y de Turnstile;
    - el límite de envíos: verifica la limitación del Rate Limiting binding (periodos de 10 o 60 s) y el diseño de dos capas del Anexo A §4.8;
    - herramientas **gratuitas para un repositorio privado** en GitHub. Aclara qué requiere pago, por ejemplo CodeQL o secret scanning en privados.
@@ -112,26 +112,29 @@ Busca los recursos open source **mejor valorados y mantenidos** para construir e
 
 **Orden y nombres de archivo:**
 
-| # | Archivo | Página |
-|---|---|---|
-| 0 | `00-componentes.html` | Mini sistema de componentes: botones (principal, secundario, enlace), campos con error, casillas, tarjetas seleccionables, foco, encabezado y pie |
-| 1 | `01-home.html` | Home |
-| 2 | `02-quote.html` | Request a Quote: 4 pasos + estado con errores + "no se pudo guardar" + Thank You con referencia |
-| 3 | `03-property-managers.html` | For Property Managers |
-| 4 | `04-construction.html` | For Construction Teams |
-| 5 | `05-services.html` y `06-service-window-cleaning.html` | Services y la plantilla de página de servicio (ejemplo: Window Cleaning) |
-| 6 | `07-service-areas.html` | Service Areas |
-| 7 | `08-about.html` | About |
-| 8 | `09-contact.html` | Contact |
-| 9 | `10-privacy.html` | Privacy |
-| 10 | `11-404.html` | 404 |
-| 11 | `12-admin.html` | Panel `/admin`: lista, detalle y estados de los avisos |
+Cada archivo se entrega en su propia respuesta, en este orden:
+
+| Archivo | Página |
+|---|---|
+| `00-componentes.html` | Mini sistema de componentes: botones (principal, secundario, enlace), campos con error, casillas, tarjetas seleccionables, foco, encabezado y pie |
+| `01-home.html` | Home |
+| `02-quote.html` | Request a Quote: 4 pasos + estado con errores + "no se pudo guardar" + Thank You con referencia |
+| `03-property-managers.html` | For Property Managers |
+| `04-construction.html` | For Construction Teams |
+| `05-services.html` | Services |
+| `06-service-window-cleaning.html` | Plantilla de página de servicio (ejemplo: Window Cleaning) |
+| `07-service-areas.html` | Service Areas |
+| `08-about.html` | About |
+| `09-contact.html` | Contact |
+| `10-privacy.html` | Privacy |
+| `11-404.html` | 404 |
+| `12-admin.html` | Panel `/admin`: lista, detalle y estados de los avisos |
 
 **Después de entregar `00-componentes.html` y `01-home.html`, detente y espera que el dueño apruebe el estilo.** Luego sigue con una página por respuesta.
 - El encabezado y el pie aprobados con Home se copian **sin cambios** en todas las páginas.
 - Los enlaces entre maquetas son relativos (por ejemplo `02-quote.html`).
 
-**Plantilla técnica de cada maqueta** (un archivo HTML que se abre en el navegador). Los CDN están **permitidos solo en las maquetas**; en el sitio real, las fuentes se autoalojan con Fontsource y no se usan CDN.
+**Plantilla técnica de cada maqueta** (un archivo HTML que se abre en el navegador). Los CDN están **permitidos solo en las maquetas**. En el sitio real, fuentes y librerías se autoalojan (Fontsource y npm); los únicos scripts de terceros son Turnstile y Cloudflare Web Analytics, permitidos en la CSP.
 
 ```html
 <!doctype html>
@@ -177,12 +180,12 @@ Busca los recursos open source **mejor valorados y mantenidos** para construir e
 - Verifica cada maqueta a **320 px** (no debe romperse), **390 px** (celular) y **1280 px** (escritorio).
 
 **Idiomas en la Tarea B:**
-- Cada HTML está **en inglés**.
+- Cada HTML está **en inglés**, salvo `12-admin.html`, que va en español con `lang="es"` y sin tabla EN/ES.
 - El **español** se entrega en el mismo mensaje, en una **tabla de tres columnas: id de la sección, texto EN, texto ES**.
 - El registro en español es **usted**, en español neutro de EE. UU.
 - Usa el glosario de abajo.
 
-**"Texto real":** es texto en borrador con **calidad final**. Cada afirmación sobre alcance, inclusiones, exclusiones, etapas, ciudades, condiciones, horarios, personas, seguro, licencias, experiencia, teléfono, reseñas, precios o tiempos de respuesta va **dentro de `[[CONFIRM: <texto propuesto>]]`**. Por ejemplo: `[[CONFIRM: Interior and exterior glass up to 3 stories]]`. Nunca lo presentes como hecho.
+**"Texto real":** es texto en borrador con **calidad final**. Cada afirmación sobre alcance, inclusiones, exclusiones, etapas, ciudades, condiciones, horarios, personas, seguro, licencias, experiencia, teléfono, reseñas, precios o tiempos de respuesta va **dentro de `[[CONFIRM: <texto propuesto>]]`**. Por ejemplo: `[[CONFIRM: Interior and exterior glass up to 3 stories]]`. La lista completa de lo que va en `[[CONFIRM]]` es la del Anexo A §3.4. Nunca lo presentes como hecho.
 
 **Fotos:** usa **solo** marcos "Foto pendiente · <descripción>" (por ejemplo, un bloque con rayas suaves). **Sin fotos de muestra ni de stock.**
 
@@ -230,8 +233,8 @@ Busca los recursos open source **mejor valorados y mantenidos** para construir e
 
 | Camino | Qué se muestra |
 |---|---|
-| Property Cleaning | Los 7 servicios en orden comercial. Post-Construction aparece como "renovaciones o unidades nuevas". |
-| Construction Cleaning | **Etapas:** Rough, Final y Touch-up cleaning. **Adicionales:** Window Cleaning y Pressure Washing (limpieza exterior). Más "Not sure / need guidance". |
+| Property Cleaning | Los 7 servicios en orden comercial. Post-Construction aparece como "renovaciones o unidades nuevas". Más "Not sure / need guidance". |
+| Construction Cleaning | **Etapas:** Rough, Final y Touch-up cleaning. **Adicionales:** Window Cleaning, Pressure Washing (limpieza exterior) y "Other" (otros servicios confirmados). Más "Not sure / need guidance". |
 
 **Cargos** (lista cerrada):
 
@@ -280,7 +283,7 @@ Revisa todas las maquetas contra:
 ### Reglas de trabajo
 
 1. **Ritmo:** una tarea a la vez, con las pausas indicadas. Pide aprobación al terminar cada una.
-2. **No inventes datos del negocio:** nada de lo que pide confirmar el Anexo A §3.4 (alcance, exclusiones, etapas, ciudades, condiciones, horarios, personas, seguro, licencias, experiencia, teléfono, direcciones, reseñas, testimonios, precios, tiempos de respuesta). Usa `[[CONFIRM: ...]]`.
+2. **No inventes datos del negocio:** nada de lo que pide confirmar el Anexo A §3.4. Por ejemplo: nombres, alcance y exclusiones de servicios, disponibilidad, etapas, ciudades, condiciones, facturación, reportes, horarios, personas, seguro, licencias, documentación, experiencia, teléfono, WhatsApp, direcciones, reseñas, testimonios, precios o tiempos de respuesta. Usa `[[CONFIRM: ...]]`. El correo `blagalcleaning@gmail.com` sí está confirmado.
 3. **Las imágenes de muestra nunca se presentan como trabajos de Blagal.** En las maquetas, solo marcos "Foto pendiente".
 4. **Presupuesto:** el objetivo es $0 al mes. Señala cualquier costo.
 5. **Idiomas:**
@@ -316,8 +319,10 @@ Si falta la clave, o `api.openai.com` no responde (por ejemplo, el proxy devuelv
 
 **3. Elige el modelo:**
 ```bash
-curl -sS -K <(printf 'header = "Authorization: Bearer %s"\n' "$OPENAI_API_KEY") https://api.openai.com/v1/models | jq -r '.data[].id' | sort
+curl -sS -K <(printf 'header = "Authorization: Bearer %s"\n' "$OPENAI_API_KEY") https://api.openai.com/v1/models \
+  | jq -r 'if .error then "ERROR: \(.error.message)" else .data[].id end' | sort
 ```
+- Si sale `ERROR`, la clave no sirve: aplica el punto 1.
 - Elige el modelo de texto más capaz que sea compatible con `/v1/responses`.
 - Excluye los modelos de embeddings, audio, imagen y moderación.
 - **Excluye los "-pro"** salvo que el dueño lo apruebe.
@@ -326,8 +331,9 @@ curl -sS -K <(printf 'header = "Authorization: Bearer %s"\n' "$OPENAI_API_KEY") 
 **4. Pide la crítica de cada entrega** (resultado de la Tarea A, cada maqueta, la revisión):
 ```bash
 MODEL="<modelo elegido>"
+CTX_FILE="<ruta a este archivo: 2026-10-26-blagal-prompt-chatgpt.md>"
 jq -n --arg model "$MODEL" \
-      --rawfile ctx docs/handoff/2026-10-26-blagal-prompt-chatgpt.md \
+      --rawfile ctx "$CTX_FILE" \
       --rawfile input entrega.md \
   '{model:$model, store:false, max_output_tokens:16000,
     instructions:("Eres un revisor independiente. Revisa la entrega contra el diseño aprobado: contradicciones, accesibilidad, SEO, calidad de leads, seguridad y datos inventados. Responde en español con una tabla: problema, severidad (alta/media/baja), corrección.\n\nCONTEXTO APROBADO:\n" + $ctx),
@@ -380,7 +386,7 @@ jq -r 'if .error then "ERROR: \(.error.message)" else ((if .status != "completed
 | Repositorio | **Privado**, gratis. Solo GitHub Actions publica, y solo si pasan las revisiones. |
 | Respaldo | **Semanal a R2**, guardado 90 días, además de Time Travel. |
 | Responsable de las alertas | **El dueño**, con alertas a su Gmail. |
-| Correcciones técnicas (2026-10-26) | Límite de envíos en dos capas, conteo de reintentos, bordes de campos, foco 3/3 px, cargos cerrados, panel en español y dos tokens de Cloudflare separados (Anexo A §17). |
+| Correcciones técnicas (2026-10-26) | **Astro 7** en lugar de Astro 6, límite de envíos en dos capas, conteo de reintentos, bordes de campos, foco 3/3 px, cargos cerrados, panel en español, tokens de Cloudflare separados, registro usted y nada de fotos de stock (Anexo A §17). |
 
 ---
 
@@ -392,7 +398,7 @@ jq -r 'if .error then "ERROR: \(.error.message)" else ((if .status != "completed
 | Documento de diseño | Ya existe; es el Anexo A. Vive de forma temporal en otro repositorio del dueño hasta que se cree el del sitio. |
 | Cloudflare | El dominio está registrado en la cuenta de Cloudflare del dueño. Falta revisar los registros DNS existentes antes de construir. |
 | Plugins de Claude sugeridos | `frontend-design` (Anthropic, recomendado), Website Design (UXKIN, comunidad: su servidor remoto envía datos a un tercero, así que basta con sus skills) y Marketing (Anthropic). |
-| Herramientas candidatas ya identificadas | Astro, `@astrojs/cloudflare`, Tailwind v4, `@astrojs/sitemap`, Astro Actions + Zod, Turnstile, D1, Resend, Alpine.js, `schema-dts`, Lucide, Playwright, axe-core, Lighthouse CI, Wrangler. |
+| Herramientas candidatas ya identificadas | Astro 7, `@astrojs/cloudflare` 14, Tailwind v4, `@astrojs/sitemap`, Astro Actions + Zod, Turnstile, D1, Resend, Alpine.js, `schema-dts`, Lucide, Playwright, axe-core, Lighthouse CI, Wrangler. |
 
 ---
 
@@ -403,7 +409,7 @@ Es la misma lista del Anexo A §3.4:
 - Cobertura geográfica y disponibilidad.
 - Servicios y etapas de construcción que se ofrecen.
 - Seguro, licencias y documentación disponible.
-- Experiencia, teléfono, correo y WhatsApp.
+- Experiencia, teléfono y WhatsApp. El correo `blagalcleaning@gmail.com` ya está confirmado.
 - Compromisos de respuesta, facturación, reportes y atención recurrente.
 - Fotos propias y testimonios con autorización.
 - Si "House Cleaning" se refiere a casas en alquiler. En ese caso conviene llamarlo "Single-Family Rental Cleaning".
@@ -544,7 +550,7 @@ El texto final se ajusta a los servicios y la cobertura que confirme el dueño.
 - Cobertura geográfica y disponibilidad.
 - Servicios y etapas de construcción que se ofrecen.
 - Seguro, licencias y documentación disponible.
-- Experiencia, teléfono, correo y WhatsApp.
+- Experiencia, teléfono y WhatsApp. El correo `blagalcleaning@gmail.com` ya está confirmado.
 - Compromisos de respuesta, facturación, reportes y atención recurrente.
 - Fotos propias y testimonios con autorización.
 - Si "House Cleaning" se refiere a casas en alquiler. En ese caso conviene llamarlo "Single-Family Rental Cleaning", lo que cambiaría también el nombre del servicio 7 y su ruta.
@@ -552,7 +558,7 @@ El texto final se ajusta a los servicios y la cobertura que confirme el dueño.
 **Reglas de contenido:**
 - Cada dato pendiente se marca en el contenido con `[[CONFIRM: ...]]`.
 - Las fotos pendientes usan un marco "foto pendiente" y nunca se presentan como trabajos de Blagal.
-- Las imágenes de muestra solo se usan durante el diseño.
+- No se usan imágenes de muestra ni de stock, ni en las maquetas ni en el sitio. Hasta tener fotos propias se usan marcos "Foto pendiente".
 - Ninguna promesa de rapidez, disponibilidad o resultado se publica si no está confirmada.
 
 **Comprobación automática** (sección 9.1): mientras el sitio esté privado, solo informa de marcadores pendientes. Desde el lanzamiento, **bloquea la publicación** si queda alguno.
@@ -581,7 +587,7 @@ Por cada propiedad:
 | Tipo: apartamentos, HOA/condo, comercial/oficinas, casa/townhome, otro | No |
 | Tamaño: unidades o sq ft | No |
 | Servicios, incluida la opción **"Not sure / need guidance"** | Sí (al menos uno) |
-| Frecuencia **por servicio**: una vez, semanal, quincenal, mensual, trimestral, según necesidad, **"Not sure"** | No |
+| Frecuencia **por servicio**: una vez, semanal, cada dos semanas, mensual, trimestral, según necesidad, **"Not sure"** | No |
 | Notas | No |
 
 - Botones **"Add another property"** y **"Copy services from previous property"**.
@@ -664,7 +670,7 @@ Por cada propiedad:
 - **Confirmación al cliente:**
   - Va en su idioma.
   - Al responder, la respuesta llega al Gmail del negocio, por ejemplo para enviar fotos o planos.
-  - El texto dice "recibimos tu solicitud" e incluye la referencia y el resumen.
+  - El texto dice "recibimos su solicitud" (registro usted) e incluye la referencia y el resumen.
   - **No promete** precio, disponibilidad ni contratación.
 - El contenido de cada correo se arma solo con datos guardados, así que cada reintento manda exactamente lo mismo. Esto es necesario porque Resend rechaza una clave reutilizada con contenido distinto.
 
@@ -736,8 +742,8 @@ Filtros: tipo, estado de avisos y pruebas.
 | Ámbar | `#F2A900` | Cotización y pequeños acentos de marca |
 | Blanco | `#FFFFFF` | Fondo principal |
 | Blanco frío | `#F6FAFC` | Secciones alternas |
-| Gris texto | `#56636F` | Textos secundarios |
-| Línea | `#D6E4EE` | Bordes y divisores |
+| Gris texto | `#56636F` | Textos secundarios y bordes de campos, casillas y tarjetas seleccionables |
+| Línea | `#D6E4EE` | Solo divisores decorativos (nunca bordes de controles) |
 | Azul claro | `#9CC8E8` | Foco y detalles sobre marino |
 
 #### 6.2 Reglas
@@ -806,7 +812,7 @@ Referencia visual: `Blagal-Cleaning-Identidad-Final.pdf` (versión revisada con 
 
 | Pieza | Tecnología |
 |---|---|
-| Sitio | **Astro 6** con `@astrojs/cloudflare`. Las páginas se generan estáticas y el Worker atiende solo las rutas dinámicas. |
+| Sitio | **Astro 7** (vigente: 7.4.x) con `@astrojs/cloudflare` 14.x. Las páginas se generan estáticas y el Worker atiende solo las rutas dinámicas. |
 | Estilos | **Tailwind CSS v4** con los tokens de la sección 6 |
 | Interacción del formulario | **Alpine.js**: pasos, agregar y copiar propiedades, teléfono condicional |
 | Validación | **Zod**, el mismo esquema en el navegador y en el servidor |
@@ -1120,9 +1126,9 @@ Para cada alerta: qué significa, cómo confirmarla y qué hacer. También inclu
 
 ---
 
-### 15. Decisiones por defecto (revisar)
+### 15. Decisiones por defecto (aceptadas; se pueden cuestionar como propuesta)
 
-Estas decisiones no se discutieron explícitamente. Se tomaron con criterio razonable y se pueden cambiar en la revisión:
+Estas decisiones no se discutieron explícitamente. Se tomaron con criterio razonable y se aceptan por ahora. Cualquier cambio se presenta como propuesta y necesita la aprobación del dueño:
 
 | Decisión | Valor |
 |---|---|
@@ -1137,7 +1143,7 @@ Estas decisiones no se discutieron explícitamente. Se tomaron con criterio razo
 | Glosario EN/ES | Propuesto en el prompt maestro (sección 1). El dueño puede cambiarlo. |
 | Umbral de alerta de aviso pendiente | 30 minutos |
 | Frecuencia máxima de alertas | 1 cada 15 minutos por tipo |
-| Monitor externo | UptimeRobot gratis (alternativa: Uptime Kuma del homelab) |
+| Monitor externo | UptimeRobot gratis (alternativa autoalojada: Uptime Kuma) |
 | Retención del respaldo en R2 | 90 días |
 | Retención de solicitudes en D1 | Hasta que el dueño las borre. Se indica en Privacy. |
 
@@ -1175,3 +1181,6 @@ Las encontró una revisión independiente del documento y del prompt maestro. Ni
 | 5 | El panel está en español. | El dueño habla español. |
 | 8.3 y 13 | Se separan el token de publicación (solo en GitHub) y el token de aprovisionamiento (opcional, temporal, en el entorno de Claude). | Había una contradicción entre las dos secciones. |
 | 3.4 | Se agrega la pregunta sobre el nombre de "House Cleaning". | Puede no describir bien el servicio para property managers. |
+| 7.1 | **Astro 7** (7.4.x) con `@astrojs/cloudflare` 14.x en lugar de Astro 6. | Astro 7 es la versión vigente desde junio de 2026. La serie 6 no recibe parches desde el 2026-06-17 y el adaptador actual exige `astro ^7.4.0`. Se verificó en npm el 2026-10-26. |
+| 6.1 | La tabla de colores coincide con la regla de bordes de §6.2. | Contradicción interna. |
+| 3.4, 4.3 y 4.10 | No se usan imágenes de muestra ni de stock. El correo del negocio ya está confirmado. "Cada dos semanas" en lugar de "quincenal". La confirmación usa "su solicitud". | Coherencia con el registro usted y el glosario. "Quincenal" es ambiguo. |
