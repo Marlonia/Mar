@@ -1,20 +1,29 @@
 # Prompt maestro: sitio web de Blagal Cleaning (blagalcleaning.com)
 
-**Versión:** 2026-10-26
+**Versión:** 2026-10-26 (revisada)
 
 ## Cómo usar este archivo
 
 1. Abre la sesión nueva: ChatGPT, o una sesión de Claude con acceso a la API de OpenAI.
-2. **Adjunta este archivo completo** y escribe: *"Lee el archivo completo y sigue el PROMPT de la sección 1."*
-3. Si lo tienes, adjunta también el PDF de identidad visual `Blagal-Cleaning-Identidad-Final.pdf`.
+2. **Pega la sección 1 (PROMPT) como mensaje y adjunta este archivo completo.** Con archivos largos, ChatGPT a veces solo busca partes del adjunto en vez de leerlo entero.
+3. Si lo tienes, adjunta también el PDF de identidad visual `Blagal-Cleaning-Identidad-Final.pdf`, que está junto a este archivo en `docs/handoff/`.
+   - Si no hay PDF, basta con el texto del Anexo A §6.
+   - Si el PDF y el texto no coinciden, **manda el texto**.
 4. Este archivo tiene:
    - la **sección 1**, que es el prompt;
    - las **secciones 2 a 7**, con la información de referencia;
    - el **Anexo A**, con el documento de diseño aprobado completo.
+5. Si el dueño adjunta además un **Anexo B** (informe de investigación previo), úsalo como punto de partida de la Tarea A y **verifícalo**. Si no lo adjunta, la Tarea A es la investigación completa.
 
 ---
 
 ## 1. PROMPT
+
+### Fecha y versiones
+
+- **Hoy es 2026-10-26.**
+- **Astro 6** y **Tailwind CSS v4** son versiones vigentes y aprobadas para este proyecto.
+- Si tus datos de entrenamiento son anteriores, no supongas que una versión no existe ni la "corrijas": márcala como *no verificada*.
 
 ### Rol
 
@@ -37,19 +46,28 @@ El sitio debe:
 - ser rápido y seguro;
 - llevar a cada visitante a **pedir una cotización**.
 
+### Antes de empezar
+
+Confirma que leíste el Anexo A **listando sus 17 secciones** por título. Luego empieza la Tarea A.
+
 ### Estado actual
 
-- El **documento de diseño está aprobado** (Anexo A). La identidad visual también está aprobada (Anexo A, sección 6).
+- El **documento de diseño está aprobado** (Anexo A), incluida la identidad visual (Anexo A §6).
 - Todavía **no hay código**.
 - **No cambies decisiones aprobadas por tu cuenta.** Si crees que algo debe cambiar, preséntalo como **propuesta**, con razón, beneficio y costo, y espera aprobación.
+- Las **decisiones por defecto** (sección 6 y Anexo A §15) están aceptadas por ahora, y también puedes cuestionarlas como propuesta.
+- Las secciones 4 y 7 y las partes técnicas del Anexo A (D1, reintentos, alertas, lanzamiento) son **contexto**. No te toca cumplirlas en estas tareas, pero tus entregas no deben contradecirlas.
 
-### Tareas (en este orden, una a la vez)
+### Tareas (en este orden)
 
-Al terminar cada tarea, presenta el resultado, resume las decisiones que necesitan al dueño y **espera su aprobación antes de pasar a la siguiente**.
+**Ritmo de entrega:**
+- **Tarea A:** puedes entregar un área por respuesta.
+- **Tarea B:** entrega **una página por respuesta**. Si una página no cabe, divídela en partes numeradas y avísalo.
+- Al terminar cada tarea, resume las decisiones que necesitan al dueño y **espera su aprobación antes de seguir**.
 
 #### Tarea A. Investigar recursos open source en GitHub y npm
 
-Busca los recursos open source **mejor valorados y mantenidos** para construir este sitio con el stack aprobado. Cubre estas seis áreas:
+Busca los recursos open source **mejor valorados y mantenidos** para construir este sitio con el stack aprobado. Cubre seis áreas:
 
 1. **Base Astro:**
    - `astro` y `@astrojs/cloudflare`: versión actual y compatibilidad con Workers, Actions y tareas programadas;
@@ -57,23 +75,24 @@ Busca los recursos open source **mejor valorados y mantenidos** para construir e
    - templates de referencia para negocios de servicios.
 2. **Kit de diseño:**
    - componentes compatibles con Tailwind v4 + Astro + Alpine, sin React (p. ej. daisyUI, Flowbite, Preline, HyperUI, Starwind UI, Basecoat UI, Pines);
-   - íconos (Lucide), fuentes autoalojadas (Fontsource: Archivo y Public Sans) y plugins de Alpine.
+   - íconos (Lucide), fuentes autoalojadas (Fontsource variable: Archivo y Public Sans) y plugins de Alpine.
 3. **Captación de leads:**
    - formularios multi-paso, validación de teléfono y captura de UTM/origen del lead;
-   - medición de conversiones (ojo: Cloudflare Web Analytics no tiene eventos personalizados; evalúa Umami, Plausible, Zaraz, PostHog);
-   - señales de confianza, reseñas, SEO local y Google Business Profile;
-   - campos que separan leads de alta calidad.
+   - medición de conversiones. Cloudflare Web Analytics no tiene eventos personalizados. Evalúa **solo opciones sin cookies (o configurables así) y con plan gratis**, por ejemplo Umami, Zaraz, o Plausible y PostHog si se pueden usar gratis sin cookies, e indica el impacto en la CSP;
+   - señales de confianza, reseñas, SEO local, Google Business Profile y campos que separan leads de alta calidad.
+   - **Todo lo que cambie la medición aprobada, agregue campos o columnas, o use cookies va solo como propuesta**, con su efecto en costo, privacidad y número de campos. No lo incluyas en las maquetas de la Tarea B sin aprobación.
 4. **Seguridad:**
    - CSP en Astro 6 y encabezados de seguridad en Workers;
    - verificación del JWT de Cloudflare Access (`jose`), de los webhooks de Resend y de Turnstile;
-   - límite de envíos;
+   - el límite de envíos: verifica la limitación del Rate Limiting binding (periodos de 10 o 60 s) y el diseño de dos capas del Anexo A §4.8;
    - herramientas **gratuitas para un repositorio privado** en GitHub. Aclara qué requiere pago, por ejemplo CodeQL o secret scanning en privados.
 5. **Calidad y pruebas:**
    - Playwright + axe, Lighthouse CI (mediana de 3), lychee, Vitest + `@cloudflare/vitest-pool-workers`, ESLint + `eslint-plugin-astro`, Prettier + plugins;
    - el flujo de GitHub Actions donde publicar depende de todas las revisiones.
-6. **Herramientas y plugins de diseño para la IA que construye el sitio:**
-   - los plugins y skills de Claude Code mejor valorados para diseño web, seguridad y SEO (p. ej. `frontend-design` de Anthropic);
-   - autor, popularidad, qué ejecutan (instrucciones, scripts, hooks, servidores remotos que envían datos a terceros) y riesgos.
+6. **Plugins y skills de diseño para la IA que construye el sitio** (Claude Code):
+   - los mejor valorados para diseño web, seguridad y SEO (p. ej. `frontend-design` de Anthropic);
+   - evalúa **solo lo que puedas leer en el repositorio público** de cada plugin (manifest, hooks, scripts, servidores MCP); lo demás márcalo como no verificado;
+   - puedes mencionar herramientas de OpenAI como información, sin cambiar el plan.
 
 **Para cada recurso:**
 - nombre exacto y para qué sirve;
@@ -85,83 +104,197 @@ Busca los recursos open source **mejor valorados y mantenidos** para construir e
 - cuándo se instala: **diseño / implementación / después del lanzamiento**;
 - **URL de evidencia**.
 
-**Verifica** versiones y licencias en fuentes oficiales (npm, GitHub, documentación). Marca como *no verificado* lo que no puedas comprobar. **No inventes paquetes ni versiones.**
+**Verifica** en fuentes oficiales (npm, GitHub, documentación). Marca como *no verificado* lo que no puedas comprobar. **No inventes paquetes ni versiones.**
 
-**Entrega:**
-- tabla por área;
-- lista de "instalar ya" y "no instalar";
-- mejoras para conseguir leads que **no** estén en el diseño aprobado, presentadas como **propuestas**.
+**Terminado cuando:** hay una tabla por área, una lista de "instalar ya" y "no instalar", y una lista separada de **propuestas** de mejora para conseguir leads.
 
-#### Tarea B. Diseñar las páginas
+#### Tarea B. Diseñar las páginas (maquetas)
 
-Diseña cada página como **maqueta HTML + Tailwind CSS v4** en un solo archivo por página, que se abra en el navegador.
-- Usa los tokens de la marca y diseña primero para móvil.
-- Se deben ver bien a **390 px** (celular) y **1280 px** (escritorio).
+**Orden y nombres de archivo:**
 
-**Orden:**
-1. Home.
-2. Request a Quote, con:
-   - los 4 pasos;
-   - el estado con errores;
-   - el estado "no se pudo guardar";
-   - Thank You con la referencia.
-3. For Property Managers.
-4. For Construction Teams.
-5. Services y la plantilla de página de servicio, usando *Window Cleaning* como ejemplo.
-6. Service Areas.
-7. About.
-8. Contact.
-9. Privacy.
-10. 404.
-11. Panel `/admin`: lista, detalle y estados de los avisos.
+| # | Archivo | Página |
+|---|---|---|
+| 0 | `00-componentes.html` | Mini sistema de componentes: botones (principal, secundario, enlace), campos con error, casillas, tarjetas seleccionables, foco, encabezado y pie |
+| 1 | `01-home.html` | Home |
+| 2 | `02-quote.html` | Request a Quote: 4 pasos + estado con errores + "no se pudo guardar" + Thank You con referencia |
+| 3 | `03-property-managers.html` | For Property Managers |
+| 4 | `04-construction.html` | For Construction Teams |
+| 5 | `05-services.html` y `06-service-window-cleaning.html` | Services y la plantilla de página de servicio (ejemplo: Window Cleaning) |
+| 6 | `07-service-areas.html` | Service Areas |
+| 7 | `08-about.html` | About |
+| 8 | `09-contact.html` | Contact |
+| 9 | `10-privacy.html` | Privacy |
+| 10 | `11-404.html` | 404 |
+| 11 | `12-admin.html` | Panel `/admin`: lista, detalle y estados de los avisos |
+
+**Después de entregar `00-componentes.html` y `01-home.html`, detente y espera que el dueño apruebe el estilo.** Luego sigue con una página por respuesta.
+- El encabezado y el pie aprobados con Home se copian **sin cambios** en todas las páginas.
+- Los enlaces entre maquetas son relativos (por ejemplo `02-quote.html`).
+
+**Plantilla técnica de cada maqueta** (un archivo HTML que se abre en el navegador). Los CDN están **permitidos solo en las maquetas**; en el sitio real, las fuentes se autoalojan con Fontsource y no se usan CDN.
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>…</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400..800&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.5/dist/cdn.min.js"></script>
+<script src="https://unpkg.com/lucide@1.61.0/dist/umd/lucide.min.js"></script>
+<style type="text/tailwindcss">
+  @theme {
+    --color-navy: #0F2A3D;      /* títulos, marca */
+    --color-blue: #1D6AA5;      /* enlaces, foco en fondos claros */
+    --color-amber: #F2A900;     /* SOLO cotizar + pequeños acentos */
+    --color-white: #FFFFFF;
+    --color-cool: #F6FAFC;      /* secciones alternas */
+    --color-muted: #56636F;     /* texto secundario, bordes de campos */
+    --color-line: #D6E4EE;      /* SOLO divisores decorativos */
+    --color-sky: #9CC8E8;       /* foco y detalles sobre marino */
+    --font-display: "Archivo", "Arial Narrow", sans-serif;
+    --font-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+    --radius-brand: 8px;
+  }
+</style>
+</head>
+<body class="font-body text-navy bg-white">
+  …
+  <script>lucide.createIcons();</script>
+</body>
+</html>
+```
+
+**Interacción y estados:**
+- En `02-quote.html`, los pasos funcionan con Alpine: Siguiente / Atrás, agregar propiedad y copiar servicios.
+- Al final del archivo se muestran, uno debajo del otro y con la etiqueta "Estado: …", los estados de error, "no se pudo guardar" y Thank You.
+- En las demás páginas, los estados (foco, error, vacío, carga) se muestran igual cuando aplican.
+- El selector EN / ES se dibuja con enlace a `/es/<ruta>`, pero **no tiene que funcionar** en la maqueta.
+- Verifica cada maqueta a **320 px** (no debe romperse), **390 px** (celular) y **1280 px** (escritorio).
+
+**Idiomas en la Tarea B:**
+- Cada HTML está **en inglés**.
+- El **español** se entrega en el mismo mensaje, en una **tabla de tres columnas: id de la sección, texto EN, texto ES**.
+- El registro en español es **usted**, en español neutro de EE. UU.
+- Usa el glosario de abajo.
+
+**"Texto real":** es texto en borrador con **calidad final**. Cada afirmación sobre alcance, inclusiones, exclusiones, etapas, ciudades, condiciones, horarios, personas, seguro, licencias, experiencia, teléfono, reseñas, precios o tiempos de respuesta va **dentro de `[[CONFIRM: <texto propuesto>]]`**. Por ejemplo: `[[CONFIRM: Interior and exterior glass up to 3 stories]]`. Nunca lo presentes como hecho.
+
+**Fotos:** usa **solo** marcos "Foto pendiente · <descripción>" (por ejemplo, un bloque con rayas suaves). **Sin fotos de muestra ni de stock.**
 
 **Cada página incluye:**
 - **Objetivo** de la página y **acción principal**.
-- **Secciones en orden**, con **texto real en inglés** y su **versión en español**.
-- **SEO:**
-  - `<title>` (menos de 60 caracteres) y meta description (menos de 155);
+- **Secciones en orden.**
+- **SEO** (solo páginas públicas indexables):
+  - `<title>` de menos de 60 caracteres, con el sufijo `| Blagal Cleaning` si cabe;
+  - meta description de menos de 155 caracteres;
   - un solo H1;
-  - el tipo de JSON-LD que corresponde.
-- **Estados:** foco, error, vacío y carga cuando aplique.
+  - JSON-LD que corresponda. `LocalBusiness` lleva `areaServed` con los 7 condados y **sin `address`**; `telephone` y `legalName` van como `[[CONFIRM]]`. Las páginas de servicio llevan `Service`.
+  - Las palabras clave que propongas van marcadas como supuestos.
+- **Excepciones de SEO:**
+  - **Thank You y 404:** `noindex` y sin JSON-LD.
+  - **`/admin`:** en **español**, `noindex`, sin JSON-LD y sin versión en otro idioma. Usa **datos de ejemplo claramente ficticios** (Example Property Co., `name@example.com`, teléfonos 555-01xx, `BLG-EXMPL`) con la etiqueta "Datos de ejemplo".
 - **Accesibilidad:** orden de lectura, etiquetas, contraste y foco según las reglas.
-- **Datos pendientes** marcados con `[[CONFIRM: ...]]` y **fotos** como marco "Foto pendiente · <descripción>".
+- **H1 de Home:** "Cleaning Services for Property Managers & Construction Teams in Utah", tal cual. Si propones otro, preséntalo como alternativa.
 
 **Reglas de marca obligatorias** (resumen; el detalle está en el Anexo A §6):
-- **Colores:** marino `#0F2A3D`, azul `#1D6AA5`, ámbar `#F2A900`, blanco `#FFFFFF`, blanco frío `#F6FAFC`, gris `#56636F`, línea `#D6E4EE`, azul claro `#9CC8E8`.
+- **Colores:** los 8 tokens de la plantilla.
 - **Ámbar:**
   - una sola acción principal: **Request a Quote** (puede repetirse si lleva a cotizar);
+  - botón ámbar **con texto marino** (7.4:1), **nunca texto blanco** (2.0:1);
+  - ninguna otra acción usa ámbar;
   - reservado para cotizar y pequeños acentos de marca;
   - nunca como texto, ícono o línea fina sobre fondo claro.
-- **Foco:** azul sobre fondos claros y azul claro sobre marino, siempre separado del botón.
-- **Tipografía:** Archivo (títulos, ancho normal) + Public Sans (texto). Mayúsculas completas solo en etiquetas cortas.
-- **Logo provisional:** la palabra "BLAGAL CLEANING". **Favicon:** una "B" blanca en un cuadrado marino con una línea ámbar.
+- **Acciones secundarias:** botón con borde marino (sobre marino, borde blanco).
+- **Foco:**
+  - azul `#1D6AA5` sobre fondos claros y azul claro `#9CC8E8` sobre marino;
+  - contorno de 3 px con 3 px de separación, siempre separado del botón.
+- **Bordes de campos, casillas y tarjetas seleccionables:** gris `#56636F` o marino. **Nunca `#D6E4EE`**, que solo sirve para divisores.
+- **Tipografía:**
+  - Archivo para títulos, en ancho normal o ~104% (eje `wdth`), y Public Sans para texto;
+  - mayúsculas completas solo en etiquetas cortas.
+- **Logo provisional:** "BLAGAL CLEANING" en Archivo 800, ancho ~108%, en mayúsculas (excepción a la regla).
+- **Favicon:** una "B" blanca en un cuadrado marino con una línea ámbar.
 - **Home:**
-  - titular y botones a la izquierda, foto principal a la derecha;
-  - "Who we work with": dos tarjetas con el mismo peso (Property Management y Construction Teams), con foto y enlace visible con flecha;
-  - selector EN / ES visible;
-  - servicios en orden comercial: Post-Construction → Turnover / Move-out → Window → Pressure Washing → Gutter → Common Areas → House Cleaning.
+  - titular, texto y botones (**Request a Quote** ámbar + **View Services** secundario) a la izquierda, y foto principal a la derecha;
+  - "Who we work with": dos tarjetas con el mismo peso (Property Management y Construction Teams), con foto y enlace visible con flecha; las tarjetas se pueden tocar completas;
+  - servicios en orden comercial;
+  - **franja marina con los 7 condados**;
+  - selector EN / ES visible en escritorio y en celular.
+
+**Servicios por camino del formulario** (todo marcado `[[CONFIRM]]` en la maqueta):
+
+| Camino | Qué se muestra |
+|---|---|
+| Property Cleaning | Los 7 servicios en orden comercial. Post-Construction aparece como "renovaciones o unidades nuevas". |
+| Construction Cleaning | **Etapas:** Rough, Final y Touch-up cleaning. **Adicionales:** Window Cleaning y Pressure Washing (limpieza exterior). Más "Not sure / need guidance". |
+
+**Cargos** (lista cerrada):
+
+| Camino | EN | ES |
+|---|---|---|
+| Propiedades | Property Manager · Building Superintendent · HOA Board Member · Property Owner · Other | Administrador de propiedades · Superintendente del edificio · Miembro de la junta del HOA · Propietario · Otro |
+| Construcción | Site Superintendent · Construction / Project Manager · General Contractor · Other | Superintendente de obra · Gerente de proyecto / construcción · Contratista general · Otro |
+
+**Glosario EN/ES** (propuesto; el dueño puede cambiarlo):
+
+| EN | ES |
+|---|---|
+| Request a Quote | Solicitar cotización |
+| Services · For Property Managers · For Construction Teams · Service Areas · About · Contact | Servicios · Para administradores de propiedades · Para equipos de construcción · Zonas de servicio · Nosotros · Contacto |
+| Post-Construction Cleaning | Limpieza post-construcción |
+| Turnover / Move-out Cleaning | Limpieza de turnover / desocupación |
+| Window Cleaning | Limpieza de ventanas |
+| Pressure Washing | Lavado a presión |
+| Gutter Cleaning | Limpieza de canaletas |
+| Common Area Cleaning | Limpieza de áreas comunes |
+| House Cleaning | Limpieza de casas |
+| One-time · Weekly · Every two weeks · Monthly · Quarterly · As needed | Una vez · Semanal · Cada dos semanas · Mensual · Trimestral · Según necesidad |
+| Not sure / need guidance | No estoy seguro / necesito orientación |
+| Rough · Final · Touch-up cleaning | Limpieza gruesa · final · de retoque |
+
+**Terminado cuando:**
+- los 13 archivos abren sin errores en la consola;
+- se ven bien a 320, 390 y 1280 px;
+- cada página pública tiene un solo H1, título y meta description dentro del límite, y su tabla EN/ES;
+- no hay datos inventados fuera de `[[CONFIRM]]`.
 
 #### Tarea C. Revisión cruzada
 
 Revisa todas las maquetas contra:
-- las reglas de marca y de accesibilidad (contrastes del Anexo A §6.2);
+- las reglas de marca y de accesibilidad (contrastes del Anexo A §6.2, bordes de controles y foco);
 - la calidad de los leads: ¿el formulario pide lo justo y separa bien los leads?;
 - las reglas de contenido: nada inventado, nada provisional presentado como real;
-- el SEO: títulos, H1, hreflang, JSON-LD.
+- el SEO: títulos, H1, hreflang previsto y JSON-LD.
 
-Entrega una lista de problemas con severidad y la corrección propuesta.
+**Formato:** una tabla con página, problema, regla incumplida, severidad (**alta / media / baja**), corrección y **cómo lo verificaste**: cálculo, lectura del código o *requiere prueba en navegador*.
+
+- **En ChatGPT**, esta tarea es una autorrevisión del código. Dilo así. La revisión independiente la hará después Claude, que puede abrir las páginas en un navegador y pasar axe y Lighthouse.
+
+**Terminado cuando:** cada maqueta fue revisada y cada problema alto tiene su corrección propuesta.
 
 ### Reglas de trabajo
 
-1. **Una tarea a la vez.** Pide aprobación al terminar cada una.
-2. **No inventes datos del negocio:** seguro, licencias, años de experiencia, teléfono, direcciones, reseñas, testimonios, precios o tiempos de respuesta. Usa `[[CONFIRM: ...]]`.
-3. **Las imágenes de muestra nunca se presentan como trabajos de Blagal.**
+1. **Ritmo:** una tarea a la vez, con las pausas indicadas. Pide aprobación al terminar cada una.
+2. **No inventes datos del negocio:** nada de lo que pide confirmar el Anexo A §3.4 (alcance, exclusiones, etapas, ciudades, condiciones, horarios, personas, seguro, licencias, experiencia, teléfono, direcciones, reseñas, testimonios, precios, tiempos de respuesta). Usa `[[CONFIRM: ...]]`.
+3. **Las imágenes de muestra nunca se presentan como trabajos de Blagal.** En las maquetas, solo marcos "Foto pendiente".
 4. **Presupuesto:** el objetivo es $0 al mes. Señala cualquier costo.
 5. **Idiomas:**
    - Responde al dueño en **español**.
-   - El sitio está en **inglés**, con versión completa en **español** bajo `/es/`.
+   - El sitio está en **inglés**, con versión completa en **español** bajo `/es/` (registro **usted**).
 6. **Claves:** nunca pidas, muestres ni guardes claves o contraseñas en el chat o en el código.
 7. Cita fuentes y marca lo no verificado.
+
+### Si eres ChatGPT
+
+- **Ignora la sección "Si eres Claude…"**: no hay comandos que ejecutar.
+- No tienes acceso al repositorio ni puedes instalar plugins de Claude. **Recomienda**, y entrega todo como archivos o bloques de código completos.
+- El dueño le pasará tus entregas a Claude para implementarlas y revisarlas.
+- Si puedes navegar la web, úsalo para verificar versiones, licencias y popularidad. Si no puedes, dilo y marca lo no verificado.
 
 ### Si eres Claude con acceso a la API de OpenAI
 
@@ -169,29 +302,49 @@ El dueño quiere que Claude y ChatGPT trabajen juntos.
 - **Claude** hace el trabajo y mantiene el repositorio.
 - **GPT** actúa como **revisor independiente** de cada entrega.
 
-**Antes de empezar:**
-- Comprueba que existe la variable `OPENAI_API_KEY`, sin mostrar su valor.
-- Comprueba que `api.openai.com` está permitido en la red de la sesión.
-- Elige el modelo más capaz disponible en la cuenta:
-  ```bash
-  curl -s https://api.openai.com/v1/models -H "Authorization: Bearer $OPENAI_API_KEY" | jq -r '.data[].id' | sort
-  ```
+**1. Comprueba que hay acceso:**
+```bash
+[ -n "${OPENAI_API_KEY:-}" ] && echo "clave definida" || echo "falta OPENAI_API_KEY"
+```
+Si falta la clave, o `api.openai.com` no responde (por ejemplo, el proxy devuelve 403), **detente**. Explícale al dueño que debe hacer una de estas dos cosas:
+- guardar `OPENAI_API_KEY` como secreto del entorno y permitir `api.openai.com` en la red;
+- usar el **modo manual**: entregarle este archivo para que lo pegue en ChatGPT.
 
-**Para cada entrega** (resultado de la Tarea A, cada maqueta, la revisión):
-1. Pídele a GPT una crítica independiente usando la Responses API. Arma el JSON con `jq` para escapar bien el texto:
-   ```bash
-   jq -n --arg model "<modelo>" --rawfile input entrega.md '{model:$model, input:$input}' \
-     | curl -s https://api.openai.com/v1/responses -H "Authorization: Bearer $OPENAI_API_KEY" \
-       -H "Content-Type: application/json" -d @- | jq -r '.output[] | select(.type=="message") | .content[].text'
-   ```
-2. Muéstrale al dueño la sección **"Opinión de GPT"** y, debajo, **qué aceptas y qué no, con razones**.
-3. No envíes a GPT claves, contraseñas ni datos personales de clientes.
+**2. Seguridad de la clave:**
+- No uses `set -x` ni `curl -v`.
+- Pasa la clave con un archivo de configuración temporal, como en los ejemplos, para que no aparezca en la lista de procesos.
 
-### Si eres ChatGPT
+**3. Elige el modelo:**
+```bash
+curl -sS -K <(printf 'header = "Authorization: Bearer %s"\n' "$OPENAI_API_KEY") https://api.openai.com/v1/models | jq -r '.data[].id' | sort
+```
+- Elige el modelo de texto más capaz que sea compatible con `/v1/responses`.
+- Excluye los modelos de embeddings, audio, imagen y moderación.
+- **Excluye los "-pro"** salvo que el dueño lo apruebe.
+- **Costo:** la API de OpenAI se cobra por uso. Antes del primer uso, estima el costo por entrega con los precios oficiales y pide aprobación al dueño. Anótalo en la lista de costos.
 
-- No tienes acceso al repositorio ni puedes instalar plugins de Claude. **Recomienda**, y entrega todo como archivos o bloques de código completos.
-- El dueño le pasará tus entregas a Claude para implementarlas.
-- Si puedes navegar la web, úsalo para verificar versiones, licencias y popularidad. Si no puedes, dilo y marca lo no verificado.
+**4. Pide la crítica de cada entrega** (resultado de la Tarea A, cada maqueta, la revisión):
+```bash
+MODEL="<modelo elegido>"
+jq -n --arg model "$MODEL" \
+      --rawfile ctx docs/handoff/2026-10-26-blagal-prompt-chatgpt.md \
+      --rawfile input entrega.md \
+  '{model:$model, store:false, max_output_tokens:16000,
+    instructions:("Eres un revisor independiente. Revisa la entrega contra el diseño aprobado: contradicciones, accesibilidad, SEO, calidad de leads, seguridad y datos inventados. Responde en español con una tabla: problema, severidad (alta/media/baja), corrección.\n\nCONTEXTO APROBADO:\n" + $ctx),
+    input:$input}' \
+| curl -sS --fail-with-body \
+    -K <(printf 'header = "Authorization: Bearer %s"\n' "$OPENAI_API_KEY") \
+    -H "Content-Type: application/json" --data-binary @- \
+    https://api.openai.com/v1/responses > resp.json
+
+jq -r 'if .error then "ERROR: \(.error.message)" else ((if .status != "completed" then "AVISO: status=\(.status) \(.incomplete_details.reason // "")" else empty end), (.output[] | select(.type=="message") | .content[] | if .type=="output_text" then .text elif .type=="refusal" then "RECHAZO: \(.refusal)" else empty end)) end' resp.json
+```
+- `store:false` evita que OpenAI guarde la conversación.
+- El filtro `jq` está probado con respuestas normales, errores, rechazos y respuestas incompletas.
+
+**5. Presenta el resultado:** muéstrale al dueño la sección **"Opinión de GPT"** y, debajo, **qué aceptas y qué no, con razones**.
+
+**6. Privacidad:** no envíes a GPT claves, contraseñas ni datos personales de clientes. Las maquetas usan solo datos ficticios.
 
 ---
 
@@ -209,7 +362,7 @@ El dueño quiere que Claude y ChatGPT trabajen juntos.
   7. House Cleaning
 - **Operación actual:** correo, WhatsApp y papel, sin software de gestión.
 - **Correo del negocio** (destino de las cotizaciones): `blagalcleaning@gmail.com`.
-- **Mensaje principal propuesto:** "Cleaning Services for Property Managers & Construction Teams in Utah".
+- **H1 de Home:** "Cleaning Services for Property Managers & Construction Teams in Utah".
 
 ---
 
@@ -222,29 +375,30 @@ El dueño quiere que Claude y ChatGPT trabajen juntos.
 | Parte 1, páginas | El dueño reescribió la propuesta y agregó **For Construction Teams**. Habrá una sola página de cobertura, 18 páginas por idioma y ninguna página de condado por ahora. |
 | Parte 2, formulario | El dueño simplificó los obligatorios y agregó "Not sure" y frecuencias por servicio. Separó **etapas y servicios** de construcción. Definió el éxito como **"guardado = recibido"** con referencia, guardado atómico, sin duplicados, `Reply-To` correctos, panel protegido y Turnstile administrado. |
 | Parte 3, identidad | Dirección A refinada con el ámbar de B. Seis ajustes: regla del ámbar, sus excepciones, hero con foto a la derecha, tarjetas móviles con enlace, EN/ES y orden comercial, y reglas de foco. |
-| Parte 4, dominio | `blagalcleaning.com` ya está **registrado en Cloudflare**, en la cuenta **Rootbiz**. `blagalwindowcleaning.com` se decide después del lanzamiento. |
+| Parte 4, dominio | `blagalcleaning.com` ya está **registrado en Cloudflare**. `blagalwindowcleaning.com` se decide después del lanzamiento. |
 | Parte 5, pruebas | El dueño agregó: vuelta atrás probada (sin promesas de tiempo), Time Travel de D1 de 7 días, ensayo de restauración, pruebas de avisos y reintentos, pruebas reales después de publicar, protección de los datos de `/admin`, bloqueo de publicación efectivo, Lighthouse con mediana de 3 y seguimiento de 48 horas con alertas. |
 | Repositorio | **Privado**, gratis. Solo GitHub Actions publica, y solo si pasan las revisiones. |
 | Respaldo | **Semanal a R2**, guardado 90 días, además de Time Travel. |
 | Responsable de las alertas | **El dueño**, con alertas a su Gmail. |
+| Correcciones técnicas (2026-10-26) | Límite de envíos en dos capas, conteo de reintentos, bordes de campos, foco 3/3 px, cargos cerrados, panel en español y dos tokens de Cloudflare separados (Anexo A §17). |
 
 ---
 
-## 4. Estado técnico y cuentas
+## 4. Estado técnico (contexto)
 
 | Elemento | Estado |
 |---|---|
-| Repositorio del sitio | **Por crear:** `Marlonia/blagal-cleaning`, privado. |
-| Documento de diseño | En `Marlonia/Mar`, rama `claude/busy-knuth-0yp9sv`, archivo `docs/superpowers/specs/2026-10-20-blagal-cleaning-website-design.md`. `Marlonia/Mar` es otro proyecto (sitio del Carnaval); el documento solo vive ahí de forma temporal. |
-| Cloudflare | Cuenta **Rootbiz**. El dominio está registrado ahí. Falta revisar los registros DNS existentes antes de construir. |
-| Otros dominios del dueño (fuera de este proyecto) | `blagalwindowcleaning.com` (usa FormSubmit), `blagalapps.com` y `rootbiz.app`, más los Workers `blagal-links`, `blagal-links-v3` y `orange-glitter-d903`. |
+| Repositorio del sitio | **Por crear:** privado. |
+| Documento de diseño | Ya existe; es el Anexo A. Vive de forma temporal en otro repositorio del dueño hasta que se cree el del sitio. |
+| Cloudflare | El dominio está registrado en la cuenta de Cloudflare del dueño. Falta revisar los registros DNS existentes antes de construir. |
 | Plugins de Claude sugeridos | `frontend-design` (Anthropic, recomendado), Website Design (UXKIN, comunidad: su servidor remoto envía datos a un tercero, así que basta con sus skills) y Marketing (Anthropic). |
-| Investigación previa | Herramientas candidatas ya identificadas: Astro, `@astrojs/cloudflare`, Tailwind v4, `@astrojs/sitemap`, Astro Actions + Zod, Turnstile, D1, Resend, Alpine.js, `schema-dts`, Lucide, Playwright, axe-core, Lighthouse CI, Wrangler. Hay una investigación más completa en curso; su informe se agregará como **Anexo B**. |
+| Herramientas candidatas ya identificadas | Astro, `@astrojs/cloudflare`, Tailwind v4, `@astrojs/sitemap`, Astro Actions + Zod, Turnstile, D1, Resend, Alpine.js, `schema-dts`, Lucide, Playwright, axe-core, Lighthouse CI, Wrangler. |
 
 ---
 
 ## 5. Lo que el dueño debe confirmar antes de publicar
 
+Es la misma lista del Anexo A §3.4:
 - Nombres, alcance y exclusiones de los servicios.
 - Cobertura geográfica y disponibilidad.
 - Servicios y etapas de construcción que se ofrecen.
@@ -252,11 +406,11 @@ El dueño quiere que Claude y ChatGPT trabajen juntos.
 - Experiencia, teléfono, correo y WhatsApp.
 - Compromisos de respuesta, facturación, reportes y atención recurrente.
 - Fotos propias y testimonios con autorización.
-- Si "House Cleaning" se refiere a casas en alquiler. En ese caso, quizá conviene llamarlo "Single-Family Rental Cleaning".
+- Si "House Cleaning" se refiere a casas en alquiler. En ese caso conviene llamarlo "Single-Family Rental Cleaning".
 
 ---
 
-## 6. Decisiones tomadas por defecto (revisables)
+## 6. Decisiones tomadas por defecto (aceptadas; se pueden cuestionar como propuesta)
 
 | Decisión | Valor |
 |---|---|
@@ -264,17 +418,19 @@ El dueño quiere que Claude y ChatGPT trabajen juntos.
 | Rutas en español | Mismas rutas en inglés bajo `/es/` |
 | Máximo de propiedades por solicitud | 20 |
 | Formato de referencia | `BLG-` + 5 caracteres |
-| Límite de envíos | 10 por hora por IP |
-| Reintentos de correo | 1, 5, 15, 30, 60, 120, 240 y 480 minutos (dentro de las 24 horas de Resend) |
+| Límite de envíos | 3 por minuto (binding) + 10 por hora (D1) |
+| Reintentos de correo | 1 inmediato + 8 reintentos: 1, 5, 15, 30, 60, 120, 240 y 480 minutos |
 | Alerta de aviso pendiente | A los 30 minutos |
 | Frecuencia máxima de alertas | 1 cada 15 minutos por tipo |
 | Monitor externo | UptimeRobot gratis |
 | Retención del respaldo en R2 | 90 días |
 | Retención de solicitudes en D1 | Hasta que el dueño las borre |
+| Español | Registro **usted**; glosario de la sección 1 |
+| Panel `/admin` | En español |
 
 ---
 
-## 7. Criterios de "terminado" (Versión 1)
+## 7. Criterios de "terminado" del proyecto (contexto, no son de estas tareas)
 
 1. Todas las revisiones automáticas pasan.
 2. Las dos solicitudes controladas (propiedades y construcción) funcionan en el sitio público, y las confirmaciones y respuestas llegan en ambas direcciones.
@@ -292,10 +448,10 @@ El dueño quiere que Claude y ChatGPT trabajen juntos.
 ## blagalcleaning.com: documento de diseño (Fase 1)
 
 - **Fecha:** 2026-10-20
-- **Estado:** borrador para revisión del dueño
+- **Estado:** aprobado. El dueño aprobó las Partes 1 a 5 en conversación y aceptó el documento el 2026-10-26, al pedir avanzar al diseño de páginas. Incluye las correcciones técnicas del 2026-10-26 (sección 17).
 - **Proyecto:** sitio web de Blagal Cleaning en `blagalcleaning.com`
 - **Aprobaciones:** Partes 1 a 5 aprobadas en conversación. Este documento las consolida.
-- **Ubicación temporal:** este archivo vive en `Marlonia/Mar` porque el repositorio del sitio todavía no existe. Se mueve al repositorio nuevo cuando se cree.
+- **Ubicación temporal:** este archivo vive en otro repositorio del dueño porque el repositorio del sitio todavía no existe. Se mueve al repositorio nuevo cuando se cree.
 
 ---
 
@@ -341,7 +497,7 @@ El dueño quiere que Claude y ChatGPT trabajen juntos.
 
 **Razones de Astro + Cloudflare:**
 - Páginas estáticas muy rápidas, lo que favorece el SEO local.
-- Todo vive en la cuenta Cloudflare de Rootbiz.
+- Todo vive en la cuenta de Cloudflare del dueño.
 - Costo mensual de ~$0.
 
 ---
@@ -391,6 +547,7 @@ El texto final se ajusta a los servicios y la cobertura que confirme el dueño.
 - Experiencia, teléfono, correo y WhatsApp.
 - Compromisos de respuesta, facturación, reportes y atención recurrente.
 - Fotos propias y testimonios con autorización.
+- Si "House Cleaning" se refiere a casas en alquiler. En ese caso conviene llamarlo "Single-Family Rental Cleaning", lo que cambiaría también el nombre del servicio 7 y su ruta.
 
 **Reglas de contenido:**
 - Cada dato pendiente se marca en el contenido con `[[CONFIRM: ...]]`.
@@ -440,7 +597,7 @@ Por cada propiedad:
 | Tipo: residencial, multifamiliar, comercial, remodelación/TI | No |
 | Tamaño aproximado: sq ft, unidades, pisos | No |
 | **Etapas de limpieza** (solo las confirmadas): Rough cleaning, Final cleaning, Touch-up cleaning, **"Not sure"** | Sí: al menos una etapa, un servicio adicional o "Not sure" |
-| **Servicios adicionales** (solo los confirmados): limpieza de ventanas, limpieza exterior, otros | No |
+| **Servicios adicionales** (solo los confirmados): Window Cleaning, Pressure Washing (limpieza exterior), otros | No |
 | **Fecha**, preguntada una sola vez, con un campo para aclarar fechas por etapa | No |
 | Requisitos de acceso o seguridad (badge, PPE) | No |
 | Notas | No |
@@ -458,7 +615,7 @@ Por cada propiedad:
 | Medio preferido: email, llamada, texto, WhatsApp | Sí (email por defecto) |
 | Teléfono | **Solo si el medio preferido es llamada, texto o WhatsApp** |
 | Empresa | No |
-| Cargo, según el camino: property manager, building superintendent, HOA, owner / superintendent, construction o project manager, GC, otro | No |
+| Cargo, lista cerrada según el camino:<br>• **Propiedades:** Property Manager, Building Superintendent, HOA Board Member, Property Owner, Other<br>• **Construcción:** Site Superintendent, Construction / Project Manager, General Contractor, Other | No |
 
 #### 4.6 Paso 4: Revisión y envío
 
@@ -479,7 +636,9 @@ Por cada propiedad:
 2. El servidor verifica **Turnstile**:
    - Los tokens duran 5 minutos y son de un solo uso.
    - Si el token caduca o se usó en un intento fallido, el navegador lo renueva antes de reenviar.
-3. Se revisa el **campo trampa** (honeypot) y el **límite por IP**: 10 envíos por hora, con el Rate Limiting binding de Workers. Es generoso para no bloquear oficinas que comparten conexión.
+3. Se revisa el **campo trampa** (honeypot) y el **límite por IP**, que tiene dos capas:
+   - **Ráfagas:** el Rate Limiting binding de Workers permite 3 envíos cada 60 segundos. El binding solo admite periodos de 10 o 60 segundos y su conteo es aproximado.
+   - **Por hora:** un contador en D1 permite 10 envíos por hora. Es generoso para no bloquear oficinas que comparten conexión.
 4. Se validan los datos con Zod.
 5. **Guardado atómico:** en un solo lote de D1 se guardan la solicitud y sus **dos avisos pendientes** (aviso al negocio y confirmación al cliente). O se guarda todo o no se guarda nada.
 6. Si el `submission_id` ya existe, se devuelve **la misma referencia** sin crear nada nuevo.
@@ -518,12 +677,14 @@ Cada aviso tiene estado propio, independiente del otro:
 - **`sending`** tiene un plazo de 2 minutos. Si vence sin resultado (el proceso se interrumpió), el aviso vuelve a intentarse.
 - **Clave anti-duplicados de Resend** = id del aviso. Si Resend aceptó un correo pero la respuesta no llegó (tiempo de espera de 10 segundos), el reintento con la misma clave no genera otro correo.
 - **Reintentos** después de cada fallo: a los 1, 5, 15, 30, 60, 120, 240 y 480 minutos.
-  - Son 8 intentos y unas 16 horas en total, siempre **dentro de las 24 horas** que Resend guarda las claves.
+  - Son **1 envío inmediato + 8 reintentos (9 intentos)** en unas 16 horas, siempre **dentro de las 24 horas** que Resend guarda las claves.
   - Una tarea programada cada 5 minutos procesa los avisos vencidos, así que cada reintento ocurre en ese momento o un poco después.
 - Después del último intento, el aviso pasa a **`needs_attention`** y se envía una alerta (sección 10.2). **Nunca se reenvía solo** después de 24 horas.
 - **Webhooks de Resend** en `/api/webhooks/resend`:
   - Se verifica la firma de cada llamada.
-  - Actualizan los estados `accepted`, `delivered`, `bounced`, `complained` y `delivery_delayed`.
+  - Actualizan los estados `accepted`, `delivered`, `bounced` y `complained`.
+  - `delivery_delayed` no cambia el estado: se guarda como marca "entrega demorada" que se ve en el panel.
+  - `email.failed` pasa el aviso a `needs_attention` y envía una alerta.
 - "Aceptado para envío" y "entregado al servidor del destinatario" son estados distintos. **Ninguno garantiza que el correo llegue a la bandeja principal.**
 
 #### 4.12 Fuera de la versión 1
@@ -534,6 +695,8 @@ Cada aviso tiene estado propio, independiente del otro:
 ---
 
 ### 5. Panel privado `/admin`
+
+El panel está **en español**, el idioma del dueño.
 
 **Lista de solicitudes** con:
 - referencia y fecha
@@ -586,6 +749,8 @@ Filtros: tipo, estado de avisos y pruebas.
   - Azul `#1D6AA5` sobre fondos claros (5.7:1). Azul claro `#9CC8E8` sobre marino (8.3:1).
   - Nunca azul sobre marino (2.6:1).
   - El foco va **separado** del botón (`outline-offset`); pegado al ámbar daría solo 2.9:1.
+  - Medidas: contorno de 3 px con 3 px de separación.
+- **Bordes de controles:** campos, casillas y tarjetas seleccionables usan gris `#56636F` (6.2:1) o marino. El token Línea `#D6E4EE` (1.3:1) queda **solo para divisores decorativos**, porque no cumple el contraste de 3:1 que exige WCAG 1.4.11 para identificar controles.
 
 **Contrastes verificados:**
 
@@ -600,7 +765,8 @@ Filtros: tipo, estado de avisos y pruebas.
 
 #### 6.3 Tipografía
 
-- **Archivo** para títulos, en ancho normal o apenas expandido (alrededor de 104%).
+- **Archivo** para títulos, en ancho normal o apenas expandido (alrededor de 104%, con el eje `wdth` de la versión variable).
+- **Logo provisional:** Archivo 800, ancho ~108%, en mayúsculas. Es una excepción a la regla de mayúsculas.
 - **Public Sans** para textos.
 - Mayúsculas y minúsculas normales. Las mayúsculas completas solo en etiquetas cortas.
 - Las fuentes se alojan en el propio sitio, sin depender de Google Fonts.
@@ -715,7 +881,10 @@ Cada módulo tiene una sola responsabilidad y se prueba por separado:
 
 **Regla de cambios en la base de datos:** solo se agregan tablas o columnas. Borrar o renombrar se hace en una entrega posterior, cuando ninguna versión desplegada lo usa. Así, cualquier versión anterior funciona con la estructura actual (sección 11.1).
 
-**No se guarda la IP.** El límite por IP vive en el Rate Limiting binding. Si no estuviera disponible en el plan, se usa un contador en D1 con la IP cifrada con hash y una vida de 1 hora.
+**`rate_counters`** guarda el contador por hora del límite de envíos.
+- La IP **nunca se guarda tal cual**: se guarda un HMAC-SHA256 calculado con un secreto que rota cada día. Un hash simple no basta, porque con fuerza bruta se puede recuperar la IP.
+- Cada contador se borra después de 1 hora.
+- Se menciona en la página Privacy.
 
 #### 7.5 Configuración
 
@@ -723,7 +892,7 @@ Cada módulo tiene una sola responsabilidad y se prueba por separado:
 |---|---|
 | Bindings | `DB` (D1), `BACKUPS` (R2), `RATE_LIMITER`, `ALERT_EMAIL` (`send_email`) |
 | Variables | `TURNSTILE_SITE_KEY`, `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD`, `ADMIN_EMAIL`, `PUBLIC_LAUNCHED` |
-| Secretos | `RESEND_API_KEY`, `RESEND_WEBHOOK_SECRET`, `TURNSTILE_SECRET_KEY` |
+| Secretos | `RESEND_API_KEY`, `RESEND_WEBHOOK_SECRET`, `TURNSTILE_SECRET_KEY`, `RATE_LIMIT_SECRET` (base del HMAC diario de la IP) |
 
 Los secretos se guardan cifrados en Cloudflare y en GitHub, y **nunca** en el repositorio. Para desarrollo local se usa `.dev.vars`, que está excluido de git.
 
@@ -739,7 +908,7 @@ Los secretos se guardan cifrados en Cloudflare y en GitHub, y **nunca** en el re
 
 #### 8.1 Dominio
 
-- `blagalcleaning.com` ya está **registrado en Cloudflare** y en la **cuenta Rootbiz**. No hay que cambiar nameservers, transferir desde GoDaddy ni mover entre cuentas.
+- `blagalcleaning.com` ya está **registrado en Cloudflare** y en la **cuenta de Cloudflare del dueño**. No hay que cambiar nameservers, transferir desde GoDaddy ni mover entre cuentas.
 - **Antes de construir:** inventario de los registros DNS existentes, para no romper nada.
 - Se activa **DNSSEC**.
 - `blagalcleaning.com` es la dirección principal. `www` redirige con 301.
@@ -754,9 +923,10 @@ Los secretos se guardan cifrados en Cloudflare y en GitHub, y **nunca** en el re
 
 #### 8.3 Repositorio y publicación
 
-- **Repositorio privado nuevo:** `Marlonia/blagal-cleaning`.
+- **Repositorio privado nuevo:** `blagal-cleaning`.
 - **Solo GitHub Actions publica**, y solo cuando pasan **todas** las revisiones de la sección 9.1. El trabajo de publicación depende de esas revisiones.
-- El token de Cloudflare vive **solo** en los secretos de GitHub. **No se conecta Workers Builds** ni se publica desde una computadora.
+- El **token de publicación** de Cloudflare vive **solo** en los secretos de GitHub. **No se conecta Workers Builds** ni se publica desde una computadora.
+- Es distinto del **token de aprovisionamiento** opcional de la sección 13. Ese token tiene permisos mínimos y vencimiento, vive en el entorno de Claude y se revoca al terminar la configuración. Nunca sirve para publicar.
 - GitHub gratis no ofrece ramas protegidas en repositorios privados. Por eso puede quedar en `main` un cambio con revisiones fallidas, pero **no se publica**; la siguiente corrección que pase las revisiones sí se publica. Si más adelante se contrata GitHub Pro, se agregan ramas protegidas con revisiones obligatorias.
 
 #### 8.4 Antes y después del lanzamiento
@@ -816,7 +986,8 @@ Turnstile y Resend se simulan en todas las pruebas automáticas. **Nunca se env�
 | El proceso se interrumpe después de guardar | Los avisos quedan `pending` o `sending` vencido, y la tarea programada los envía |
 | Resend acepta, pero la respuesta tarda demasiado | El reintento usa la misma clave y no hay correo duplicado |
 | El cliente reintenta porque perdió la conexión | Mismo `submission_id` → misma referencia y ningún aviso nuevo |
-| Se agotan los 8 intentos | El aviso queda `needs_attention`, se envía una alerta y no hay más reintentos |
+| Se agotan los 9 intentos (1 inmediato + 8 reintentos) | El aviso queda `needs_attention`, se envía una alerta y no hay más reintentos |
+| Resend envía `email.failed` | El aviso queda `needs_attention` y se envía una alerta |
 
 #### 9.2 Revisión manual antes del lanzamiento (sitio privado)
 
@@ -932,7 +1103,7 @@ Para cada alerta: qué significa, cómo confirmarla y qué hacer. También inclu
 | Responsable | Tareas |
 |---|---|
 | **Dueño** (con su propio inicio de sesión) | Confirmar el contenido de la sección 3.4; crear la cuenta de Resend; aprobar el acceso de GitHub Actions a Cloudflare; Google Business Profile; fotos reales; recibir alertas y hacer las revisiones de las 48 horas |
-| **Claude** | Código, configuración, base de datos, pruebas, guía de operación, guías paso a paso de cada tarea del dueño, ensayos de vuelta atrás y restauración. Si se guarda un token de API de Cloudflare en la configuración del entorno, también crea D1, R2, Turnstile, la aplicación de Access y los registros DNS. |
+| **Claude** | Código, configuración, base de datos, pruebas, guía de operación, guías paso a paso de cada tarea del dueño, ensayos de vuelta atrás y restauración. Si se guarda un **token de aprovisionamiento** de Cloudflare en la configuración del entorno, también crea D1, R2, Turnstile, la aplicación de Access y los registros DNS. Ese token tiene permisos mínimos y vencimiento, y se revoca al terminar; no es el token de publicación (sección 8.3). |
 
 ---
 
@@ -959,8 +1130,11 @@ Estas decisiones no se discutieron explícitamente. Se tomaron con criterio razo
 | Rutas en español | Mismas rutas en inglés bajo `/es/` |
 | Máximo de propiedades por solicitud | 20 |
 | Formato de referencia | `BLG-` + 5 caracteres sin ambiguos |
-| Límite por IP | 10 envíos por hora |
-| Reintentos | 8 intentos en ~16 horas: 1, 5, 15, 30, 60, 120, 240 y 480 minutos |
+| Límite por IP | 3 por minuto (binding, aproximado) + 10 por hora (contador en D1) |
+| Reintentos | 1 envío inmediato + 8 reintentos en ~16 horas: 1, 5, 15, 30, 60, 120, 240 y 480 minutos |
+| Registro del español | **Usted**, español neutro de EE. UU. |
+| Idioma del panel `/admin` | Español |
+| Glosario EN/ES | Propuesto en el prompt maestro (sección 1). El dueño puede cambiarlo. |
 | Umbral de alerta de aviso pendiente | 30 minutos |
 | Frecuencia máxima de alertas | 1 cada 15 minutos por tipo |
 | Monitor externo | UptimeRobot gratis (alternativa: Uptime Kuma del homelab) |
@@ -985,3 +1159,19 @@ Estas decisiones no se discutieron explícitamente. Se tomaron con criterio razo
 - [Lighthouse CI: variabilidad](https://googlechrome.github.io/lighthouse-ci/docs/troubleshooting.html)
 - [axe-core](https://www.deque.com/axe/core-documentation/api-documentation/)
 - [W3C: contraste de elementos no textuales](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)
+
+---
+
+### 17. Correcciones técnicas (2026-10-26)
+
+Las encontró una revisión independiente del documento y del prompt maestro. Ninguna cambia una decisión de negocio aprobada.
+
+| Sección | Corrección | Motivo |
+|---|---|---|
+| 4.8 y 7.4 | El límite por IP tiene dos capas: binding de 3 cada 60 s (aproximado) + contador por hora en D1 con HMAC diario de la IP. | El Rate Limiting binding solo admite periodos de 10 o 60 segundos y su conteo es aproximado. Un hash simple de la IP se puede revertir. |
+| 4.11 y 9.1 | Se aclara que son 1 envío inmediato + 8 reintentos (9 intentos). `delivery_delayed` es una marca y no un estado. `email.failed` pasa a `needs_attention` con alerta. | Ambigüedad en el conteo y eventos de Resend sin tratar. |
+| 6.2 | Los bordes de campos y controles usan gris `#56636F` o marino. El token Línea queda solo para divisores. Se fija el foco en 3 px con 3 px de separación. | `#D6E4EE` da 1.3:1 y WCAG 1.4.11 exige 3:1 para identificar controles. |
+| 4.4 y 4.5 | "Limpieza exterior" pasa a ser Pressure Washing. Las listas de cargos quedan cerradas por camino. | Ambigüedad para diseñar el formulario. |
+| 5 | El panel está en español. | El dueño habla español. |
+| 8.3 y 13 | Se separan el token de publicación (solo en GitHub) y el token de aprovisionamiento (opcional, temporal, en el entorno de Claude). | Había una contradicción entre las dos secciones. |
+| 3.4 | Se agrega la pregunta sobre el nombre de "House Cleaning". | Puede no describir bien el servicio para property managers. |

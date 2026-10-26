@@ -1,7 +1,7 @@
 # blagalcleaning.com: documento de diseño (Fase 1)
 
 - **Fecha:** 2026-10-20
-- **Estado:** borrador para revisión del dueño
+- **Estado:** aprobado. El dueño aprobó las Partes 1 a 5 en conversación y aceptó el documento el 2026-10-26, al pedir avanzar al diseño de páginas. Incluye las correcciones técnicas del 2026-10-26 (sección 17).
 - **Proyecto:** sitio web de Blagal Cleaning en `blagalcleaning.com`
 - **Aprobaciones:** Partes 1 a 5 aprobadas en conversación. Este documento las consolida.
 - **Ubicación temporal:** este archivo vive en `Marlonia/Mar` porque el repositorio del sitio todavía no existe. Se mueve al repositorio nuevo cuando se cree.
@@ -100,6 +100,7 @@ El texto final se ajusta a los servicios y la cobertura que confirme el dueño.
 - Experiencia, teléfono, correo y WhatsApp.
 - Compromisos de respuesta, facturación, reportes y atención recurrente.
 - Fotos propias y testimonios con autorización.
+- Si "House Cleaning" se refiere a casas en alquiler. En ese caso conviene llamarlo "Single-Family Rental Cleaning", lo que cambiaría también el nombre del servicio 7 y su ruta.
 
 **Reglas de contenido:**
 - Cada dato pendiente se marca en el contenido con `[[CONFIRM: ...]]`.
@@ -149,7 +150,7 @@ Por cada propiedad:
 | Tipo: residencial, multifamiliar, comercial, remodelación/TI | No |
 | Tamaño aproximado: sq ft, unidades, pisos | No |
 | **Etapas de limpieza** (solo las confirmadas): Rough cleaning, Final cleaning, Touch-up cleaning, **"Not sure"** | Sí: al menos una etapa, un servicio adicional o "Not sure" |
-| **Servicios adicionales** (solo los confirmados): limpieza de ventanas, limpieza exterior, otros | No |
+| **Servicios adicionales** (solo los confirmados): Window Cleaning, Pressure Washing (limpieza exterior), otros | No |
 | **Fecha**, preguntada una sola vez, con un campo para aclarar fechas por etapa | No |
 | Requisitos de acceso o seguridad (badge, PPE) | No |
 | Notas | No |
@@ -167,7 +168,7 @@ Por cada propiedad:
 | Medio preferido: email, llamada, texto, WhatsApp | Sí (email por defecto) |
 | Teléfono | **Solo si el medio preferido es llamada, texto o WhatsApp** |
 | Empresa | No |
-| Cargo, según el camino: property manager, building superintendent, HOA, owner / superintendent, construction o project manager, GC, otro | No |
+| Cargo, lista cerrada según el camino:<br>• **Propiedades:** Property Manager, Building Superintendent, HOA Board Member, Property Owner, Other<br>• **Construcción:** Site Superintendent, Construction / Project Manager, General Contractor, Other | No |
 
 ### 4.6 Paso 4: Revisión y envío
 
@@ -188,7 +189,9 @@ Por cada propiedad:
 2. El servidor verifica **Turnstile**:
    - Los tokens duran 5 minutos y son de un solo uso.
    - Si el token caduca o se usó en un intento fallido, el navegador lo renueva antes de reenviar.
-3. Se revisa el **campo trampa** (honeypot) y el **límite por IP**: 10 envíos por hora, con el Rate Limiting binding de Workers. Es generoso para no bloquear oficinas que comparten conexión.
+3. Se revisa el **campo trampa** (honeypot) y el **límite por IP**, que tiene dos capas:
+   - **Ráfagas:** el Rate Limiting binding de Workers permite 3 envíos cada 60 segundos. El binding solo admite periodos de 10 o 60 segundos y su conteo es aproximado.
+   - **Por hora:** un contador en D1 permite 10 envíos por hora. Es generoso para no bloquear oficinas que comparten conexión.
 4. Se validan los datos con Zod.
 5. **Guardado atómico:** en un solo lote de D1 se guardan la solicitud y sus **dos avisos pendientes** (aviso al negocio y confirmación al cliente). O se guarda todo o no se guarda nada.
 6. Si el `submission_id` ya existe, se devuelve **la misma referencia** sin crear nada nuevo.
@@ -227,12 +230,14 @@ Cada aviso tiene estado propio, independiente del otro:
 - **`sending`** tiene un plazo de 2 minutos. Si vence sin resultado (el proceso se interrumpió), el aviso vuelve a intentarse.
 - **Clave anti-duplicados de Resend** = id del aviso. Si Resend aceptó un correo pero la respuesta no llegó (tiempo de espera de 10 segundos), el reintento con la misma clave no genera otro correo.
 - **Reintentos** después de cada fallo: a los 1, 5, 15, 30, 60, 120, 240 y 480 minutos.
-  - Son 8 intentos y unas 16 horas en total, siempre **dentro de las 24 horas** que Resend guarda las claves.
+  - Son **1 envío inmediato + 8 reintentos (9 intentos)** en unas 16 horas, siempre **dentro de las 24 horas** que Resend guarda las claves.
   - Una tarea programada cada 5 minutos procesa los avisos vencidos, así que cada reintento ocurre en ese momento o un poco después.
 - Después del último intento, el aviso pasa a **`needs_attention`** y se envía una alerta (sección 10.2). **Nunca se reenvía solo** después de 24 horas.
 - **Webhooks de Resend** en `/api/webhooks/resend`:
   - Se verifica la firma de cada llamada.
-  - Actualizan los estados `accepted`, `delivered`, `bounced`, `complained` y `delivery_delayed`.
+  - Actualizan los estados `accepted`, `delivered`, `bounced` y `complained`.
+  - `delivery_delayed` no cambia el estado: se guarda como marca "entrega demorada" que se ve en el panel.
+  - `email.failed` pasa el aviso a `needs_attention` y envía una alerta.
 - "Aceptado para envío" y "entregado al servidor del destinatario" son estados distintos. **Ninguno garantiza que el correo llegue a la bandeja principal.**
 
 ### 4.12 Fuera de la versión 1
@@ -243,6 +248,8 @@ Cada aviso tiene estado propio, independiente del otro:
 ---
 
 ## 5. Panel privado `/admin`
+
+El panel está **en español**, el idioma del dueño.
 
 **Lista de solicitudes** con:
 - referencia y fecha
@@ -295,6 +302,8 @@ Filtros: tipo, estado de avisos y pruebas.
   - Azul `#1D6AA5` sobre fondos claros (5.7:1). Azul claro `#9CC8E8` sobre marino (8.3:1).
   - Nunca azul sobre marino (2.6:1).
   - El foco va **separado** del botón (`outline-offset`); pegado al ámbar daría solo 2.9:1.
+  - Medidas: contorno de 3 px con 3 px de separación.
+- **Bordes de controles:** campos, casillas y tarjetas seleccionables usan gris `#56636F` (6.2:1) o marino. El token Línea `#D6E4EE` (1.3:1) queda **solo para divisores decorativos**, porque no cumple el contraste de 3:1 que exige WCAG 1.4.11 para identificar controles.
 
 **Contrastes verificados:**
 
@@ -309,7 +318,8 @@ Filtros: tipo, estado de avisos y pruebas.
 
 ### 6.3 Tipografía
 
-- **Archivo** para títulos, en ancho normal o apenas expandido (alrededor de 104%).
+- **Archivo** para títulos, en ancho normal o apenas expandido (alrededor de 104%, con el eje `wdth` de la versión variable).
+- **Logo provisional:** Archivo 800, ancho ~108%, en mayúsculas. Es una excepción a la regla de mayúsculas.
 - **Public Sans** para textos.
 - Mayúsculas y minúsculas normales. Las mayúsculas completas solo en etiquetas cortas.
 - Las fuentes se alojan en el propio sitio, sin depender de Google Fonts.
@@ -424,7 +434,10 @@ Cada módulo tiene una sola responsabilidad y se prueba por separado:
 
 **Regla de cambios en la base de datos:** solo se agregan tablas o columnas. Borrar o renombrar se hace en una entrega posterior, cuando ninguna versión desplegada lo usa. Así, cualquier versión anterior funciona con la estructura actual (sección 11.1).
 
-**No se guarda la IP.** El límite por IP vive en el Rate Limiting binding. Si no estuviera disponible en el plan, se usa un contador en D1 con la IP cifrada con hash y una vida de 1 hora.
+**`rate_counters`** guarda el contador por hora del límite de envíos.
+- La IP **nunca se guarda tal cual**: se guarda un HMAC-SHA256 calculado con un secreto que rota cada día. Un hash simple no basta, porque con fuerza bruta se puede recuperar la IP.
+- Cada contador se borra después de 1 hora.
+- Se menciona en la página Privacy.
 
 ### 7.5 Configuración
 
@@ -432,7 +445,7 @@ Cada módulo tiene una sola responsabilidad y se prueba por separado:
 |---|---|
 | Bindings | `DB` (D1), `BACKUPS` (R2), `RATE_LIMITER`, `ALERT_EMAIL` (`send_email`) |
 | Variables | `TURNSTILE_SITE_KEY`, `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD`, `ADMIN_EMAIL`, `PUBLIC_LAUNCHED` |
-| Secretos | `RESEND_API_KEY`, `RESEND_WEBHOOK_SECRET`, `TURNSTILE_SECRET_KEY` |
+| Secretos | `RESEND_API_KEY`, `RESEND_WEBHOOK_SECRET`, `TURNSTILE_SECRET_KEY`, `RATE_LIMIT_SECRET` (base del HMAC diario de la IP) |
 
 Los secretos se guardan cifrados en Cloudflare y en GitHub, y **nunca** en el repositorio. Para desarrollo local se usa `.dev.vars`, que está excluido de git.
 
@@ -465,7 +478,8 @@ Los secretos se guardan cifrados en Cloudflare y en GitHub, y **nunca** en el re
 
 - **Repositorio privado nuevo:** `Marlonia/blagal-cleaning`.
 - **Solo GitHub Actions publica**, y solo cuando pasan **todas** las revisiones de la sección 9.1. El trabajo de publicación depende de esas revisiones.
-- El token de Cloudflare vive **solo** en los secretos de GitHub. **No se conecta Workers Builds** ni se publica desde una computadora.
+- El **token de publicación** de Cloudflare vive **solo** en los secretos de GitHub. **No se conecta Workers Builds** ni se publica desde una computadora.
+- Es distinto del **token de aprovisionamiento** opcional de la sección 13. Ese token tiene permisos mínimos y vencimiento, vive en el entorno de Claude y se revoca al terminar la configuración. Nunca sirve para publicar.
 - GitHub gratis no ofrece ramas protegidas en repositorios privados. Por eso puede quedar en `main` un cambio con revisiones fallidas, pero **no se publica**; la siguiente corrección que pase las revisiones sí se publica. Si más adelante se contrata GitHub Pro, se agregan ramas protegidas con revisiones obligatorias.
 
 ### 8.4 Antes y después del lanzamiento
@@ -525,7 +539,8 @@ Turnstile y Resend se simulan en todas las pruebas automáticas. **Nunca se env�
 | El proceso se interrumpe después de guardar | Los avisos quedan `pending` o `sending` vencido, y la tarea programada los envía |
 | Resend acepta, pero la respuesta tarda demasiado | El reintento usa la misma clave y no hay correo duplicado |
 | El cliente reintenta porque perdió la conexión | Mismo `submission_id` → misma referencia y ningún aviso nuevo |
-| Se agotan los 8 intentos | El aviso queda `needs_attention`, se envía una alerta y no hay más reintentos |
+| Se agotan los 9 intentos (1 inmediato + 8 reintentos) | El aviso queda `needs_attention`, se envía una alerta y no hay más reintentos |
+| Resend envía `email.failed` | El aviso queda `needs_attention` y se envía una alerta |
 
 ### 9.2 Revisión manual antes del lanzamiento (sitio privado)
 
@@ -641,7 +656,7 @@ Para cada alerta: qué significa, cómo confirmarla y qué hacer. También inclu
 | Responsable | Tareas |
 |---|---|
 | **Dueño** (con su propio inicio de sesión) | Confirmar el contenido de la sección 3.4; crear la cuenta de Resend; aprobar el acceso de GitHub Actions a Cloudflare; Google Business Profile; fotos reales; recibir alertas y hacer las revisiones de las 48 horas |
-| **Claude** | Código, configuración, base de datos, pruebas, guía de operación, guías paso a paso de cada tarea del dueño, ensayos de vuelta atrás y restauración. Si se guarda un token de API de Cloudflare en la configuración del entorno, también crea D1, R2, Turnstile, la aplicación de Access y los registros DNS. |
+| **Claude** | Código, configuración, base de datos, pruebas, guía de operación, guías paso a paso de cada tarea del dueño, ensayos de vuelta atrás y restauración. Si se guarda un **token de aprovisionamiento** de Cloudflare en la configuración del entorno, también crea D1, R2, Turnstile, la aplicación de Access y los registros DNS. Ese token tiene permisos mínimos y vencimiento, y se revoca al terminar; no es el token de publicación (sección 8.3). |
 
 ---
 
@@ -668,8 +683,11 @@ Estas decisiones no se discutieron explícitamente. Se tomaron con criterio razo
 | Rutas en español | Mismas rutas en inglés bajo `/es/` |
 | Máximo de propiedades por solicitud | 20 |
 | Formato de referencia | `BLG-` + 5 caracteres sin ambiguos |
-| Límite por IP | 10 envíos por hora |
-| Reintentos | 8 intentos en ~16 horas: 1, 5, 15, 30, 60, 120, 240 y 480 minutos |
+| Límite por IP | 3 por minuto (binding, aproximado) + 10 por hora (contador en D1) |
+| Reintentos | 1 envío inmediato + 8 reintentos en ~16 horas: 1, 5, 15, 30, 60, 120, 240 y 480 minutos |
+| Registro del español | **Usted**, español neutro de EE. UU. |
+| Idioma del panel `/admin` | Español |
+| Glosario EN/ES | Propuesto en el prompt maestro (sección 1). El dueño puede cambiarlo. |
 | Umbral de alerta de aviso pendiente | 30 minutos |
 | Frecuencia máxima de alertas | 1 cada 15 minutos por tipo |
 | Monitor externo | UptimeRobot gratis (alternativa: Uptime Kuma del homelab) |
@@ -694,3 +712,19 @@ Estas decisiones no se discutieron explícitamente. Se tomaron con criterio razo
 - [Lighthouse CI: variabilidad](https://googlechrome.github.io/lighthouse-ci/docs/troubleshooting.html)
 - [axe-core](https://www.deque.com/axe/core-documentation/api-documentation/)
 - [W3C: contraste de elementos no textuales](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)
+
+---
+
+## 17. Correcciones técnicas (2026-10-26)
+
+Las encontró una revisión independiente del documento y del prompt maestro. Ninguna cambia una decisión de negocio aprobada.
+
+| Sección | Corrección | Motivo |
+|---|---|---|
+| 4.8 y 7.4 | El límite por IP tiene dos capas: binding de 3 cada 60 s (aproximado) + contador por hora en D1 con HMAC diario de la IP. | El Rate Limiting binding solo admite periodos de 10 o 60 segundos y su conteo es aproximado. Un hash simple de la IP se puede revertir. |
+| 4.11 y 9.1 | Se aclara que son 1 envío inmediato + 8 reintentos (9 intentos). `delivery_delayed` es una marca y no un estado. `email.failed` pasa a `needs_attention` con alerta. | Ambigüedad en el conteo y eventos de Resend sin tratar. |
+| 6.2 | Los bordes de campos y controles usan gris `#56636F` o marino. El token Línea queda solo para divisores. Se fija el foco en 3 px con 3 px de separación. | `#D6E4EE` da 1.3:1 y WCAG 1.4.11 exige 3:1 para identificar controles. |
+| 4.4 y 4.5 | "Limpieza exterior" pasa a ser Pressure Washing. Las listas de cargos quedan cerradas por camino. | Ambigüedad para diseñar el formulario. |
+| 5 | El panel está en español. | El dueño habla español. |
+| 8.3 y 13 | Se separan el token de publicación (solo en GitHub) y el token de aprovisionamiento (opcional, temporal, en el entorno de Claude). | Había una contradicción entre las dos secciones. |
+| 3.4 | Se agrega la pregunta sobre el nombre de "House Cleaning". | Puede no describir bien el servicio para property managers. |
