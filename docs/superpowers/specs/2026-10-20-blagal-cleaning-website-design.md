@@ -500,7 +500,7 @@ Los secretos se guardan cifrados en Cloudflare y en GitHub, y **nunca** en el re
 | Cloudflare Workers, D1, R2, Turnstile, Access, Web Analytics, Email Routing | Gratis | $0 |
 | Resend | Gratis (100 correos al día, 3,000 al mes) | $0 |
 | GitHub | Gratis, repositorio privado | $0 |
-| Monitor externo (UptimeRobot) | Gratis | $0 |
+| Monitor externo (Better Stack Free o Healthchecks.io; ver §19) | Gratis | $0 |
 | **Total** | | **$0**, más la renovación del dominio |
 
 ### 8.7 `blagalwindowcleaning.com`
@@ -583,7 +583,7 @@ Todas llegan a `blagalcleaning@gmail.com` por el `send_email` de Cloudflare, ind
 | Error inesperado del sitio | Inmediata |
 | Aviso en `pending` o `sending` por más de 30 minutos desde su creación | Revisión cada 5 minutos |
 | Aviso en `needs_attention` o `bounced` | Revisión cada 5 minutos |
-| Sitio caído o `/api/health` fallando | Monitor externo (UptimeRobot, gratis) cada 5 minutos, con aviso por correo |
+| Sitio caído o `/api/health` fallando | Monitor externo (Better Stack Free o Healthchecks.io) cada 3–5 minutos, más el latido del cron (§19) |
 
 ### 10.3 Revisiones de las primeras 48 horas
 
@@ -690,9 +690,9 @@ Estas decisiones no se discutieron explícitamente. Se tomaron con criterio razo
 | Glosario EN/ES | Propuesto en el prompt maestro (sección 1). El dueño puede cambiarlo. |
 | Umbral de alerta de aviso pendiente | 30 minutos |
 | Frecuencia máxima de alertas | 1 cada 15 minutos por tipo |
-| Monitor externo | UptimeRobot gratis (alternativa autoalojada: Uptime Kuma) |
+| Monitor externo | Better Stack Free o Healthchecks.io (§19) |
 | Retención del respaldo en R2 | 90 días |
-| Retención de solicitudes en D1 | Hasta que el dueño las borre. Se indica en Privacy. |
+| Retención de solicitudes en D1 | Plazos concretos del Anexo B §4.2 (§19). Se indica en Privacy. |
 
 ---
 
@@ -732,3 +732,286 @@ Las encontró una revisión independiente del documento y del prompt maestro. Ni
 | 6.1 | La tabla de colores coincide con la regla de bordes de §6.2. | Contradicción interna. |
 | 3.4, 4.3 y 4.10 | No se usan imágenes de muestra ni de stock. El correo del negocio ya está confirmado. "Cada dos semanas" en lugar de "quincenal". La confirmación usa "su solicitud". | Coherencia con el registro usted y el glosario. "Quincenal" es ambiguo. |
 | 3.4 y 4.4 | El dueño confirmó los 7 servicios y las etapas de construcción. También indicó que atiende hogares; cómo incluirlos en el sitio se define en la Parte 6 (publicidad y medición), pendiente de aprobación. | Decisión del dueño, 2026-10-26. |
+
+---
+
+## 18. Parte 6: sitio listo para publicidad y leads de calidad (aprobada 2026-10-27)
+
+**Precedencia:** las secciones 18 y 19 y el Anexo B, en lo que adopta la sección 19, **prevalecen** sobre las secciones 1 a 17 cuando se contradicen.
+
+### 18.1 Decisiones del dueño
+- **Primero se construye el sitio**, con todo lo de esta sección incorporado desde el día uno. **Los anuncios empiezan después del lanzamiento** y después de la revisión legal (18.9).
+- **Publicidad:** tope de **$450 al mes**, con $50 de margen. Canales: Google Ads de búsqueda y Google Local Services Ads (LSA).
+  - Meta pagado: $0 en la v1.
+  - ChatGPT Ads: fuera de la v1. Se reconsidera si el presupuesto pasa de ~$1,000 al mes.
+- **Campañas:** las preparan Claude y ChatGPT (este en modo manual). El dueño publica y paga desde sus cuentas.
+- **Hogares:** son un **público secundario**.
+- **Servicios:** los 7 servicios y las etapas de construcción están confirmados.
+- **Llamadas:** la grabación de las llamadas de Google Ads queda **apagada**.
+- **Rastreadores de OpenAI:** se **permiten GPTBot**, OAI-SearchBot y ChatGPT-User.
+- **Abogado:** revisión de 1 hora con un abogado de Utah **antes de lanzar los anuncios**.
+
+### 18.2 Hogares (público secundario)
+- **Home:** se mantienen las dos tarjetas principales con el mismo peso. Debajo va una franja discreta: "Also serving homeowners: house, window, gutter & pressure washing", con el botón Request a Quote.
+- **Formulario:** el camino Propiedades agrega el cargo **Homeowner / Propietario de vivienda**, distinto de Property Owner (inversionista).
+  - Segmento: `homeowner`.
+  - Etiqueta en el asunto del aviso: `[HOME]`.
+- **Reglas para hogares** (en la guía de operación y como avisos en `/admin`):
+  - Nada de llamadas ni textos comerciales en domingos, festivos ni fuera de 8–21 h sin consentimiento expreso (Utah 13-25a).
+  - Responder a la solicitud propia del cliente sí está permitido. Las promociones posteriores no, salvo por correo con CAN-SPAM o con consentimiento escrito.
+  - Se respetan los plazos de la relación comercial: 3 meses tras una consulta y 18 tras una compra.
+  - Los contratos con hogares se cierran **a distancia** (correo o firma electrónica después de la visita) o incluyen el aviso de cancelación de 3 días hábiles (FTC 16 CFR 429).
+  - Nunca se anuncia un "desde $X" que no se respete.
+  - Antes de ofrecer planes recurrentes con cobro automático, se revisan las leyes de renovación automática.
+
+### 18.3 Publicidad (se prepara durante la construcción y se lanza después)
+
+| Canal | Monto/mes | Configuración |
+|---|---|---|
+| Google Ads búsqueda B2B | $300 | Ver detalle debajo de la tabla. |
+| LSA | $150 | Categorías **House cleaning** y **Window cleaning** (ventanas, canaletas y lavado a presión, a confirmar en el panel). Se desactivan los tipos de trabajo y los ZIP que no se atienden, porque esos leads ya no se reembolsan. Se revisan los créditos automáticos. |
+| Grupo de búsqueda residencial | $150 mientras LSA no esté aprobado | Ventanas, canaletas y lavado a presión, apuntando a `/lp/homeowners/` |
+| Meta | $0 | Opcional: campañas de temporada con formularios dentro de Facebook (~$7 al día durante 7–10 días). Los leads se registran a mano con origen `meta`. |
+| ChatGPT Ads | Fuera de la v1 | — |
+
+**Google Ads búsqueda B2B:**
+- Una campaña en inglés, solo red de búsqueda (sin socios ni Display), ubicación por "presencia".
+- Zona inicial: Salt Lake, Davis y Utah County. Horario: lunes a viernes, de 6 a 18 h.
+- **Dos grupos de anuncios:**
+  - post-construction (rough, final, touch-up, "construction cleanup", "final clean construction");
+  - turnover / make-ready + áreas comunes para property managers.
+- **Palabras clave:** concordancia exacta y de frase.
+- **Negativas:**
+  - "cheap" como concordancia amplia (nunca "near me");
+  - jobs, hiring, salary, employment, training, certification, franchise, supplies, equipment, rental, DIY, how to, checklist, template y software;
+  - "janitorial", "office cleaning" y "commercial cleaning", salvo combinadas con construction o turnover.
+- **Puja:** CPC manual con topes. Antes de lanzar, se revisan el volumen y los CPC en el Planificador de palabras clave.
+
+**Reglas:**
+- Un canal nuevo solo entra si se le quita dinero a otro.
+- Si Google ofrece crédito promocional, se aprovecha sin pasarse del tope.
+- Todas las cuentas se crean con huso horario **America/Denver** y en **USD**.
+
+**Requisitos de LSA** (lista del dueño):
+- Verificación de antecedentes del dueño y de cada trabajador que entra a las casas.
+- Seguro vigente y licencia o registro en Utah.
+- El proceso tarda alrededor de un mes.
+- Desde ago-2026, LSA migra a Google Ads como Performance Max de pago por lead (presupuesto diario y tCPA). Hay que exportar sus informes antes de la migración.
+
+**Entregables de Claude:**
+- estructura de campañas y grupos;
+- palabras clave y negativas;
+- anuncios (titulares y descripciones dentro del límite);
+- extensiones de llamada y de sitio;
+- convención de UTM;
+- guía paso a paso para crear las cuentas.
+
+**ChatGPT** revisa cada entrega en modo manual.
+
+### 18.4 Páginas de aterrizaje
+- **Rutas:**
+  - `/lp/construction/` y `/lp/property-managers/`, alineadas con los dos grupos B2B;
+  - `/lp/homeowners/`, solo cuando se active el grupo residencial.
+- Solo en inglés en la v1.
+- **Indexación:**
+  - `noindex` por meta o cabecera;
+  - fuera del sitemap;
+  - **sin** `Disallow` en `robots.txt`, porque AdsBot debe poder rastrearlas.
+- **Contenido:**
+  - una propuesta de valor alineada con el anuncio;
+  - prueba de confianza;
+  - **teléfono visible arriba**;
+  - el formulario (paso 1 + contacto), o un botón a `/quote/?type=…`.
+- **Navegación:** sin menú completo, pero con un pie mínimo que tiene **PRIVACY destacado**, nombre legal y teléfono.
+- **Textos de consentimiento:** los mismos textos A y B del Anexo B §4.4.
+
+### 18.5 Atribución y medición de anuncios sin píxeles
+**Principio:** ningún script publicitario de terceros en el navegador y ninguna cookie propia. La CSP no cambia.
+
+**Captura:** en la primera página de la sesión se guarda en sessionStorage:
+- `utm_source`, `utm_medium`, `utm_campaign`, `utm_content` y `utm_term` (máximo ~100 caracteres cada uno);
+- `gclid`, `gbraid` y `wbraid`, como cadenas opacas: se conservan mayúsculas y minúsculas, máximo 512 caracteres, solo `[A-Za-z0-9_.-]`;
+- `click_seen_at`.
+
+`fbclid` y `oppref` **no se capturan en la v1**, porque no hay Meta pagado al sitio ni ChatGPT Ads.
+
+**Columnas nuevas en `leads`:** `gclid`, `gbraid`, `wbraid`, `click_seen_at`, `utm_term`, `privacy_version` y `no_ad_sharing`.
+
+**Origen.** Se asigna en este orden de precedencia:
+
+| Señal | Origen |
+|---|---|
+| gclid, gbraid o wbraid | `google_ads` |
+| utm_source = meta, facebook o instagram | `meta` |
+| utm_source = chatgpt_ads | `chatgpt_ads` |
+| utm_source = chatgpt.com | `ai_assistant` (orgánico) |
+| utm_campaign = gbp | `gbp` |
+| Referrer de google.* | `google_search` |
+| Otro dominio | `other_website` |
+| Sin datos | `direct` |
+
+Las altas manuales usan su propia lista: `lsa`, `phone`, `referral`, etc.
+
+**GPC y DNT.**
+- Con `Sec-GPC: 1`, `navigator.globalPrivacyControl` o `DNT: 1`:
+  - `no_ad_sharing=true`;
+  - **se borran gclid, gbraid y wbraid al guardar**;
+  - se conservan los UTM propios.
+- Los orígenes manual, LSA y teléfono llevan `no_ad_sharing=true` por defecto.
+- **Exclusión por correo:** quien pida "no compartir para anuncios" queda marcado y sale de futuras subidas.
+- No se presenta como un derecho legal: la CCPA y la UCPA no aplican.
+
+**Leads que se pueden subir a una plataforma.** Deben cumplir todas estas condiciones:
+1. origen formulario web;
+2. `privacy_version` igual o mayor que la versión que declara los anuncios;
+3. `no_ad_sharing=false`;
+4. no estar en `suppression`;
+5. `is_test=0`;
+6. menos de 90 días desde el clic.
+
+**Conversiones en Google Ads** (acciones de tipo "Importar desde clics", solo con identificadores de clic, **sin correo ni teléfono**):
+- **Principales:**
+  - **Qualified lead**: el dueño lo marca en `/admin` dentro de 48 h; conteo "Una".
+  - **Calls from ads**: llamadas de 60 s o más, medidas con extensiones de llamada y números de desvío de Google, con la grabación apagada.
+- **Secundarias:**
+  - **Lead submitted**;
+  - **Won**, con el valor del primer año;
+  - el hito **Quote sent**, opcional para ciclos largos.
+- Nunca se sube nada de más de 90 días.
+
+**Outbox `ad_conversions`:**
+- Columnas: `lead_id`, `platform`, `event_name`, `event_id` (referencia BLG), `status` (pending, exported, skipped_gpc, skipped_ineligible, error), `export_batch`, `created_at` y `updated_at`.
+- `UNIQUE(lead_id, platform, event_name)`.
+
+**Entrega a Google:**
+- **Preferida:** importación programada diaria desde un endpoint HTTPS autenticado del Worker, `/api/ads/google-conversions.csv`, que solo entrega identificador de clic, nombre, hora y valor.
+- **Plan B:** descarga semanal del CSV desde `/admin`.
+- **Formato:** plantilla legacy con la fila `Parameters:TimeZone=America/Denver` y las columnas Google Click ID, Conversion Name, Conversion Time (`yyyy-MM-dd HH:mm:ss`), Conversion Value y Conversion Currency (USD).
+- Las filas con gbraid o wbraid van aparte. Si la plantilla las rechaza, se suben por Data Manager con Google Sheets a una acción con conteo "Cada una".
+- **Antes de construir el export**, se confirma en la cuenta que la importación por archivo sigue disponible.
+- El CSV no se abre en Excel antes de subirlo, porque altera los identificadores. Cada CSV descargado se borra después de subirlo.
+
+**Puja y revisiones:**
+- CPC manual al inicio. Las conversiones importadas sirven para **medir y depurar términos**, no para pujar.
+- Maximize Conversions con 15 o más conversiones principales en 30 días; tCPA con 30 o más.
+- **Revisiones:**
+  - a los 30 días: medición de punta a punta comprobada con un gclid real;
+  - a los 90 días: costo por lead calificado y por cliente ganado.
+
+**Conservación:** los identificadores de clic se borran a los 90 días del clic o al cerrarse el lead, lo que ocurra último.
+
+**Inversión anotada a mano:**
+- Tabla `ad_spend_weekly`:
+  - columnas: `week_start` (lunes, America/Denver), `platform`, `campaign_key` NULL, `spend_cents` NULL, `platform_leads` NULL, `entered_by`, `entered_at` y `note`;
+  - `UNIQUE(week_start, platform, campaign_key)`;
+  - cada edición queda registrada en `lead_events` o en una tabla de auditoría.
+- **El reporte:**
+  - muestra "sin dato" con un enlace si falta la inversión, nunca $0;
+  - calcula el costo por lead y por cliente ganado en ventanas de 4 semanas y por cohorte de 90 días, con "—" si hay menos de 5 cerrados;
+  - se puede reenviar después de anotar.
+- **Guía:** usar un rango personalizado de lunes a domingo, anotar el "costo" (no los cargos facturados) y revisar LSA a los 30–40 días por los créditos.
+
+### 18.6 Calidad del lead
+Se adopta el Anexo B §4.3 completo:
+- estados con motivo y valor;
+- ficha en 1–2 clics y alta manual en menos de 30 s;
+- `lead_score` v1 versionado y su recalibración;
+- reporte semanal;
+- pregunta "¿Cómo nos conoció?" en Thank You.
+
+La lista de orígenes incluye `google_ads`, `lsa`, `meta`, `chatgpt_ads` y `ai_assistant`. El reporte suma la inversión de 18.5.
+
+### 18.7 Privacidad con anuncios (`/privacy/`, EN y ES)
+Además del contenido del Anexo B §4.4, la página incluye:
+- **Sección de anuncios:**
+  1. Si la persona llega desde un anuncio de Google, se guarda el identificador del clic.
+  2. Si envía una solicitud, se informa a Google de la conversión solo con ese identificador.
+  3. Las plataformas usan esos datos según sus propias políticas (con enlaces).
+  4. Cómo excluirse: GPC o DNT, o por correo.
+- **Frases que se retiran:** "no hay rastreo entre sitios" y la respuesta a DNT que decía que no se rastrea. Se reemplazan por: "Tratamos DNT igual que GPC". Nunca se usa la palabra "anónimo" para datos con hash.
+- Las llamadas y mensajes que llegan por **números de anuncios de Google y de LSA pueden ser grabados y analizados por Google**. LSA los conserva hasta 180 días.
+- Borrar un dato en Blagal no borra las copias que ya tienen las plataformas. Se incluyen enlaces a sus controles de anuncios.
+- **La sección de anuncios se publica desde el lanzamiento**, aunque los anuncios empiecen después. Cada lead guarda la `privacy_version` que vio.
+
+### 18.8 Correo de seguimiento con hogares y B2B
+Sin cambios respecto al Anexo B §4.4: CAN-SPAM en correos comerciales, reglas de reseñas y lista `suppression`.
+
+### 18.9 Revisión legal
+Antes de lanzar los anuncios, un abogado de Utah revisa durante 1 hora:
+- `/privacy/`;
+- los textos A y B del formulario;
+- las reglas de llamadas y textos para hogares (18.2).
+
+Alternativas de bajo costo: las clínicas legales de la University of Utah y de BYU, o el servicio de referidos del Utah State Bar.
+
+### 18.10 Visibilidad gratuita en buscadores e IA
+- **`robots.txt`:**
+  - `Allow` para OAI-SearchBot, ChatGPT-User, **GPTBot**, Googlebot, AdsBot-Google y Bingbot;
+  - nunca `Disallow` en `/lp/`.
+- **Cloudflare:** en AI Crawl Control y Bots se comprueba que no se bloqueen ni desafíen esos rastreadores ni `facebookexternalhit`. Se desactiva el robots.txt gestionado si contradice el propio.
+- **Registro:** Google Search Console y Bing Webmaster Tools.
+- **Perfiles:** Yelp, BBB, Bing Places, Apple Business Connect y Nextdoor, con nombre, dirección y teléfono idénticos.
+- **Contenido:** FAQ con respuestas directas y datos estructurados (Anexo B §3.5).
+- ChatGPT usa varios proveedores de búsqueda, no solo Bing.
+
+### 18.11 Herramientas de Claude para diseñar y construir
+- **Activar:**
+  - `frontend-design` (Anthropic), activado en la cuenta o copiado a `.claude/skills/` en una versión fija;
+  - `DESIGN.md` y `CLAUDE.md` propios con las reglas de la sección 6;
+  - las skills del plugin Design, pidiendo **WCAG 2.2 AA** de forma explícita;
+  - Playwright para que Claude vea las páginas. El dueño debe permitir `cdn.playwright.dev` y `playwright.download.prss.microsoft.com` en la red del entorno.
+- **Al programar:** `security-guidance` y `/security-review`.
+- **No usar:** Website Design (UXKIN), ui-ux-pro-max, taste-skill, Superdesign, Pi Security ni Backend Design.
+- **Política para terceros** (Anexo B §2.5): skills copiadas en un commit fijo, ningún MCP remoto en sesiones con datos reales y `permissions.deny` para `.env*` y `.dev.vars`.
+
+### 18.12 Costos
+- **Sitio:** $0 al mes.
+- **Anuncios:** ~$450 al mes, que se pagan directo a Google.
+- **Abogado:** 1 hora, unos cientos de dólares, o gratis en una clínica legal.
+- **Opcionales:**
+  - apartado postal, solo si no se usa el domicilio en el pie de los correos comerciales;
+  - GitHub Pro ($4 al mes).
+
+---
+
+## 19. Cambios del Anexo B adoptados (2026-10-27)
+
+El dueño aprobó "hacer todo". El Anexo B es `docs/handoff/2026-10-26-anexo-b-investigacion.md`. Se adoptan, y prevalecen sobre las secciones 1 a 17:
+
+1. **Stack y versiones** (Anexo B §3.1–§3.8):
+   - Astro 7.4.x, `@astrojs/cloudflare` ^14, wrangler 4.152.x, Tailwind 4.3, TypeScript ~6.0.3 y Node 24 LTS.
+   - Para probar el Worker se usa `@cloudflare/vitest-plugin` en lugar de vitest-pool-workers.
+   - ESLint 10 + `eslint-plugin-jsx-a11y-x`.
+   - `@alpinejs/csp`, solo en `/quote/` y en `/lp/*`.
+   - Íconos con `@lucide/astro`.
+   - `imageService: 'compile'` y `session: false`.
+   - Entrada propia del Worker para las tareas programadas.
+   - Fuentes con `fontProviders.local()`, con Archivo en su versión con eje wdth.
+   - ~15 componentes propios, tomando HyperUI y Penguin UI como referencia de marcado.
+2. **Mejoras de captación** (§4.1):
+   - en la v1: #1–6, #8, #9 y #11;
+   - #7 como sección dentro de `/construction/`;
+   - #10 en la fase 2.
+3. **Cambios técnicos** (§4.2), todos. Entre ellos:
+   - la confirmación al cliente va sin el texto libre del visitante y con límite por destinatario;
+   - plazos de conservación concretos en lugar de "hasta que el dueño las borre";
+   - las tablas nuevas entran en el respaldo y en la restauración;
+   - referencia única en `leads`;
+   - alertas de supresiones y cuotas de Resend;
+   - `/styleguide` privada;
+   - textos de Spam en Thank You.
+4. **Medición de la calidad del lead** (§4.3), con los agregados de la sección 18.
+5. **Mínimo legal** (§4.4), con dos datos actualizados:
+   - la SB 690 de California se firmó el 30-sep-2026 y rige desde el 1-ene-2027;
+   - la regla "revoke-all" de la FCC se aplazó al 31-ene-2027.
+6. **Seguridad** (§5.1–§5.2): CSP con hashes en 3 capas, JWT con `jose`, firma de webhooks, cadena de suministro con npm 12, Dependabot y Betterleaks, DMARC y CAA, y `security.txt`.
+7. **Entrega del correo y fallos silenciosos** (§5.3):
+   - plan DMARC;
+   - Email Routing;
+   - filtros de Gmail y prueba de bandeja;
+   - **monitor externo con Better Stack Free o Healthchecks.io (reemplaza a UptimeRobot)**;
+   - latido del cron;
+   - control sintético diario;
+   - alerta de cero solicitudes;
+   - comprobación de supresiones;
+   - detector de desajustes de DNS.
