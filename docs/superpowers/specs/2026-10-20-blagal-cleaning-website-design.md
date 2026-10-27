@@ -1,7 +1,7 @@
 # blagalcleaning.com: documento de diseño (Fase 1)
 
 - **Fecha:** 2026-10-20
-- **Estado:** aprobado. El dueño aprobó las Partes 1 a 5 en conversación y aceptó el documento el 2026-10-26, al pedir avanzar al diseño de páginas. Incluye las correcciones técnicas del 2026-10-26 (sección 17).
+- **Estado:** aprobado. El dueño aprobó las Partes 1 a 5 en conversación y aceptó el documento el 2026-10-26, al pedir avanzar al diseño de páginas. Incluye las correcciones técnicas del 2026-10-26 (sección 17), la Parte 6 y el Anexo B adoptado (secciones 18–19, aprobadas el 2026-10-27) y las decisiones técnicas para el plan (sección 20). **Prevalecen las secciones posteriores: 20 > 18–19 > 1–17.**
 - **Proyecto:** sitio web de Blagal Cleaning en `blagalcleaning.com`
 - **Aprobaciones:** Partes 1 a 5 aprobadas en conversación. Este documento las consolida.
 - **Ubicación temporal:** este archivo vive en `Marlonia/Mar` porque el repositorio del sitio todavía no existe. Se mueve al repositorio nuevo cuando se cree.
@@ -17,6 +17,7 @@
 **Públicos.**
 - **Property management:** administradores de propiedades, apartamentos, HOAs y edificios comerciales.
 - **Construction teams:** superintendentes de obra, construction managers y contratistas generales.
+- **Hogares:** público secundario (§18.2).
 
 **Hechos del negocio.**
 - Blagal hace todos los trabajos con su propio equipo. El sitio presenta una sola empresa.
@@ -648,6 +649,10 @@ Para cada alerta: qué significa, cómo confirmarla y qué hacer. También inclu
 - Correo con el dominio para el público (por ejemplo `info@`).
 - Logo definitivo (se usa el provisional).
 - Decisión sobre `blagalwindowcleaning.com`.
+- Pedir reseñas desde `/admin` (Anexo B #10, fase 2).
+- SMS automáticos o de marketing.
+- Meta pagado al sitio y ChatGPT Ads.
+- Alta de leads por correo con `postal-mime` y canario de correo.
 
 ---
 
@@ -670,6 +675,9 @@ Para cada alerta: qué significa, cómo confirmarla y qué hacer. También inclu
 6. Los reintentos funcionan después de un fallo.
 7. La vuelta atrás y la restauración están ensayadas y documentadas, con el tiempo medido.
 8. El seguimiento posterior al lanzamiento tiene un responsable (el dueño) y las alertas están activas.
+9. El panel de leads, el alta manual en menos de 30 s y el reporte semanal funcionan.
+10. Privacy tiene la sección de anuncios y los textos A y B tienen versión.
+11. El monitor externo, el latido y el sintético diario están activos.
 
 ---
 
@@ -731,7 +739,7 @@ Las encontró una revisión independiente del documento y del prompt maestro. Ni
 | 7.1 | **Astro 7** (7.4.x) con `@astrojs/cloudflare` 14.x en lugar de Astro 6. | Astro 7 es la versión vigente desde junio de 2026. La serie 6 no recibe parches desde el 2026-06-17 y el adaptador actual exige `astro ^7.4.0`. Se verificó en npm el 2026-10-26. |
 | 6.1 | La tabla de colores coincide con la regla de bordes de §6.2. | Contradicción interna. |
 | 3.4, 4.3 y 4.10 | No se usan imágenes de muestra ni de stock. El correo del negocio ya está confirmado. "Cada dos semanas" en lugar de "quincenal". La confirmación usa "su solicitud". | Coherencia con el registro usted y el glosario. "Quincenal" es ambiguo. |
-| 3.4 y 4.4 | El dueño confirmó los 7 servicios y las etapas de construcción. También indicó que atiende hogares; cómo incluirlos en el sitio se define en la Parte 6 (publicidad y medición), pendiente de aprobación. | Decisión del dueño, 2026-10-26. |
+| 3.4 y 4.4 | El dueño confirmó los 7 servicios y las etapas de construcción. También indicó que atiende hogares; cómo incluirlos en el sitio se define en la Parte 6 (§18.2), aprobada el 2026-10-27. | Decisión del dueño, 2026-10-26. |
 
 ---
 
@@ -1015,3 +1023,244 @@ El dueño aprobó "hacer todo". El Anexo B es `docs/handoff/2026-10-26-anexo-b-i
    - alerta de cero solicitudes;
    - comprobación de supresiones;
    - detector de desajustes de DNS.
+
+---
+
+## 20. Decisiones técnicas para el plan (2026-10-27)
+
+Esta sección resuelve las contradicciones y huecos que encontró una revisión independiente del documento completo. **Prevalece sobre todo lo anterior**, incluidas las secciones 18 y 19 y el Anexo B. Las decisiones marcadas **(dueño)** se confirman con él; mientras tanto rige el valor indicado.
+
+### 20.1 Fases de construcción
+
+| Fase | Contenido |
+|---|---|
+| **F0** | Dependencias del dueño, en paralelo y desde ya. Ver 20.12. |
+| **F1** | Repositorio nuevo, base Astro 7 y CI mínimo con deploy condicionado por `needs:`. Primer despliegue privado detrás de Access. **Pruebas técnicas tempranas:** Rate Limiting binding en Free, `send_email` sin MIME y cron `*/5`. El resultado decide el límite de 4.8 y el canal de alertas. |
+| **F2** | Sistema de diseño, `DESIGN.md` y `CLAUDE.md`, componentes y **`/styleguide`**. Es la **puerta de aprobación del estilo**: el dueño aprueba `/styleguide` y Home en el sitio privado. No hay maquetas HTML aparte. |
+| **F3** | Las 18 páginas públicas EN/ES, SEO, JSON-LD y borrador de Privacy. |
+| **F4** | Formulario, esquema Zod, D1, Turnstile, límites y atribución. |
+| **F5** | Resend, webhooks, avisos con reintentos, alertas y `/api/health`. |
+| **F6** | Panel de leads, alta manual, reporte semanal, inversión y outbox de conversiones. |
+| **F7** | Páginas de aterrizaje, embudo, clics y "¿Cómo nos conoció?". |
+| **F8** | Seguridad completa (CSP en 3 capas, cabeceras, DMARC y CAA, `security.txt`), monitor y latido, sintético diario, respaldo R2, ensayos de vuelta atrás y restauración, y guía de operación. |
+| **F9** | Revisión manual, prueba de bandeja, contenido confirmado y lanzamiento. |
+| **F10** | Revisiones de 48 h, luego abogado, luego anuncios. |
+
+- Las revisiones de CI crecen en cada fase.
+- Los entregables de campañas son una pista aparte desde F3.
+
+### 20.2 Cloudflare Access: tres aplicaciones
+- **(a) Panel, permanente:** `/admin*`, `/api/admin*` y `/styleguide*`. Solo `blagalcleaning@gmail.com`. Su AUD es `ACCESS_AUD`.
+- **(b) Sitio completo, temporal hasta el lanzamiento:** solo el Gmail del dueño.
+- **(c) Bypass:** `/api/webhooks/resend` (firma), `/api/health`, `/api/ops/synthetic` (Bearer) y `/api/ads/*` (Basic Auth).
+- **Al lanzar** solo se borra (b). Se verifica que (a) sigue activa en el dominio público.
+- `/styleguide` usa `prerender = false` y la misma verificación de JWT que el panel.
+
+### 20.3 Envío del formulario (reemplaza los pasos 5–7 de §4.8)
+1. Si el `submission_id` ya existe, se devuelve la misma referencia sin crear nada.
+2. Se genera la referencia BLG-XXXXX, única en `leads.reference` y copiada en `quote_requests.reference`.
+3. **Lote atómico de D1:**
+   - `quote_requests`;
+   - `leads` (atribución, `segment`, `lead_score`, `privacy_version`, `no_ad_sharing`);
+   - 2 avisos `pending`;
+   - `consent_events` (texto A, y B si aplica);
+   - fila `lead_submitted` en `ad_conversions`, si hay identificador de clic y el lead cumple los requisitos.
+4. Si falla por colisión de `reference`, se genera otra y se reintenta. Si falla por `submission_id`, se devuelve la referencia existente.
+
+**Campos ocultos:**
+- 5 UTM, incluido `utm_term`;
+- `gclid`, `gbraid`, `wbraid` y `click_seen_at`;
+- `referrer_host` y `landing_path`;
+- señal GPC o DNT;
+- `privacy_version`.
+
+**Thank You** lee la referencia y el `submission_id` de sessionStorage, nunca de la URL. La atribución y el envío de "¿Cómo nos conoció?" (`POST /api/quote/how-heard`, con el `submission_id` como credencial de un solo uso) usan un **script propio pequeño, sin Alpine**, en el layout global y cubierto por la CSP con hash.
+
+**Sin JavaScript:** `/quote/` y `/lp/*` siguen estáticas y muestran con `<noscript>` el teléfono y el correo, más WhatsApp si está activo. No envían el formulario.
+
+**Validación:** un solo esquema. Se intenta con `zod/mini` en el navegador y en la Action. Si las Actions no lo aceptan, lo que se verifica al empezar F4, se usa `astro/zod` en los dos lados y el presupuesto de JS de `/quote/` sube a unos 51 KB gzip.
+
+### 20.4 Cambios en el formulario (§4.3–4.6)
+- **Propiedades:** "Fecha deseada de inicio", opcional.
+- **Propiedades y construcción:** "¿Requiere COI / additional insured?", una vez por solicitud, detrás de la bandera `COI_QUESTION_ENABLED` **(dueño: ¿emite COI?)**.
+- **Cargo:** se agrega **Homeowner / Propietario de vivienda** (`homeowner`).
+- **Medio preferido WhatsApp y casilla B** detrás de la bandera `WHATSAPP_ENABLED` **(dueño: ¿alguien atiende WhatsApp y en qué horario?)**. El texto B tiene una versión por variante.
+- **Notas:**
+  - ayuda visible: "No incluya datos de pago ni números de identificación";
+  - Zod rechaza patrones de tarjeta y de SSN.
+- **Texto A:** casilla obligatoria, sin marcar, con versión.
+- **Páginas de aterrizaje:** botón a `/quote/?type=…` y el teléfono arriba, con el mismo esquema y la misma Action. No llevan un formulario propio en la v1.
+
+### 20.5 Listas cerradas (módulo `leads/lists`)
+
+| Lista | Valores |
+|---|---|
+| `channel` | web_form, phone, whatsapp, sms, email, in_person, other |
+| `origin` | google_ads, lsa, meta, chatgpt_ads, ai_assistant, gbp, google_search, referral, repeat_client, other_website, direct, social, vehicle_sign, other, unknown |
+| `segment` | property_manager, hoa, commercial_building, property_owner, homeowner, general_contractor, construction_manager, other |
+| `close_reason` | Anexo B §4.3 |
+
+- El alta manual elige `origin` de la misma lista. Las etiquetas en español incluyen "Anuncio de Google", "Google Local Services (LSA)" y "Facebook/Instagram (anuncio)".
+- Hay dos tablas de correspondencia: cargo y tipo de propiedad → `segment`, y "¿Cómo nos conoció?" → `origin`.
+- **Llevan `no_ad_sharing=true` por defecto:** los leads con `entry_mode=manual`, con `origin=lsa` o con un `channel` distinto de `web_form`.
+
+### 20.6 "Qualified lead" y conversiones
+- **Columna `leads.qualified_at`** (NULL). No es un estado.
+- **Botón "Calificado"** en la ficha: llama a `POST /api/admin/leads/:id/qualify`, registra el evento en `lead_events` y crea `qualified_lead` en `ad_conversions` con la hora de `qualified_at`. Se puede retirar solo antes de exportar.
+- **Meta operativa de 48 h:** un lead `new` o `contacted` sin calificar ni descalificar después de 48 h aparece en "Requieren acción".
+- **Hora de cada conversión:**
+  - "Quote sent" = `quoted_at`;
+  - "Won" = `closed_at`, con el valor del primer año.
+
+### 20.7 `lead_score` v1 (propuesta; el dueño revisa las etiquetas)
+
+| Señal | Puntos |
+|---|---|
+| Segmento B2B (no homeowner) | +3 |
+| Frecuencia recurrente o 2 o más propiedades | +2 |
+| Inicio en menos de 30 días | +2 |
+| COI requerido | +2 |
+| Cargo con poder de decisión (Property Manager, HOA Board Member, General Contractor, Construction/Project Manager, Site Superintendent) | +1 |
+| Correo corporativo | +1 |
+
+- **Umbrales:** HOT ≥ 7; WARM 4–6.
+- **Asunto:** `[HOME]` si el segmento es `homeowner`, y nunca se combina con HOT ni WARM. Si no, `[HOT]` o `[WARM]` según el umbral, o sin etiqueta.
+- Ejemplo: `[HOT] New quote · Construction · ACME Builders · Lehi · BLG-7K3Q2`.
+- El asunto no lleva CR ni LF y tiene longitud limitada. El cuerpo incluye "Abrir ficha", que lleva a `/admin/leads/BLG-XXXXX`.
+- Se implementa como función pura con pruebas, y se guardan `score_version='v1'` y `score_inputs_json`.
+
+### 20.8 Esquema D1: una sola migración inicial consolidada
+**Columnas que se agregan a tablas ya definidas:**
+- **`notices`:** `first_attempt_at`, `idempotency_key` (separada de `id`, para permitir una clave nueva después de 24 h) y `delivery_delayed_at`.
+  - Estado terminal nuevo: `skipped_limit`, para la confirmación omitida por el límite de 3 en 24 h por destinatario.
+  - Ese límite se cuenta con un HMAC del correo en `rate_counters`.
+- **`leads`:** Anexo B §4.3, más las columnas de §18.5, más `qualified_at`.
+
+**Tablas nuevas:**
+- `lead_events`;
+- `consent_events` y `suppression`;
+- `contact_clicks` y `funnel_daily` (día, paso, idioma, tipo de solicitud, origen y conteo; UPSERT en D1, sin terceros);
+- `report_runs`;
+- `gbp_monthly`;
+- `ad_conversions`;
+- `ad_spend_weekly`, con `campaign_key TEXT NOT NULL DEFAULT ''`;
+- `webhook_events` (`svix_id` UNIQUE);
+- `admin_audit` (actor, acción, entidad, antes, después y fecha), que registra los reintentos manuales y las ediciones de inversión;
+- `ops_state` (clave/valor: job → `last_run_at`);
+- `ops_counters`.
+
+**Respaldo y restauración** (reemplaza §11.2–11.3):
+- Se respaldan y se preservan **todas las tablas excepto** `rate_counters`, `alert_state`, `ops_state`, `ops_counters` y `webhook_events`.
+- Una prueba falla si la migración trae una tabla que no está en la lista del respaldo.
+- Al preservar se exportan las filas con `created_at`, `at` o `updated_at` posterior al punto elegido.
+- En las tablas que se modifican (`leads` y `notices`), se conserva la versión con `updated_at` más reciente.
+
+### 20.9 Rutas y tareas (reemplaza §7.2)
+**Rutas:**
+- `quote.submit`.
+- `POST /api/quote/how-heard`.
+- `POST /api/click` y `POST /api/track`: listas cerradas y solo el Rate Limiting binding.
+- `POST /api/webhooks/resend`.
+- `GET /api/health`: devuelve 200 "ok", o 503 si D1 falla o si el latido del cron tiene más de 15 minutos.
+- `POST /api/ops/synthetic`.
+- `GET /api/ads/google-conversions.csv`: Basic Auth con secreto propio y límite de frecuencia.
+- `/api/admin/*`: todo POST que modifica datos verifica el encabezado Origin, y los GET solo leen.
+  - leads: estado, valores, calificar, alta y CSV;
+  - avisos: reintentar y marcar como prueba;
+  - bajas y quitar supresión de Resend;
+  - alerta de prueba;
+  - inversión semanal y GBP mensual;
+  - reenvío del reporte;
+  - CSV de conversiones.
+- `/api/csp-report`: solo en modo Report-Only durante F8.
+
+**Tareas:** **un solo Cron Trigger `*/5 * * * *`.**
+- **Cada 5 minutos:** reintentos, alertas y ping al heartbeat.
+- **Una vez al día** (hora local con Intl, America/Denver): supresiones de Resend, cero solicitudes, sintético ausente más de 26 h y purga de conservación.
+- **Domingo 03:00:** respaldo R2 y detector de DNS.
+- **Lunes 07:00:** reporte (`report_runs`).
+
+### 20.10 Configuración (amplía §7.5)
+- **Bindings:**
+  - `ALERT_EMAIL` restringido, con `destination_address` = Gmail del dueño y `allowed_sender_addresses` = alerts@. Se declara en cada entorno.
+  - `DB`, `BACKUPS` y `RATE_LIMITER`.
+- **Variables:** `TURNSTILE_EXPECTED_HOSTNAME`, `ZERO_LEADS_DAYS` (7), `PRIVACY_VERSION`, `ADS_PRIVACY_MIN_VERSION`, `PUBLIC_LAUNCHED`, `WHATSAPP_ENABLED` y `COI_QUESTION_ENABLED`.
+- **Secretos:** `SYNTHETIC_TOKEN`, `HEARTBEAT_URL`, `ADS_EXPORT_USER` y `ADS_EXPORT_PASSWORD`.
+- **Datos del negocio:** un solo archivo `content/business.ts` con nombre legal, entidad, teléfono E.164, dirección o apartado postal, horario y seguro. Lleva `[[CONFIRM]]` mientras faltan.
+
+### 20.11 Alertas (amplía §10.2)
+- **Canal:** `send_email`. Si falla, Resend desde alerts@. Si fallan los dos, aparece un aviso en `/admin`. El monitor externo y el heartbeat avisan por su propio canal.
+- **Frecuencia:** 1 cada 15 minutos por tipo, excepto cero solicitudes (1 cada 72 h).
+- **Alertas nuevas:**
+  - lead sin contactar después de **2 horas hábiles** (lunes a viernes, de 8 a 18 h, America/Denver);
+  - supresiones, cuotas y estado del dominio en Resend;
+  - sintético sin respuesta correcta en 26 h;
+  - cero solicitudes en `ZERO_LEADS_DAYS`;
+  - 5 o más fallos de Turnstile con 0 envíos en el día;
+  - desajuste de DNS (revisión semanal).
+- **Monitor externo:** Better Stack Free, con monitores HTTP y heartbeat. Alternativa: Healthchecks.io solo para el heartbeat. Los términos se verifican en F8. La cuenta la crea el dueño con su Gmail.
+- **Fallos de GitHub Actions y del sintético:** se abren como issues asignados al dueño, con aviso por correo.
+
+### 20.12 Lista de F0 (dueño, en paralelo)
+1. **Inventario DNS** de `blagalcleaning.com` (exportar la zona) **antes de activar Email Routing**.
+2. **Modo de aprovisionamiento (dueño):**
+   - token temporal de Cloudflare con permisos mínimos, para que Claude cree D1, R2, Turnstile, Access y DNS;
+   - o guías paso a paso para hacerlo el dueño.
+3. Organización de **Cloudflare Zero Trust** (team domain).
+4. **Repositorio privado** `Marlonia/blagal-cleaning`, con el token de publicación y `CLOUDFLARE_ACCOUNT_ID` como secretos de GitHub.
+5. Cuenta de **Resend** y dominio agregado. **Gmail verificado** como destino de Email Routing. Las dos verificaciones deben quedar listas en F1.
+6. **Hosts de Playwright** permitidos en la red del entorno: `cdn.playwright.dev` y `playwright.download.prss.microsoft.com`.
+7. **`frontend-design`** activado en la cuenta, o copiado al repositorio.
+8. **Cuenta de Google Ads sin gasto:** America/Denver, USD, autoetiquetado activado, y las acciones "Importar desde clics" con los nombres exactos de 18.5. Se confirma ahí si la importación por archivo sigue disponible.
+9. **LSA:** iniciar la verificación de antecedentes, seguro y registro en Utah. Volver a revisar el estado de LSA después de su migración a Performance Max.
+10. **Datos del negocio** (bloquean solo el lanzamiento):
+    - nombre legal y forma jurídica;
+    - teléfono público único;
+    - dirección postal (domicilio o apartado);
+    - horario;
+    - límites del seguro y si emite COI;
+    - si alguien atiende WhatsApp.
+11. **Lista mínima de fotos:** edificio multifamiliar con el equipo, 1 obra y 1 propiedad.
+
+### 20.13 Contenido y fotos
+- **Sin fotos reales:** cada componente con imagen tiene una variante sin foto que no rompe el diseño.
+- **Prueba social:** las secciones de reseñas, testimonios y antes/después **solo se muestran si hay contenido real**. Si no, se ocultan, no se muestra un marco. Nunca se escriben como borrador `[[CONFIRM]]` (16 CFR 465.2).
+- **"House Cleaning"** mantiene su nombre y su ruta `/services/house-cleaning/` **(dueño puede cambiarlo antes de F3)**.
+- **La revisión de marcadores** recorre `dist/`, `src/` (incluidas las plantillas de correo y el JSON-LD) y el bundle del Worker. Lee `PUBLIC_LAUNCHED` del mismo `wrangler.jsonc`.
+
+### 20.14 Páginas (amplía §3.3)
+- **18 públicas por idioma**, más:
+  - las páginas de aterrizaje en inglés (`/lp/construction/`, `/lp/property-managers/` y `/lp/homeowners/`, todas construidas en la v1);
+  - `/styleguide/`, privada;
+  - el panel `/admin/…`, en español.
+- `hreflang` solo en las 18 páginas bilingües.
+- **Thank You:** agrega "¿Cómo nos conoció?" y el texto de Spam.
+- **Construction:** agrega la sección de precalificación (Anexo B #7).
+- **Home** (amplía §6.6):
+  - escritorio: Who we work with → franja de hogares → bloque de confianza B2B → servicios → franja de condados;
+  - móvil: además, **barra fija inferior** Call · Request a Quote · WhatsApp (si está activo), con `safe-area-inset-bottom`.
+
+### 20.15 Conservación (reemplaza §15; constantes en `retention/`, con prueba del cron)
+
+| Datos | Plazo |
+|---|---|
+| Solicitudes y leads no ganados, con sus `notices` y `lead_events` | **24 meses** desde el cierre o el último cambio **(dueño: 24 o 36)** |
+| Leads ganados | 7 años, por documentación comercial y fiscal **(dueño)** |
+| HMAC de la IP y user agent en `consent_events` | 6 meses |
+| `consent_events` y `suppression` | 5 años |
+| `gclid`, `gbraid` y `wbraid` | 90 días desde el clic, o al cerrar el lead, lo que ocurra último |
+| `rate_counters` | 1 hora |
+| Respaldos en R2 | 90 días |
+| Time Travel | 7 días |
+
+### 20.16 Otros valores por defecto
+- **Paso automático a `inactive`:** cotización sin actividad durante 60 días.
+- **Valor del primer año:** único + mensual × min(meses, 12).
+- **Reply-To de la confirmación al cliente:** el Gmail directo.
+- **Confirmación al cliente:**
+  - lleva la referencia y un resumen **solo con campos de lista cerrada**, sin Notas, empresa ni dirección;
+  - lleva el texto de Spam y el teléfono directo;
+  - límite: 3 por destinatario en 24 h.
+- **Web Analytics:** con el **fragmento manual** del beacon, nunca con la inyección automática.
+- **Directorios:** nombre y teléfono idénticos. La dirección se oculta donde se pueda; donde sea obligatoria, se usa la misma en todos.
+- **El prompt maestro de ChatGPT** se actualiza antes de la primera revisión de ChatGPT. ChatGPT pasa a ser **revisor independiente** de las entregas de Claude (`/styleguide`, páginas y campañas).
